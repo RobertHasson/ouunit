@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.0 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.01 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -475,15 +475,13 @@
 
 %widefigures
 \usepackage{fullwidth}
-\newenvironment{widefigure}{\begin{fullwidth}[outermargin=-\marginparwidth]\begin{figure}}{\end{figure}\end{fullwidth}}
-%\newenvironment{widefigure}{\begin{adjmulticols}{1}{0pt}{-\marginparwidth}\begin{figure}}{\end{figure}\end{adjmulticols}}
-\newenvironment{widefigure*}{\begin{fullwidth}[outermargin=-\marginparwidth]\begin{figure*}}{\end{figure*}\end{fullwidth}}
-%\newenvironment{widefigure*}{\begin{adjmulticols}{1}{0pt}{-\marginparwidth}\begin{figure*}}{\end{figure*}\end{adjmulticols}}
+\newenvironment{widefigure}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep\relax]\begin{figure}}{\end{figure}\end{fullwidth}}
+\newenvironment{widefigure*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep\relax]\begin{figure*}}{\end{figure*}\end{fullwidth}}
 
 %marginfigures
 \newlength{\rhfight}
-\NewEnviron{marginfigure}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\addtolength{\rhfight}{-\intextsep}\marginnote{\rhtmp}[-\rhfight]\let\rhtmp\relax}{}
-\NewEnviron{marginfigure*}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\addtolength{\rhfight}{-\intextsep}\marginnote{\rhtmp}[-\rhfight]\let\rhtmp\relax}{}
+\NewEnviron{marginfigure}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-\topsep]\let\rhtmp\relax}{}
+\NewEnviron{marginfigure*}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-\topsep]\let\rhtmp\relax}{}
 
 %extra attributes for environments
 \newcommand{\attrib}[1]{}
@@ -510,7 +508,7 @@
 
 %lists
 \renewlist{enumerate*}{enumerate*}{3}
-\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne(\alph*)\else(\roman*)\fi}}
+\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne\protect\rule{0pt}{3ex}(\alph*)\else\protect\rule{0pt}{3ex}(\roman*)\fi}}
 
 \setlist{topsep=0pt,partopsep=0pt}
 \setlist[enumerate]{before={\leavevmode},align=left,leftmargin=1.5em,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!}
