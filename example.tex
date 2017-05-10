@@ -86,6 +86,9 @@ The generic box styles exist, but authors should use context names (such as `hig
 \begin{style3box}[Box title style3box]
 \lipsum[3]
 \end{style3box}
+\begin{style3box}
+\lipsum[3]
+\end{style3box}
 \begin{style4box}[Box title style4box]
 \lipsum[4]
 \end{style4box}
@@ -93,6 +96,14 @@ The fourth box style changes in the online templates. The online version of the 
 \begin{onlinestyle4box}[Box title online style4box]
 \lipsum[4]
 \end{onlinestyle4box}
+Titled box containing just a list.
+\begin{style4box}[Solution]
+\begin{enumerate}
+\item part 1.
+\item part 2.
+\item part 3.
+\end{enumerate}
+\end{style4box}
 \section{Lists}
 \lipsum[133]
 \begin{enumerate}
@@ -188,7 +199,10 @@ a& =b\nonumber\\
 &=c\label{eqn-middle-line}\\
 &=d\nonumber
 \end{align}
-
+Compare spacing with display math
+\[
+y=x^2
+\]
 Matrix with no arguments (as AMSmath standard, defaults to cccccc) and matrix with optional placement arguments.
 \[
 \begin{pmatrix}
@@ -543,7 +557,7 @@ Every polynomial of degree greater than one has a root in $\mathbb{C}$.
 
 The following shows the optional title argument for a proof and also shows how to change the numbering of the steps if desired.
 \begin{proof}[optional title]
-Do the following steps.
+%Do the following steps.
 \begin{enumerate}[(a)]
 \item foo 
 \item bar
@@ -580,6 +594,9 @@ The figure (and table) captions are currently fully justified, but should be rag
 Any commands in a figure caption need to be robust. This is because they are written to a separate file to allow the possibility of producing a list of figures.
 \item
 If an overfull hbox occurs within a box then the box will expand to fit the contents. If a pagebreak occurs in the box then the box on the first page expands to fit even if the overfull hbox does not occur on this page. After the page break the box returns to its natural length, which can mean that content spills out to the right if there is an overfull hbox on the page. The solution is to fix the overfull hbox's.
+\item
+If a marginfigure environment appears in the middle of a sentence then it will absorb the space following so that the words either side of the marginfigure will coalesce. The work-around is to place marginfigures at the beginning of a paragraph.
+
 \end{enumerate}
 
 \paragraph{To Do}

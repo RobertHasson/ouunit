@@ -74,6 +74,7 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 2pt}
 \setlength{\topsep}{0.5ex}
+\setlength{\itemsep}{5pt plus 1pt minus 1pt}
 
 %spacing around displayed math
 %could also adjust skips for \small and \footnotesize 
@@ -181,7 +182,7 @@
   \MakeFramed {\advance\hsize-8mm\FrameRestore}%
   }{\endMakeFramed}
 
-\newenvironment{roundedtitledbox}[2][colourFour]{\nopagebreak\vskip-\lastskip\begin{roundedbox}[#1]\unskip\vspace{-1.3ex}\mbox{\titledboxheadfont\color{#1} #2}\nopagebreak\par}{\end{roundedbox}}
+\newenvironment{roundedtitledbox}[2][colourFour]{\begin{roundedbox}[#1]\setbox0\hbox{\mbox{\titledboxheadfont\color{#1} #2}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\par\fi}{\end{roundedbox}}
 
 \newenvironment{style1box}[1][]{\begin{roundedtitledbox}[colourThree]{#1}}{\end{roundedtitledbox}}
 
@@ -205,8 +206,8 @@
   \MakeFramed{\advance\hsize-8mm\FrameRestore}%
   }{\endMakeFramed}
 
-\newenvironment{style3box}[1][]{\nopagebreak\vskip-\lastskip\begin{colourframed}\vspace{-1.3ex}
-\mbox{\titledboxheadfont\color{colourTwo} #1}\nopagebreak\par}{\end{colourframed}}
+\newenvironment{style3box}[1][]{\begin{colourframed}
+\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\par\fi}{\end{colourframed}}
 
 
 \if@previewonly
@@ -227,7 +228,7 @@
   }{\endMakeFramed}
 
 %online style for style4box
-\newenvironment{onlinestyle4box}[1][]{\nopagebreak\vskip-\lastskip\begin{leftrule}\vspace{-1.3ex}
+\newenvironment{onlinestyle4box}[1][]{\begin{leftrule}
 \mbox{\titledboxheadfont\color{colourTwo} #1}\nopagebreak\par}{\end{leftrule}}
 
 %section titles
@@ -428,7 +429,7 @@
 %\arrayrulecolor{colourTwo}
 \gdef\CT@arc@{\color{colourTwo}}
 
-\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
 %define a float style for table
 \newcommand\fs@tables{%
   \def\@fs@capt##1##2{{\tablehdfont ##1}\quad{\tablecaptfont ##2}\par}%
@@ -480,8 +481,8 @@
 
 %marginfigures
 \newlength{\rhfight}
-\NewEnviron{marginfigure}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-\topsep]\let\rhtmp\relax}{}
-\NewEnviron{marginfigure*}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-\topsep]\let\rhtmp\relax}{}
+\NewEnviron{marginfigure}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
+\NewEnviron{marginfigure*}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
 
 %extra attributes for environments
 \newcommand{\attrib}[1]{}
@@ -508,10 +509,10 @@
 
 %lists
 \renewlist{enumerate*}{enumerate*}{3}
-\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne\protect\rule{0pt}{3ex}(\alph*)\else\protect\rule{0pt}{3ex}(\roman*)\fi}}
+\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne\protect\rule{0pt}{3ex}(\alph*)~\else\protect\rule{0pt}{3ex}(\roman*)~\fi}}
 
 \setlist{topsep=0pt,partopsep=0pt}
-\setlist[enumerate]{before={\leavevmode},align=left,leftmargin=1.5em,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!}
+\setlist[enumerate]{align=left,leftmargin=1.5em,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!}
 \setlist[description]{labelsep*=1em}
 
 %marginnote styles
@@ -533,5 +534,8 @@
 \theoremseparator{\quad}
 \theoremsymbol{{\color{colourTwo}\ensuremath{\blacksquare}}}
 \newtheorem{proof}{Proof}
+
+%equations
+\addtolength{\jot}{1pt}
 
 \endinput
