@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.01 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.02 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -57,7 +57,7 @@
 \RequirePackage[inline,shortlabels]{enumitem}
 \RequirePackage{marginnote}
 \RequirePackage{environ}
-\RequirePackage{titlesec}
+\RequirePackage[nobottomtitles]{titlesec}
 \RequirePackage{framed}
 \RequirePackage{datetime}
 \RequirePackage{fancyvrb}
@@ -65,6 +65,9 @@
 \RequirePackage[amsmath,thmmarks]{ntheorem}
 \RequirePackage{adjmulticol}% includes standard multicol style
 \RequirePackage{colortbl}
+\RequirePackage[totoc]{idxlayout}
+
+
 
 %page style defaults
 \raggedright
@@ -73,7 +76,7 @@
 \setlength{\mathindent}{20pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 2pt}
-\setlength{\topsep}{0.5ex}
+\setlength{\topsep}{5pt plus 1pt minus 1pt}
 \setlength{\itemsep}{5pt plus 1pt minus 1pt}
 
 %spacing around displayed math
@@ -250,7 +253,16 @@
 
 %index items
 \makeindex
-\def\printindex{\input{\jobname.ind}}
+\def\printindex{\newpage\if@reduced
+\newgeometry{text={42pc,54pc},marginpar=0pt,marginparsep=1pc,twoside}%
+\else
+\newgeometry{text={42pc,61pc},marginpar=0pt,marginparsep=1pc,twoside}%
+\fi
+\fancyhfoffset[LE]{0pt}%
+\fancyhfoffset[RO]{0pt}%
+\pagestyle{fancy}%
+\fancyhead[LE,RO]{\runningheadstyle\rightmark}
+\input{\jobname.ind}}
 \newcommand*{\see}[2]{\emph{see} #1}
 \newcommand*{\seealso}[2]{\emph{see also} #1}
 
@@ -330,18 +342,24 @@
       \immediate\closeout\exercises@write
 \newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
 \section*{Solutions to exercises}\end{adjmulticols}\else\section*{Solutions to exercises}\fi
-\if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}\fi
+\if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
+\setlist[enumerate]{leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
+\fi
 \solutions@tup
 \input{\jobname.ex}
 \if@twocolsol\end{adjmulticols}\fi
 \fi}
+
+
 
 %format of activity solutions at end
 \newcommand{\printactivitysolutions}{\if@tend
       \immediate\closeout\activities@write
 \newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
 \section*{Solutions to activities}\end{adjmulticols}\else\section*{Solutions to activities}\fi
-\if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}\fi
+\if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
+\setlist[enumerate]{leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
+\fi
 \solutions@tup
 \input{\jobname.act}
 \if@twocolsol\end{adjmulticols}\fi
@@ -476,12 +494,12 @@
 
 %widefigures
 \usepackage{fullwidth}
-\newenvironment{widefigure}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep\relax]\begin{figure}}{\end{figure}\end{fullwidth}}
-\newenvironment{widefigure*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep\relax]\begin{figure*}}{\end{figure*}\end{fullwidth}}
+\newenvironment{widefigure}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure}}{\end{figure}\end{fullwidth}}
+\newenvironment{widefigure*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure*}}{\end{figure*}\end{fullwidth}}
 
 %marginfigures
 \newlength{\rhfight}
-\NewEnviron{marginfigure}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
+\NewEnviron{marginfigure}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\addtocounter{figure}{-1}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
 \NewEnviron{marginfigure*}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
 
 %extra attributes for environments
@@ -512,7 +530,7 @@
 \setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne\protect\rule{0pt}{3ex}(\alph*)~\else\protect\rule{0pt}{3ex}(\roman*)~\fi}}
 
 \setlist{topsep=0pt,partopsep=0pt}
-\setlist[enumerate]{align=left,leftmargin=1.5em,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!}
+\setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
 \setlist[description]{labelsep*=1em}
 
 %marginnote styles
@@ -536,6 +554,6 @@
 \newtheorem{proof}{Proof}
 
 %equations
-\addtolength{\jot}{1pt}
+\addtolength{\jot}{1pt}%increase separation of equations in align
 
 \endinput
