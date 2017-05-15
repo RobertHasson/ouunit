@@ -556,4 +556,7 @@
 %equations
 \addtolength{\jot}{1pt}%increase separation of equations in align
 
+%quote (as standard, but do not indent on right)
+\renewenvironment{quote}{\list{}{}\item\relax}{\endlist}
+
 \endinput
