@@ -534,8 +534,8 @@
 \setlist[description]{labelsep*=1em}
 
 %marginnote styles
-\renewcommand*{\raggedleftmarginnote}{\raggedright\normalfont\color{black}\setlength{\mathindent}{0pt}}
-\renewcommand*{\raggedrightmarginnote}{\raggedright\normalfont\color{black}\setlength{\mathindent}{0pt}}
+\renewcommand*{\raggedleftmarginnote}{\raggedright\normalfont\normalsize\color{black}\setlength{\mathindent}{0pt}}
+\renewcommand*{\raggedrightmarginnote}{\raggedright\normalfont\normalsize\color{black}\setlength{\mathindent}{0pt}}
 
 %add optional argument to pmatrix, bmatrix and vmatrix
 \renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
@@ -558,5 +558,9 @@
 
 %quote (as standard, but do not indent on right)
 \renewenvironment{quote}{\list{}{}\item\relax}{\endlist}
+
+%define macro for users to be able to design theorems etc with long titles
+\newlength{\rhtmp}
+\newcommand{\twoparttitle}[2]{\settowidth{\rhtmp}{#1}#1\parbox[t]{\dimexpr \textwidth-\rhtmp}{#2}}
 
 \endinput

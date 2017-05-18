@@ -27,8 +27,8 @@
 
 %Example of setting up a theorem as a boxed style
 \newcounter{theorem}
-\newenvironment{theorem}[1][]{\refstepcounter{theorem}\begin{style2box}[Theorem \thetheorem\quad #1]}{\end{style2box}}
-\newenvironment{theorem*}[1][]{\begin{style2box}[Theorem\quad #1]}{\end{style2box}}
+\newenvironment{theorem}[1][]{\refstepcounter{theorem}\begin{style2box}[\twoparttitle{Theorem \thetheorem\quad}{#1}]}{\end{style2box}}
+\newenvironment{theorem*}[1][]{\begin{style2box}[\twoparttitle{Theorem~}{#1}]}{\end{style2box}}
 
 \DeclareRobustCommand{\hexagon}{\tikz{\draw[thin] (0:0.15) -- (60:0.15) -- (120:0.15) -- (180:0.15) -- (240:0.15) -- (300:0.15) --cycle;}}
 
@@ -519,11 +519,13 @@ E=mc^2
 \end{proof}
 
 For a named theorem use \verb”theorem*” to suppress the number.
-\begin{theorem*}[Fundamental theorem of algebra]
+\begin{theorem*}[\quad Fundamental theorem of algebra]
 Every polynomial of degree greater than one has a root in $\mathbb{C}$.
 \end{theorem*}
-
-
+Long titles.
+\begin{theorem}[Very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long title]
+Every polynomial of degree greater than one has a root in $\mathbb{C}$.
+\end{theorem}
 
 \section{Nesting tests}
 
@@ -599,7 +601,8 @@ Any commands in a figure caption need to be robust. This is because they are wri
 If an overfull hbox occurs within a box then the box will expand to fit the contents. If a pagebreak occurs in the box then the box on the first page expands to fit even if the overfull hbox does not occur on this page. After the page break the box returns to its natural length, which can mean that content spills out to the right if there is an overfull hbox on the page. The solution is to fix the overfull hbox's.
 \item
 If a marginfigure environment appears in the middle of a sentence then it will absorb the space following so that the words either side of the marginfigure will coalesce. The work-around is to place marginfigures at the beginning of a paragraph.
-
+\item
+A marginnote (or marginfigure) in an AMS math environment (e.g. align or align*) will extend the line to the width of the marginnote. This causes an a box to extend in size to surround the margin note. The work-around is to move the marginnote to outside the AMS math environment.
 \end{enumerate}
 
 \paragraph{To Do}
