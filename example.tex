@@ -196,7 +196,7 @@ For numbered aligned equations use \verb”align”
 a& =b\label{eqn-line1}\\
 &=c\label{eqn-line2}
 \end{align}
-Reference to line one, equation~(\ref{eqn-line1}), and to line two equation~(\ref{eqn-line2}).
+Reference to line one, equation~(\ref{eqn-line1}), and to line two equation~(\refnolink{eqn-line2}).
 
 To number only one line use \verb”\nonumber”
 \begin{align}
@@ -222,11 +222,7 @@ Matrix with no arguments (as AMSmath standard, defaults to cccccc) and matrix wi
 \]
 
 \section{Exercises, Activities and Examples}
-
-\lipsum[133]
-
 \lipsum[134]
-
 \begin{exercise}
 \label{exe-fred}
 This is a question
@@ -245,10 +241,13 @@ This is the answer.
 Testing verbatim in moving solution \verb"hello".
 
 Testing reference to equation in solution, namely equation~\ref{eqn-sol1}.
+
 \end{enumerate}
 \end{solution}
 \noendrule
 \end{exercise}
+Testing reference to exercise, namely Exercise~\ref{exe-fred}.
+
 \begin{exercise}[second exercise in exercises with title]
 \lipsum[133]
 \begin{solution}
@@ -298,11 +297,6 @@ Here are futher instructions.
 \end{enumerate}
 \end{solution}
 \end{exercise}
-
-\makeatletter
-%
-\makeatother
-
 The following exercise with inline parts
 \begin{exercise}[inline question]\label{exe-intertext2}
 This is another question
@@ -347,6 +341,7 @@ This is another question
 \lipsum[133]
 
 Note the use of \verb”\noendrule” to suppress the rule between activities.
+
 \begin{solution}
 \lipsum[133]
 \end{solution}
@@ -379,9 +374,8 @@ Here is a question with inline options. Plot the following graphs.
 \section{Tables and figures}
 
 \lipsum[133]
-
 \begin{table}
-\caption{Caption\label{tab-test}}
+\caption{Caption}\label{tab-test}
 \begin{tabular}{|l|l|}
 \hline
  Hello & World\\
@@ -394,16 +388,28 @@ This is a reference to Table~\ref{tab-test}.
 \lipsum[133]
 \begin{table*}
 \begin{tabular}{ll}
- Hello & World\marginnote{plain table with no number or caption.}\\
-\end{tabular}
+ Hello & World
+\end{tabular}\marginnote{plain table with no number or caption.}
 \end{table*}
 \lipsum[133]
 
+Use \verb"\includegraphics" for inline figures \includegraphics{media/icon.png}.
 
 
+Plain figure without caption
+
+\begin{figure*}
+\begin{tikzpicture}
+\draw[axis] (-0.5,0) -- (4,0) node[xlab]{$x$};
+\draw[axis] (0,-0.5) -- (0,4) node[ylab]{$y$};
+\draw[red,domain={0:3.5}] plot (\x,{(\x)^2/4}) node[black,right] {$y=x^2$};
+\end{tikzpicture}
+\end{figure*}
+
+Figure with caption:
 \begin{figure}
 \caption{Figure test using Tikz}
-\label{fig-test-tikz}
+\label{fig-test-tikz}\attrib{\filename{media/test.png}}
 \begin{tikzpicture}
 \draw[axis] (-0.5,0) -- (4,0) node[xlab]{$x$};
 \draw[axis] (0,-0.5) -- (0,4) node[ylab]{$y$};
@@ -413,28 +419,27 @@ This is a reference to Table~\ref{tab-test}.
 
 This is a reference to Figure~\ref{fig-test-tikz}.
 
-\begin{figure}
+\begin{figure}\attrib{\filename{media/test.png}}
 \caption{Figure test using includegraphics\label{fig-test-includegraphics}. This figure has an exceedingly long caption so that the justification can be checked. Testing Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.}
 \includegraphics[width=4cm]{test}
 \end{figure}
-
 This is a reference to Figure~\ref{fig-test-includegraphics}.
 
 Test for wide figure.
 
-\begin{widefigure}
+\begin{widefigure}\attrib{\filename{media/test.png}}
 \caption{Widefigure test\label{fig-test-widefigure-one}}
 \begin{tikzpicture}
 \draw[axis] (0,0) -- (15,0) node[xlab] {$x$};
 \draw[axis] (0,-1.5) -- (0,1.5) node[ylab] {$y$};
 \draw (0,0) sin (2,1) cos (4,0) sin (6,-1) cos (8,0) sin (10,1) node[above] {$y=\sin x$} cos (12,0) sin (14,-1);
 \end{tikzpicture}
-\attrib{\width{100}}%extra OU attributes can be added using an attrib command
+\attrib{\width{main_100}}%extra OU attributes can be added using an attrib command
 \end{widefigure}
 
 
 \lipsum[134]
-\begin{marginfigure*}
+\begin{marginfigure*}\attrib{\filename{media/icon.png}}
 \fboxsep 0pt%temporary fix for figurebox
 \begin{outikzfig}[figurebox]{margin}
 \includegraphics[width=4cm]{test}
@@ -448,7 +453,7 @@ Test for wide figure.
 This is another question
 \begin{solution}
 Here is a numbered figure:
-\begin{figure}
+\begin{figure}\attrib{\filename{media/test.png}}
 \caption{Figure test \label{fig-placement-test}}
 \begin{tikzpicture}
 \draw (0,0) -- (1,1);
@@ -461,7 +466,7 @@ This is another answer.
 
 Test for unnumbered figure.
 
-\begin{figure*}
+\begin{figure*}\attrib{\filename{media/test.png}}
 \includegraphics[width=4cm]{test}
 \end{figure*}
 
@@ -471,7 +476,7 @@ Test for figure in list.
 One
 \item
 Two with figure.
-\begin{figure*}
+\begin{figure*}\attrib{\filename{media/test.png}}
 \includegraphics[width=4cm]{test}
 \end{figure*}
 \item
@@ -570,7 +575,6 @@ The following shows the optional title argument for a proof and also shows how t
 \end{proof}
 
 \section{Issues and workarounds}
-
 The following shows how to format subexercises that have displayed aligned equations.
 \begin{exercise}
 For each of the following homomorphisms, determine \(\mathrm{Im}(\phi)\) and state whether \(\phi\) is onto.
@@ -588,6 +592,7 @@ For each of the following homomorphisms, determine \(\mathrm{Im}(\phi)\) and sta
 To be added.
 \end{solution}
 \end{exercise}
+
 
 \paragraph{Issues}
 \begin{enumerate}

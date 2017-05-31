@@ -74,18 +74,19 @@
 \raggedbottom 
 \hyphenpenalty=10000
 \setlength{\mathindent}{20pt}
+\setlength{\leftmargin}{24pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 2pt}
 \setlength{\topsep}{5pt plus 1pt minus 1pt}
-\setlength{\itemsep}{5pt plus 1pt minus 1pt}
+\setlength{\itemsep}{3pt plus 1pt minus 1pt}
 
 %spacing around displayed math
 %could also adjust skips for \small and \footnotesize 
 \g@addto@macro\normalsize{%
-\setlength{\abovedisplayskip}{5pt plus 2pt minus 2pt}%
-\setlength{\belowdisplayskip}{5pt plus 2pt minus 2pt}%
-\setlength{\abovedisplayshortskip}{5pt plus 2pt minus 2pt}%
-\setlength{\belowdisplayshortskip}{5pt plus 2pt minus 2pt}}
+\setlength{\abovedisplayskip}{4pt plus 1pt minus 1pt}%
+\setlength{\belowdisplayskip}{4pt plus 1pt minus 1pt}%
+\setlength{\abovedisplayshortskip}{4pt plus 1pt minus 1pt}%
+\setlength{\belowdisplayshortskip}{4pt plus 1pt minus 1pt}}
 
 %metadata
 \def\@faculty{Faculty of Science, Technology, Engineering and Mathematics}
@@ -148,15 +149,14 @@
 
 
 %fonts
-\def\defaultheadfont{\fontseries{b}\fontshape{n}\selectfont\sf\large\bfseries}
-\def\superitemlabelfont{\fontseries{b}\fontshape{n}\fontsize{12}{14pt}\selectfont\sf\large\bfseries}
-\def\fighdfont{\fontencoding{OT1}\fontfamily{cmss}\fontseries{bx}\fontshape{n}\fontsize{11}{13pt}\selectfont}
-\def\figcaptfont{\fontsize{11}{13pt}\normalfont}
-\def\tablehdfont{\fontencoding{OT1}\fontfamily{cmss}\fontseries{bx}\fontshape{n}\fontsize{11}{13pt}\selectfont}
-\def\tablecaptfont{\normalfont}
-\def\titledboxheadfont{\fontseries{b}\fontshape{it}\fontsize{12}{14pt}\selectfont\sf\large\bfseries}
-\def\highlighttitlefont{\fontseries{m}\fontshape{it}\fontsize{12}{14pt}\selectfont}
-\def\runningheadstyle{\fontsize{11}{12pt}\fontfamily{cmss}\selectfont\color{colourThree}}
+\def\defaultheadfont{\usefont{OT1}{cmss}{bx}{n}}
+\def\superitemlabelfont{\normalsize\usefont{OT1}{cmss}{bx}{n}}
+\def\fighdfont{\small\usefont{OT1}{cmss}{bx}{n}}
+\def\figcaptfont{\small\normalfont}
+\def\tablehdfont{\small\usefont{OT1}{cmss}{bx}{n}}
+\def\tablecaptfont{\small\normalfont}
+\def\titledboxheadfont{\large\usefont{OT1}{cmss}{bx}{n}}
+\def\runningheadstyle{\normalsize\usefont{OT1}{cmss}{bx}{n}\color{colourThree}}
 
 
 %  Boxes 
@@ -237,10 +237,10 @@
 %section titles
 \newcommand{\@ddheader}[1]{#1\ifttl@label\gdef\rightmark{\thesection\quad #1}\else\gdef\rightmark{#1}\fi}
 
-\titleformat{\section}{\defaultheadfont\sf\Large\bfseries\color{colourThree}}{\thesection}{1em}{\@ddheader}
-\titleformat{\subsection}{\defaultheadfont\sf\large\bfseries\color{colourTwo}}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\defaultheadfont\normalsize\bfseries\color{colourTwo}}{\thesubsubsection}{1em}{}
-\titleformat{\paragraph}{\defaultheadfont\normalsize\bfseries\color{colourTwo}}{\theparagraph}{1em}{}
+\titleformat{\section}{\defaultheadfont\Large\color{colourThree}}{\thesection}{1em}{\@ddheader}
+\titleformat{\subsection}{\defaultheadfont\large\color{colourTwo}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\defaultheadfont\normalsize\color{colourTwo}}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}{\defaultheadfont\normalsize\color{colourTwo}}{\theparagraph}{1em}{}
 \titlespacing*{\section}{0pt}{2ex plus 1ex minus .2ex}{0.5ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{1.5ex plus 1ex minus .2ex}{0ex plus .2ex}
 \titlespacing*{\subsubsection}{0pt}{1ex plus 1ex minus .2ex}{0ex plus .2ex}
@@ -249,7 +249,6 @@
 
 \newcommand{\introduction}{\section*{Introduction}\addcontentsline{toc}{section}{Introduction}}
 
-\renewcommand{\@dotsep}{10000}%remove dots from contents
 
 %index items
 \makeindex
@@ -265,6 +264,7 @@
 \input{\jobname.ind}}
 \newcommand*{\see}[2]{\emph{see} #1}
 \newcommand*{\seealso}[2]{\emph{see also} #1}
+
 
 %headers and footers
 \pagestyle{fancy}
@@ -529,7 +529,7 @@
 \renewlist{enumerate*}{enumerate*}{3}
 \setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne\protect\rule{0pt}{3ex}(\alph*)~\else\protect\rule{0pt}{3ex}(\roman*)~\fi}}
 
-\setlist{topsep=0pt,partopsep=0pt}
+\setlist{topsep=0pt,partopsep=0pt,itemsep=0pt}
 \setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
 \setlist[description]{labelsep*=1em}
 
@@ -562,5 +562,23 @@
 %define macro for users to be able to design theorems etc with long titles
 \newlength{\rhtmp}
 \newcommand{\twoparttitle}[2]{\settowidth{\rhtmp}{#1}#1\parbox[t]{\dimexpr \textwidth-\rhtmp}{#2}}
+
+%for VLE XML -- instruction not to hyperlink reference
+%This is useful occasionally to reference items that are allowed in TeX but not in SC XML
+\let\refnolink\ref
+
+%table of contents
+\RequirePackage{tocloft}
+\renewcommand{\cftsecdotsep}{\cftnodots}
+\renewcommand{\cftsubsecdotsep}{\cftnodots}
+\renewcommand{\cftsubsubsecdotsep}{\cftnodots}
+
+%uppercase greek slanted by default
+\let\upGamma\Gamma
+\RequirePackage{fixmath}
+
+%fix AMS math
+\RequirePackage{mathtools}
+
 
 \endinput
