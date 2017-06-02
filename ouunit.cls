@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.02 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.03 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -21,6 +21,10 @@
 \newif\if@previewonly
 \@previewonlyfalse
 
+%switch to remove author and editor comments
+\newif\if@nocomments
+\@nocommentsfalse
+
 %add to global options to make equations flush left
 \RequirePackage{etoolbox}
 \preto\@classoptionslist{fleqn,12pt,twoside,}
@@ -30,6 +34,7 @@
 \DeclareOption{solutionsatend}{\@tendtrue}
 \DeclareOption{twocolumnsolutions}{\@twocolsoltrue}
 \DeclareOption{quickpreview}{\@previewonlytrue}
+\DeclareOption{nocomments}{\@nocommentstrue}
 
 %\ExecuteOptions{}
 
@@ -73,20 +78,20 @@
 \raggedright
 \raggedbottom 
 \hyphenpenalty=10000
-\setlength{\mathindent}{20pt}
+\setlength{\mathindent}{24pt}
 \setlength{\leftmargin}{24pt}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 2pt}
-\setlength{\topsep}{5pt plus 1pt minus 1pt}
-\setlength{\itemsep}{3pt plus 1pt minus 1pt}
+\setlength{\parskip}{1ex plus 1pt minus 1pt}
+\setlength{\topsep}{1ex  plus 1pt minus 1pt}
+\setlength{\itemsep}{0.5ex plus 1pt minus 1pt}
 
 %spacing around displayed math
 %could also adjust skips for \small and \footnotesize 
 \g@addto@macro\normalsize{%
-\setlength{\abovedisplayskip}{4pt plus 1pt minus 1pt}%
-\setlength{\belowdisplayskip}{4pt plus 1pt minus 1pt}%
-\setlength{\abovedisplayshortskip}{4pt plus 1pt minus 1pt}%
-\setlength{\belowdisplayshortskip}{4pt plus 1pt minus 1pt}}
+\setlength{\abovedisplayskip}{1ex plus 1pt minus 1pt}%
+\setlength{\belowdisplayskip}{1ex plus 1pt minus 1pt}%
+\setlength{\abovedisplayshortskip}{1ex plus 1pt minus 1pt}%
+\setlength{\belowdisplayshortskip}{1ex plus 1pt minus 1pt}}
 
 %metadata
 \def\@faculty{Faculty of Science, Technology, Engineering and Mathematics}
@@ -124,7 +129,7 @@
 \begin{tabular}{l@{\qquad}p{13cm}}
 \vtop{\null\hbox{\oulogo}}
 &
-\vspace*{0mm}
+\vspace*{0mm}\raggedright
 \textbf{\@faculty}\par
 \textbf{\@modulecode~\@moduletitle}\par
 \bigskip\hrule
@@ -450,7 +455,7 @@
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
 %define a float style for table
 \newcommand\fs@tables{%
-  \def\@fs@capt##1##2{{\tablehdfont ##1}\quad{\tablecaptfont ##2}\par}%
+  \def\@fs@capt##1##2{\parbox{\textwidth}{\raggedright{\tablehdfont ##1}\quad{\tablecaptfont ##2}}}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{\vspace\abovecaptionskip\relax}%
@@ -461,7 +466,7 @@
 
 %define a float style for table*
 \newcommand\fs@tablestars{%
-  \def\@fs@capt##1##2{{\tablecaptfont ##2}\par}%
+  \def\@fs@capt##1##2{\parbox{\textwidth}{\raggedright\tablecaptfont ##2}\par}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{}%
@@ -473,7 +478,7 @@
 %Figures
 %define a float style for figure
 \newcommand{\fs@figures}{
-  \def\@fs@capt##1##2{{\fighdfont ##1}\quad{\figcaptfont\raggedright ##2}\par}%
+  \def\@fs@capt##1##2{\parbox{\textwidth}{\raggedright{\fighdfont ##1}\quad{\figcaptfont ##2}}}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{\addvspace{\abovecaptionskip}}%
@@ -484,7 +489,7 @@
 
 %define a float style for figure*
 \newcommand\fs@figurestars{%
-  \def\@fs@capt##1##2{{\figcaptfont ##2}\par}%
+  \def\@fs@capt##1##2{\parbox{\textwidth}{\raggedright\figcaptfont ##2}}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{}%
@@ -494,17 +499,17 @@
 
 %widefigures
 \usepackage{fullwidth}
-\newenvironment{widefigure}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure}}{\end{figure}\end{fullwidth}}
-\newenvironment{widefigure*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure*}}{\end{figure*}\end{fullwidth}}
+\newenvironment{widefigure}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{figure}\end{fullwidth}}
+\newenvironment{widefigure*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure*}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{figure*}\end{fullwidth}}
 
 %marginfigures
 \newlength{\rhfight}
-\NewEnviron{marginfigure}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\addtocounter{figure}{-1}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
-\NewEnviron{marginfigure*}{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
+\NewEnviron{marginfigure}[1][]{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\addtocounter{figure}{-1}\marginnote{\rhtmp}[\dimexpr #1-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
+\NewEnviron{marginfigure*}[1][]{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr #1-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
 
 %extra attributes for environments
 \newcommand{\attrib}[1]{}
-\newcommand{\meta}[1]{}
+\newcommand{\metadata}[2]{}
 
 %icons (use text for drafting -- for now)
 \newcommand{\icon@@symbol}{}
@@ -532,6 +537,8 @@
 \setlist{topsep=0pt,partopsep=0pt,itemsep=0pt}
 \setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
 \setlist[description]{labelsep*=1em}
+\setlist[itemize]{leftmargin=1em,labelwidth=!}
+\setlist[itemize,2]{label=$\circ$}
 
 %marginnote styles
 \renewcommand*{\raggedleftmarginnote}{\raggedright\normalfont\normalsize\color{black}\setlength{\mathindent}{0pt}}
@@ -545,11 +552,11 @@
 
 %proofs
 \newtheoremstyle{ouproof}
-{\item[\theorem@headerfont\hskip\labelsep ##1\theorem@separator]} {\item[\theorem@headerfont\hskip \labelsep ##1\quad ##3\theorem@separator]}
+{\item[\theorem@headerfont\hskip\labelsep ##1\theorem@separator]} {\item[\theorem@headerfont\hskip \labelsep ##1\ ##3\theorem@separator]}
 \theoremstyle{ouproof}
 \theoremheaderfont{\titledboxheadfont\color{colourTwo}}
 \theorembodyfont{}
-\theoremseparator{\quad}
+\theoremseparator{\ }
 \theoremsymbol{{\color{colourTwo}\ensuremath{\blacksquare}}}
 \newtheorem{proof}{Proof}
 
@@ -561,24 +568,29 @@
 
 %define macro for users to be able to design theorems etc with long titles
 \newlength{\rhtmp}
-\newcommand{\twoparttitle}[2]{\settowidth{\rhtmp}{#1}#1\parbox[t]{\dimexpr \textwidth-\rhtmp}{#2}}
+\newcommand{\twoparttitle}[2]{\settowidth{\rhtmp}{#1}#1\parbox[t]{\dimexpr \textwidth-\rhtmp}{\raggedright #2}}
 
 %for VLE XML -- instruction not to hyperlink reference
 %This is useful occasionally to reference items that are allowed in TeX but not in SC XML
 \let\refnolink\ref
 
-%table of contents
+%table of contents formatting
 \RequirePackage{tocloft}
 \renewcommand{\cftsecdotsep}{\cftnodots}
 \renewcommand{\cftsubsecdotsep}{\cftnodots}
 \renewcommand{\cftsubsubsecdotsep}{\cftnodots}
 
-%uppercase greek slanted by default
-\let\upGamma\Gamma
-\RequirePackage{fixmath}
+%fix AMS math required?
+%\RequirePackage{mathtools}
 
-%fix AMS math
-\RequirePackage{mathtools}
-
+%define \require, so that it can be used for mathJaX extras
+\DeclareRobustCommand{\require}[1]{}
+\if@nocomments
+\DeclareRobustCommand*{\authorcomment}[1]{}
+\DeclareRobustCommand*{\editorcomment}[1]{}
+\else
+\DeclareRobustCommand*{\authorcomment}[1]{{\color{red}#1}}
+\DeclareRobustCommand*{\editorcomment}[1]{{\color{red!50!black}#1}}
+\fi
 
 \endinput

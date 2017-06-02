@@ -5,6 +5,7 @@
 % twocolumnsolutions = typeset \printexercisesolutions and \printactivitysolutions in two columns
 % reduceda4 = change paper size to reduced a4
 % previewonly = produce quick preview representation for yap (pk fonts)
+% nocomments = remove author and editor comments from output
 
 \usepackage[nopar]{lipsum}%just for this example
 \usepackage{outikz}% the ouunit.sty is compatible with the OU figure styles
@@ -35,7 +36,7 @@
 \begin{document}
 \makefrontpages
 \introduction
-\lipsum[133]
+\lipsum[133]\authorcomment{testing 1,2,3}
 \[
 E=mc^2
 \]
@@ -172,6 +173,13 @@ Now try quote environment
 \begin{quote}
 \lipsum[133]
 \end{quote}
+
+Now we try an inline list
+\begin{enumerate*}
+\item first 
+\item second
+\item third
+\end{enumerate*}
 \section{Equations}
 Unnumbered equations: use \verb”\[” and \verb”\]” such as
 \[
@@ -484,7 +492,7 @@ Three
 \end{enumerate}
 
 \lipsum[1]
-\begin{marginfigure}
+\begin{marginfigure}[-1cm]%optional argument moves margin figure up/down
 \caption{Figure test \label{fig-ex-test}}
 \begin{tikzpicture}
 \draw (0,0) -- (1,1);
@@ -500,11 +508,11 @@ Test for wide figure.
 \end{tikzpicture}
 \end{widefigure*}
 \lipsum[1]
-\begin{marginfigure}
-\caption{Figure test using includegraphics\label{fig-cross-marginfigure}}
-\includegraphics[width=4cm]{test}
-\end{marginfigure}
-\marginnote{This marginnote is placed in exactly the same place as the marginfigure --- notice how the first line exactly overlaps the end of the caption.}
+%\begin{marginfigure}
+%\caption{Figure test using includegraphics includegraphics includegraphics includegraphics includegraphics}\label{fig-cross-marginfigure}
+%\includegraphics[width=4cm]{test}
+%\end{marginfigure}
+%\marginnote{This marginnote is placed in exactly the same place as the marginfigure --- notice how the first line exactly overlaps the end of the caption.}
 
 \section{Theorems and proofs}
 \begin{theorem}
@@ -599,13 +607,11 @@ To be added.
 \item
 The moving solutions (namely the exercise and activity solutions) use the verbatim package to do the moving, which means that \verb”\end{solution}” must appear on a line on its own. This is not such a great problem as the error message is very specific if an author breaks this rule.
 \item
-The figure (and table) captions are currently fully justified, but should be ragged right.
-\item
 Any commands in a figure caption need to be robust. This is because they are written to a separate file to allow the possibility of producing a list of figures.
 \item
 If an overfull hbox occurs within a box then the box will expand to fit the contents. If a pagebreak occurs in the box then the box on the first page expands to fit even if the overfull hbox does not occur on this page. After the page break the box returns to its natural length, which can mean that content spills out to the right if there is an overfull hbox on the page. The solution is to fix the overfull hbox's.
 \item
-If a marginfigure environment appears in the middle of a sentence then it will absorb the space following so that the words either side of the marginfigure will coalesce. The work-around is to place marginfigures at the beginning of a paragraph.
+If a marginfigure environment appears in the middle of a sentence then it will absorb the space following so that the words either side of the marginfigure will coalesce. The work-around is to place marginfigures at the end of a paragraph.
 \item
 A marginnote (or marginfigure) in an AMS math environment (e.g. align or align*) will extend the line to the width of the marginnote. This causes an a box to extend in size to surround the margin note. The work-around is to move the marginnote to outside the AMS math environment.
 \end{enumerate}
@@ -622,9 +628,7 @@ Add mechanism for defining new icons. (and a better error message if an icon is 
 Add environments for structured content XML elements that are not used on paper (e.g. 
 \verb"mediacontent").
 \end{enumerate}
-
 \printexercisesolutions
 \printactivitysolutions
 \printindex
- 
 \end{document}
