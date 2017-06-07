@@ -17,8 +17,10 @@
 \unittitle{Style test}
 \draftno{D1}
 \author{Robert Hasson}
+\uniqueID{XmxxStyleTest}
 
 %local definitions for this unit
+\metadata{equations}{mathjax}%ROBHACK
 
 %lower resolution logo for smaller files
 \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_compact_cmyk_24mm}}
@@ -27,8 +29,8 @@
 \newenvironment{highlight}[1][]{\begin{style2box}[#1]}{\end{style2box}}
 
 %Example of setting up a theorem as a boxed style
-\newcounter{theorem}
-\newenvironment{theorem}[1][]{\refstepcounter{theorem}\begin{style2box}[\twoparttitle{Theorem \thetheorem\quad}{#1}]}{\end{style2box}}
+\newcounter{thmno}
+\newenvironment{theorem}[1][]{\refstepcounter{thmno}\begin{style2box}[\twoparttitle{Theorem \thethmno\quad}{#1}]}{\end{style2box}}
 \newenvironment{theorem*}[1][]{\begin{style2box}[\twoparttitle{Theorem~}{#1}]}{\end{style2box}}
 
 \DeclareRobustCommand{\hexagon}{\tikz{\draw[thin] (0:0.15) -- (60:0.15) -- (120:0.15) -- (180:0.15) -- (240:0.15) -- (300:0.15) --cycle;}}
@@ -36,7 +38,7 @@
 \begin{document}
 \makefrontpages
 \introduction
-\lipsum[133]\authorcomment{testing 1,2,3}
+\lipsum[133] \authorcomment{Author comment on text.}
 \[
 E=mc^2
 \]
@@ -291,7 +293,7 @@ This is another question
 \item Part one.
 \item Part two.
 \end{enumerate}
-Here are futher instructions.
+Here are further instructions.
 \begin{enumerate}[resume]
 \item Part three.
 \item Part four.
@@ -406,7 +408,7 @@ Use \verb"\includegraphics" for inline figures \includegraphics{media/icon.png}.
 
 Plain figure without caption
 
-\begin{figure*}
+\begin{figure*}\attrib{\filename{media/test.png}}
 \begin{tikzpicture}
 \draw[axis] (-0.5,0) -- (4,0) node[xlab]{$x$};
 \draw[axis] (0,-0.5) -- (0,4) node[ylab]{$y$};
@@ -492,15 +494,15 @@ Three
 \end{enumerate}
 
 \lipsum[1]
-\begin{marginfigure}[-1cm]%optional argument moves margin figure up/down
-\caption{Figure test \label{fig-ex-test}}
-\begin{tikzpicture}
-\draw (0,0) -- (1,1);
-\draw (1,0) -- (0,1);
-\end{tikzpicture}
-\end{marginfigure}
+%\begin{marginfigure}[-1cm]%optional argument moves margin figure up/down
+%\caption{Figure test \label{fig-ex-test}}
+%\begin{tikzpicture}
+%\draw (0,0) -- (1,1);
+%\draw (1,0) -- (0,1);
+%\end{tikzpicture}
+%\end{marginfigure}
 Test for wide figure.
-\begin{widefigure*}
+\begin{widefigure*}\attrib{\filename{media/test.png}}
 \begin{tikzpicture}
 \draw[axis] (0,0) -- (15,0) node[xlab] {$x$};
 \draw[axis] (0,-1.5) -- (0,1.5) node[ylab] {$y$};
@@ -562,7 +564,7 @@ Every polynomial of degree greater than one has a root in $\mathbb{C}$.
 
 \begin{style4box}
 \lipsum[133]
-\begin{figure}
+\begin{figure}\attrib{\filename{media/test.png}}
 \caption{Figure test using Tikz. Note that commands in figure captions need to be robust like \hexagon{} and \(\mathbb{R}^2\).}
 \begin{tikzpicture}
 \draw[axis] (-0.5,0) -- (4,0) node[xlab]{$x$};

@@ -114,6 +114,8 @@
 
 \DeclareRobustCommand{\itemid}[1]{}
 
+\DeclareRobustCommand{\uniqueID}[1]{}
+
 \global\let\@author\@empty
 
 % Title page
