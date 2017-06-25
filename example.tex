@@ -20,7 +20,7 @@
 \uniqueID{XmxxStyleTest}
 
 %local definitions for this unit
-\metadata{equations}{mathjax}%ROBHACK
+\metadata{equations}{mathjax}
 
 %lower resolution logo for smaller files
 \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_compact_cmyk_24mm}}
@@ -403,7 +403,7 @@ This is a reference to Table~\ref{tab-test}.
 \end{table*}
 \lipsum[133]
 
-Use \verb"\includegraphics" for inline figures \includegraphics{media/icon.png}.
+Use \verb"\includegraphics" for inline figures \includegraphics[height=2ex]{icon}.
 
 
 Plain figure without caption
@@ -429,13 +429,15 @@ Figure with caption:
 
 This is a reference to Figure~\ref{fig-test-tikz}.
 
-\begin{figure}\attrib{\filename{media/test.png}}
+\begin{figure}
 \caption{Figure test using includegraphics\label{fig-test-includegraphics}. This figure has an exceedingly long caption so that the justification can be checked. Testing Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.}
 \includegraphics[width=4cm]{test}
 \end{figure}
 This is a reference to Figure~\ref{fig-test-includegraphics}.
 
 Test for wide figure.
+
+\lipsum[134]
 
 \begin{widefigure}\attrib{\filename{media/test.png}}
 \caption{Widefigure test\label{fig-test-widefigure-one}}
@@ -452,7 +454,7 @@ Test for wide figure.
 \begin{marginfigure*}\attrib{\filename{media/icon.png}}
 \fboxsep 0pt%temporary fix for figurebox
 \begin{outikzfig}[figurebox]{margin}
-\includegraphics[width=4cm]{test}
+\includegraphics[width=3cm]{icon}
 \end{outikzfig}
 \end{marginfigure*}
 \marginnote{Marginfigure* test}[4ex]
@@ -476,7 +478,7 @@ This is another answer.
 
 Test for unnumbered figure.
 
-\begin{figure*}\attrib{\filename{media/test.png}}
+\begin{figure*}
 \includegraphics[width=4cm]{test}
 \end{figure*}
 
@@ -486,7 +488,7 @@ Test for figure in list.
 One
 \item
 Two with figure.
-\begin{figure*}\attrib{\filename{media/test.png}}
+\begin{figure*}
 \includegraphics[width=4cm]{test}
 \end{figure*}
 \item
@@ -494,13 +496,14 @@ Three
 \end{enumerate}
 
 \lipsum[1]
-%\begin{marginfigure}[-1cm]%optional argument moves margin figure up/down
-%\caption{Figure test \label{fig-ex-test}}
-%\begin{tikzpicture}
-%\draw (0,0) -- (1,1);
-%\draw (1,0) -- (0,1);
-%\end{tikzpicture}
-%\end{marginfigure}
+Test for marginfigure optional placement.
+\begin{marginfigure}[-1cm]%optional argument moves margin figure up/down
+\caption{Figure test \label{fig-ex-test}}\attrib{\filename{media/icon.png}}
+\begin{tikzpicture}
+\draw (0,0) -- (1,1);
+\draw (1,0) -- (0,1);
+\end{tikzpicture}
+\end{marginfigure}
 Test for wide figure.
 \begin{widefigure*}\attrib{\filename{media/test.png}}
 \begin{tikzpicture}
@@ -510,11 +513,11 @@ Test for wide figure.
 \end{tikzpicture}
 \end{widefigure*}
 \lipsum[1]
-%\begin{marginfigure}
-%\caption{Figure test using includegraphics includegraphics includegraphics includegraphics includegraphics}\label{fig-cross-marginfigure}
-%\includegraphics[width=4cm]{test}
-%\end{marginfigure}
-%\marginnote{This marginnote is placed in exactly the same place as the marginfigure --- notice how the first line exactly overlaps the end of the caption.}
+\begin{marginfigure}
+\caption{Figure test using includegraphics includegraphics includegraphics includegraphics includegraphics}\label{fig-cross-marginfigure}
+\includegraphics[width=1cm]{icon}
+\end{marginfigure}
+\marginnote{This marginnote is placed in exactly the same place as the marginfigure --- notice how the first line exactly overlaps the end of the caption.}
 
 \section{Theorems and proofs}
 \begin{theorem}
@@ -576,8 +579,9 @@ Every polynomial of degree greater than one has a root in $\mathbb{C}$.
 \end{style4box}
 
 The following shows the optional title argument for a proof and also shows how to change the numbering of the steps if desired.
-\begin{proof}[optional title]
-%Do the following steps.
+\begin{proof}[optional title]\strut
+
+Do the following steps.
 \begin{enumerate}[(a)]
 \item foo 
 \item bar
@@ -616,6 +620,10 @@ If an overfull hbox occurs within a box then the box will expand to fit the cont
 If a marginfigure environment appears in the middle of a sentence then it will absorb the space following so that the words either side of the marginfigure will coalesce. The work-around is to place marginfigures at the end of a paragraph.
 \item
 A marginnote (or marginfigure) in an AMS math environment (e.g. align or align*) will extend the line to the width of the marginnote. This causes an a box to extend in size to surround the margin note. The work-around is to move the marginnote to outside the AMS math environment.
+\item
+The line spacing of a marginnote is inherited from the line that is the text anchor, which can cause the marginnote to have odd line spacing.
+\item
+A numbered margin figure within and unnumbered AMS math environment triggers a spurious `label lost' warning message.
 \end{enumerate}
 
 \paragraph{To Do}
@@ -625,7 +633,7 @@ A marginnote (or marginfigure) in an AMS math environment (e.g. align or align*)
 \item
 Glossary items.
 \item
-Add mechanism for defining new icons. (and a better error message if an icon is not defined.)
+Add mechanism for defining new icons (and a better error message if an icon is not defined.)
 \item
 Add environments for structured content XML elements that are not used on paper (e.g. 
 \verb"mediacontent").
