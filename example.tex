@@ -114,8 +114,15 @@ Titled box containing just a list.
 \end{enumerate}
 \end{style4box}
 \section{Lists}
-\lipsum[133]
+Default list is numbered (a), (b), (c), \ldots
 \begin{enumerate}
+\item
+\lipsum[133]
+\item
+\lipsum[133]
+\end{enumerate}
+The preferred way to change the labels is to use the environment optional parameter as follows.
+\begin{enumerate}[1.]
 \item
 \lipsum[133]
 \item

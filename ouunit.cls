@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.04 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.05 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -314,8 +314,8 @@
 \if@standalone
 \fancypagestyle{firstpage}{\fancyhf{}%
 \fancyfoot[L]{\large\textbf{Copyright \copyright\ \@copyrightyear\ The Open University}\hfill \textbf{\@suppno}\\\textbf{\@versionno}}%
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{2pt}
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{2pt}%
 }
 \else
 \fancypagestyle{firstpage}{\fancyhf{}}
@@ -365,8 +365,6 @@
 
 %common setup for solutions (in-place and at-end)
 \newcommand{\solutions@tup}{%
-\setlist[enumerate,1]{label=(\alph*)}%
-\setlist[enumerate,2]{label=(\roman*)}%
 \let\c@equation\c@solnequation
 \let\theequation\thesolnequation
 \let\c@figure\c@solnfigure
@@ -432,8 +430,6 @@
 \rule[-.1\baselineskip]{0pt}{1.1\baselineskip}%
 #1\quad\parbox[t]{0.75\linewidth}{#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-\setlist[enumerate,1]{label=(\alph*)}%
-\setlist[enumerate,2]{label=(\roman*)}%
 }{\nopagebreak\@afterheading\if@ndrule\nopagebreak\par\nopagebreak
   \addvspace{\medskipamount}{\color{colourTwo}\hrule}\fi\pagebreak[1]
   \par\addvspace{\medskipamount}}
@@ -448,8 +444,6 @@
 \newenvironment{activitystyle}[2]{\par\addvspace{\medskipamount}%
 \mbox{\fboxsep 0pt\colorbox{colourThreeTint}{\parbox{\linewidth}{\rule[-0.5\baselineskip]{0pt}{1.7\baselineskip}\superitemlabelfont\color{colourThree}%
 ~#1\quad\parbox[t]{0.75\linewidth}{#2}}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-\setlist[enumerate,1]{label=(\alph*)}%
-\setlist[enumerate,2]{label=(\roman*)}%
 }{\nopagebreak\@afterheading\if@ndrule\nopagebreak\par\tikz{\begin{pgfonlayer}{background}   
   \fill[color=colourThreeTint] (0,0) -- (\textwidth,0) [rounded corners=3mm] -- 
          ++(0,-3mm)  -- ++(-\textwidth,0)  [rounded corners=0mm] -- cycle;
@@ -471,8 +465,6 @@
 \rule[-.1\baselineskip]{0pt}{1.1\baselineskip}%
 #1\quad\parbox[t]{0.75\linewidth}{#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-\setlist[enumerate,1]{label=(\alph*)}%
-\setlist[enumerate,2]{label=(\roman*)}%
 }{\nopagebreak\@afterheading\if@ndrule\nopagebreak\par\nopagebreak
   \addvspace{\medskipamount}{\color{colourThree}\hrule}\fi\pagebreak[1]
   \par\addvspace{\medskipamount}}
@@ -572,6 +564,8 @@
 
 \setlist{topsep=0pt,partopsep=0pt,itemsep=0pt}
 \setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
+\setlist[enumerate,1]{label=(\alph*)}
+\setlist[enumerate,2]{label=(\roman*)}
 \setlist[description]{labelsep*=1em}
 \setlist[itemize]{leftmargin=1em,labelwidth=!}
 \setlist[itemize,2]{label=$\circ$}
