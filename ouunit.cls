@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.03 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.04 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -25,6 +25,10 @@
 \newif\if@nocomments
 \@nocommentsfalse
 
+%switch to remove author and editor comments
+\newif\if@standalone
+\@standalonefalse
+
 %add to global options to make equations flush left
 \RequirePackage{etoolbox}
 \preto\@classoptionslist{fleqn,12pt,twoside,}
@@ -35,6 +39,7 @@
 \DeclareOption{twocolumnsolutions}{\@twocolsoltrue}
 \DeclareOption{quickpreview}{\@previewonlytrue}
 \DeclareOption{nocomments}{\@nocommentstrue}
+\DeclareOption{standalone}{\@standalonetrue}
 
 %\ExecuteOptions{}
 
@@ -72,7 +77,8 @@
 \RequirePackage{colortbl}
 \RequirePackage[totoc]{idxlayout}
 
-
+%if final then remove comments
+\ifdraft\relax\else\@nocommentstrue\fi
 
 %page style defaults
 \raggedright
@@ -81,17 +87,17 @@
 \setlength{\mathindent}{24pt}
 \setlength{\leftmargin}{24pt}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{1ex plus 1pt minus 1pt}
-\setlength{\topsep}{1ex  plus 1pt minus 1pt}
-\setlength{\itemsep}{0.5ex plus 1pt minus 1pt}
+\setlength{\parskip}{1ex plus 0.1ex minus 0.1ex}
+\setlength{\topsep}{1ex  plus 0.1ex minus 0.1ex}
+\setlength{\itemsep}{0.5ex plus 0.05ex minus 0.05ex}
 
 %spacing around displayed math
 %could also adjust skips for \small and \footnotesize 
 \g@addto@macro\normalsize{%
-\setlength{\abovedisplayskip}{1ex plus 1pt minus 1pt}%
-\setlength{\belowdisplayskip}{1ex plus 1pt minus 1pt}%
-\setlength{\abovedisplayshortskip}{1ex plus 1pt minus 1pt}%
-\setlength{\belowdisplayshortskip}{1ex plus 1pt minus 1pt}}
+\setlength{\abovedisplayskip}{1ex plus 0.1ex minus 0.1ex}%
+\setlength{\belowdisplayskip}{1ex plus 0.1ex minus 0.1ex}%
+\setlength{\abovedisplayshortskip}{1ex plus 0.1ex minus 0.1ex}%
+\setlength{\belowdisplayshortskip}{1ex plus 0.1ex minus 0.1ex}}
 
 %metadata
 \def\@faculty{Faculty of Science, Technology, Engineering and Mathematics}
@@ -111,6 +117,18 @@
 
 \global\let\@draftno\@empty
 \DeclareRobustCommand{\draftno}[1]{\DeclareRobustCommand\@draftno{#1}}
+
+\global\let\@copyrightyear\@empty
+\newcommand\copyrightyear[1]{\def\@copyrightyear{#1}}
+
+\ifdraft
+\def\@suppno{DRAFT}
+\else
+\global\let\@suppno\@empty
+\fi
+\newcommand\suppno[1]{\DeclareRobustCommand\@suppno{#1}}
+\global\let\@versionno\@empty
+\newcommand\versionno[1]{\DeclareRobustCommand\@versionno{#1}}
 
 \DeclareRobustCommand{\itemid}[1]{}
 
@@ -137,11 +155,15 @@
 \bigskip\hrule
 \bigskip\bigskip\textbf{\LARGE \@title}\par
 \bigskip\bigskip\hrule
+\ifdraft
 \medskip
 \emph{\rule{0pt}{3ex}\large Prepared for the module team\ifx\@empty\@author\@empty \else\ by \@author\fi.}
-\end{tabular}\end{adjmulticols}}
+\fi
+\end{tabular}
+\end{adjmulticols}
+\thispagestyle{firstpage}}
 
-\DeclareRobustCommand{\makefrontpages}{\thispagestyle{empty}\maketitle\tableofcontents\newpage}
+\DeclareRobustCommand{\makefrontpages}{\maketitle\tableofcontents\thispagestyle{firstpage}\newpage}
 
 
 %colours
@@ -264,9 +286,9 @@
 \else
 \newgeometry{text={42pc,61pc},marginpar=0pt,marginparsep=1pc,twoside}%
 \fi
+\pagestyle{fancy}%
 \fancyhfoffset[LE]{0pt}%
 \fancyhfoffset[RO]{0pt}%
-\pagestyle{fancy}%
 \fancyhead[LE,RO]{\runningheadstyle\rightmark}
 \input{\jobname.ind}}
 \newcommand*{\see}[2]{\emph{see} #1}
@@ -274,8 +296,8 @@
 
 
 %headers and footers
-\pagestyle{fancy}
-\fancyhfoffset[LE]{\marginparsep+\marginparwidth}
+%\pagestyle{fancy}
+\fancypagestyle{plain}{\fancyhfoffset[LE]{\marginparsep+\marginparwidth}
 \fancyhfoffset[RO]{\marginparsep+\marginparwidth}
 \fancyhf{}
 \fancyhead[LE]{\runningheadstyle\@title}
@@ -286,7 +308,19 @@
 \fi
 \renewcommand{\headrulewidth}{0pt}
 \markboth{\@title}{\rightmark}
-\setlength{\headheight}{20pt}
+\setlength{\headheight}{20pt}}
+\pagestyle{plain}
+
+\if@standalone
+\fancypagestyle{firstpage}{\fancyhf{}%
+\fancyfoot[L]{\large\textbf{Copyright \copyright\ \@copyrightyear\ The Open University}\hfill \textbf{\@suppno}\\\textbf{\@versionno}}%
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{2pt}
+}
+\else
+\fancypagestyle{firstpage}{\fancyhf{}}
+\fi
+
 
 
 %solutions

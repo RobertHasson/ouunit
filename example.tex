@@ -1,4 +1,4 @@
-\documentclass[solutionsatend]{ouunit}
+\documentclass[solutionsatend,standalone]{ouunit}
 % Class options available
 % final = remove drafting features for final output (eg date/time in footer)
 % solutionsatend = move exercise and activity solutions to location of \printexercisesolutions
@@ -6,6 +6,7 @@
 % reduceda4 = change paper size to reduced a4
 % previewonly = produce quick preview representation for yap (pk fonts)
 % nocomments = remove author and editor comments from output
+% standalone = produce standalone document (e.g. add copyright to first page)
 
 \usepackage[nopar]{lipsum}%just for this example
 \usepackage{outikz}% the ouunit.sty is compatible with the OU figure styles
@@ -18,6 +19,11 @@
 \draftno{D1}
 \author{Robert Hasson}
 \uniqueID{XmxxStyleTest}
+
+%metadata for standalone document front page
+\copyrightyear{2017}
+\versionno{1.1}
+\suppno{WEB 01234 5}
 
 %local definitions for this unit
 \metadata{equations}{mathjax}
