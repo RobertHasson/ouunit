@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.05 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.06 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -88,12 +88,15 @@
 \setlength{\leftmargin}{24pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus 0.1ex minus 0.1ex}
-\setlength{\topsep}{1ex  plus 0.1ex minus 0.1ex}
+\setlength{\topsep}{0ex  plus 0.1ex minus 0.1ex}%also for displayed eqn
+\setlength{\partopsep}{0ex}%also for displayed eqn
 \setlength{\itemsep}{0.5ex plus 0.05ex minus 0.05ex}
+\setlength{\jot}{0.5ex plus 0.05ex minus 0.05ex}% separation of equations in align
+
 
 %spacing around displayed math
 %could also adjust skips for \small and \footnotesize 
-\g@addto@macro\normalsize{%
+\g@addto@macro\normalsize{%could be \appto
 \setlength{\abovedisplayskip}{1ex plus 0.1ex minus 0.1ex}%
 \setlength{\belowdisplayskip}{1ex plus 0.1ex minus 0.1ex}%
 \setlength{\abovedisplayshortskip}{1ex plus 0.1ex minus 0.1ex}%
@@ -382,7 +385,7 @@
 \newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
 \section*{Solutions to exercises}\end{adjmulticols}\else\section*{Solutions to exercises}\fi
 \if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
-\setlist[enumerate]{leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
+\setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \fi
 \solutions@tup
 \input{\jobname.ex}
@@ -397,7 +400,7 @@
 \newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
 \section*{Solutions to activities}\end{adjmulticols}\else\section*{Solutions to activities}\fi
 \if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
-\setlist[enumerate]{leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
+\setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \fi
 \solutions@tup
 \input{\jobname.act}
@@ -559,16 +562,18 @@
 \newcommand{\thinks}[1]{\tikz{\path[fill=colourThree!20] (0,0) circle (0.15 and 0.1) (0.1,-0.15) circle (0.08 and 0.04) (0.2,-0.22) circle (0.06 and 0.03);}~{\color{colourThree}#1}~\tikz{\path[fill=colourThree!20] (0,0) circle (0.15 and 0.1) (-0.1,-0.15) circle (0.08 and 0.04) (-0.2,-0.22) circle (0.06 and 0.03);}}
 
 %lists
-\renewlist{enumerate*}{enumerate*}{3}
+\renewlist{enumerate*}{enumerate*}{2}
 \setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne\protect\rule{0pt}{3ex}(\alph*)~\else\protect\rule{0pt}{3ex}(\roman*)~\fi}}
 
-\setlist{topsep=0pt,partopsep=0pt,itemsep=0pt}
+\setlist{topsep=0pt,itemsep=0pt,partopsep=0pt}
 \setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
 \setlist[enumerate,1]{label=(\alph*)}
 \setlist[enumerate,2]{label=(\roman*)}
 \setlist[description]{labelsep*=1em}
 \setlist[itemize]{leftmargin=1em,labelwidth=!}
 \setlist[itemize,2]{label=$\circ$}
+\setlist[trivlist]{topsep=0pt,itemsep=0pt,partopsep=0pt}
+
 
 %marginnote styles
 \renewcommand*{\raggedleftmarginnote}{\raggedright\normalfont\normalsize\color{black}\setlength{\mathindent}{0pt}}
@@ -580,7 +585,7 @@
   \let\@ifnextchar\new@ifnextchar
   \array{#1}}
 
-%proofs
+%OU proofs
 \newtheoremstyle{ouproof}
 {\item[\theorem@headerfont\hskip\labelsep ##1\theorem@separator]} {\item[\theorem@headerfont\hskip \labelsep ##1\ ##3\theorem@separator]}
 \theoremstyle{ouproof}
@@ -590,8 +595,6 @@
 \theoremsymbol{{\color{colourTwo}\ensuremath{\blacksquare}}}
 \newtheorem{proof}{Proof}
 
-%equations
-\addtolength{\jot}{1pt}%increase separation of equations in align
 
 %quote (as standard, but do not indent on right)
 \renewenvironment{quote}{\list{}{}\item\relax}{\endlist}
@@ -615,6 +618,8 @@
 
 %define \require, so that it can be used for mathJaX extras
 \DeclareRobustCommand{\require}[1]{}
+
+%comments
 \if@nocomments
 \DeclareRobustCommand*{\authorcomment}[1]{}
 \DeclareRobustCommand*{\editorcomment}[1]{}
