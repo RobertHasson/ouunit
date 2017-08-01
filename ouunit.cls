@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.06 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.07 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -88,7 +88,7 @@
 \setlength{\leftmargin}{24pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus 0.1ex minus 0.1ex}
-\setlength{\topsep}{0ex  plus 0.1ex minus 0.1ex}%also for displayed eqn
+\setlength{\topsep}{1ex  plus 0.1ex minus 0.1ex}%also for displayed eqn
 \setlength{\partopsep}{0ex}%also for displayed eqn
 \setlength{\itemsep}{0.5ex plus 0.05ex minus 0.05ex}
 \setlength{\jot}{0.5ex plus 0.05ex minus 0.05ex}% separation of equations in align
@@ -217,7 +217,7 @@
   \MakeFramed {\advance\hsize-8mm\FrameRestore}%
   }{\endMakeFramed}
 
-\newenvironment{roundedtitledbox}[2][colourFour]{\begin{roundedbox}[#1]\setbox0\hbox{\mbox{\titledboxheadfont\color{#1} #2}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\par\fi}{\end{roundedbox}}
+\newenvironment{roundedtitledbox}[2][colourFour]{\begin{roundedbox}[#1]\setbox0\hbox{\mbox{\titledboxheadfont\color{#1} #2}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\par\fi}{\par\unskip\end{roundedbox}}
 
 \newenvironment{style1box}[1][]{\begin{roundedtitledbox}[colourThree]{#1}}{\end{roundedtitledbox}}
 
@@ -242,7 +242,7 @@
   }{\endMakeFramed}
 
 \newenvironment{style3box}[1][]{\begin{colourframed}
-\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\par\fi}{\end{colourframed}}
+\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\par\fi}{\par\unskip\end{colourframed}}
 
 
 \if@previewonly
@@ -264,7 +264,7 @@
 
 %online style for style4box
 \newenvironment{onlinestyle4box}[1][]{\begin{leftrule}
-\mbox{\titledboxheadfont\color{colourTwo} #1}\nopagebreak\par}{\end{leftrule}}
+\mbox{\titledboxheadfont\color{colourTwo} #1}\nopagebreak\par}{\par\unskip\end{leftrule}}
 
 %section titles
 \newcommand{\@ddheader}[1]{#1\ifttl@label\gdef\rightmark{\thesection\quad #1}\else\gdef\rightmark{#1}\fi}
@@ -433,8 +433,8 @@
 \rule[-.1\baselineskip]{0pt}{1.1\baselineskip}%
 #1\quad\parbox[t]{0.75\linewidth}{#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\nopagebreak\@afterheading\if@ndrule\nopagebreak\par\nopagebreak
-  \addvspace{\medskipamount}{\color{colourTwo}\hrule}\fi\pagebreak[1]
+}{\par\addvspace{\medskipamount}\if@ndrule\nopagebreak\@afterheading\par
+  {\color{colourTwo}\hrule}\fi\pagebreak[1]
   \par\addvspace{\medskipamount}}
 
 \newenvironment{exercise}[1][]{\refstepcounter{exercise}\begin{exercisestyle}{\exercisename~\theexercise}{#1}}{\end{exercisestyle}}
@@ -447,7 +447,7 @@
 \newenvironment{activitystyle}[2]{\par\addvspace{\medskipamount}%
 \mbox{\fboxsep 0pt\colorbox{colourThreeTint}{\parbox{\linewidth}{\rule[-0.5\baselineskip]{0pt}{1.7\baselineskip}\superitemlabelfont\color{colourThree}%
 ~#1\quad\parbox[t]{0.75\linewidth}{#2}}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\nopagebreak\@afterheading\if@ndrule\nopagebreak\par\tikz{\begin{pgfonlayer}{background}   
+}{\par\addvspace{\medskipamount}\vskip-\medskipamount\if@ndrule\nopagebreak\@afterheading\par\tikz{\begin{pgfonlayer}{background}   
   \fill[color=colourThreeTint] (0,0) -- (\textwidth,0) [rounded corners=3mm] -- 
          ++(0,-3mm)  -- ++(-\textwidth,0)  [rounded corners=0mm] -- cycle;
   \end{pgfonlayer}}\fi\pagebreak[1]
@@ -468,7 +468,7 @@
 \rule[-.1\baselineskip]{0pt}{1.1\baselineskip}%
 #1\quad\parbox[t]{0.75\linewidth}{#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\nopagebreak\@afterheading\if@ndrule\nopagebreak\par\nopagebreak
+}{\par\addvspace{\medskipamount}\if@ndrule\nopagebreak\@afterheading\par\nopagebreak
   \addvspace{\medskipamount}{\color{colourThree}\hrule}\fi\pagebreak[1]
   \par\addvspace{\medskipamount}}
 
