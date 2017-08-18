@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.07 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.08 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -29,10 +29,6 @@
 \newif\if@standalone
 \@standalonefalse
 
-%add to global options to make equations flush left
-\RequirePackage{etoolbox}
-\preto\@classoptionslist{fleqn,12pt,twoside,}
-
 \DeclareOption{final}{\draftfalse}
 \DeclareOption{reduceda4}{\@reducedtrue}
 \DeclareOption{solutionsatend}{\@tendtrue}
@@ -48,13 +44,22 @@
 %% Load packages/class file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%add to global options to make equations flush left
+\RequirePackage{etoolbox}
+\if@standalone
+\preto\@classoptionslist{fleqn,12pt,}
+\LoadClass[fleqn,12pt]{article}
+\else
+\preto\@classoptionslist{fleqn,12pt,twoside,}
 \LoadClass[fleqn,12pt,twoside]{article}
+\fi
+
 
 \RequirePackage{xcolor}
 \if@reduced
-\RequirePackage[papersize={210mm,263mm},text={30pc,54pc},marginpar=12pc,marginparsep=1pc,twoside,bindingoffset=-2cm,columnsep=12bp]{geometry}%
+\RequirePackage[papersize={210mm,263mm},text={30pc,54pc},marginpar=12pc,marginparsep=1pc,bindingoffset=-2cm,columnsep=12bp]{geometry}%
 \else
-\RequirePackage[a4paper,text={30pc,61pc},marginpar=12pc,marginparsep=1pc,twoside,bindingoffset=-2cm,columnsep=12bp]{geometry}%
+\RequirePackage[a4paper,text={30pc,61pc},marginpar=12pc,marginparsep=1pc,bindingoffset=-2cm,columnsep=12bp]{geometry}%
 \fi
 \RequirePackage{fancyhdr}
 \RequirePackage{calc}
@@ -144,7 +149,15 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
 \fi
 
+
+%lower resolution logo for smaller files if standalone
+\if@standalone
+\DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_compact_cmyk_24mm}}
+\else
 \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_cmyk_masterlogo_29mm}}
+\fi
+
+
 
 \DeclareRobustCommand{\maketitle}{
 \begin{adjmulticols}{1}{-1cm}{-1cm}
@@ -301,7 +314,11 @@
 %headers and footers
 %\pagestyle{fancy}
 \fancypagestyle{plain}{\fancyhfoffset[LE]{\marginparsep+\marginparwidth}
+\if@standalone
+\relax
+\else
 \fancyhfoffset[RO]{\marginparsep+\marginparwidth}
+\fi
 \fancyhf{}
 \fancyhead[LE]{\runningheadstyle\@title}
 \fancyhead[RO]{\runningheadstyle\rightmark}

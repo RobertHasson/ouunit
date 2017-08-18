@@ -1,0 +1,51 @@
+\documentclass[standalone,final]{ouunit}
+
+%metadata
+\modulecode{Mxxx}
+\moduletitle{Generic module}
+\title{Errata list}
+\draftno{D1}%for draft does not appear in 'final'
+\author{Robert Hasson}%for draft does not appear in 'final'
+\copyrightyear{2017}% for front page
+
+\usepackage{outikz}
+
+%extra styles for errata
+\advance\textwidth 24mm%no margins
+\setlength{\mathindent}{12pt}%smaller indent for displayed equations in table
+
+%define environment for errata
+\usepackage{longtable}
+\usepackage{ltabptch}
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+\newenvironment{errata}[1]{\renewcommand{\arraystretch}{1.5}\begin{longtable}{@{}p{17mm}p{20mm}@{\qquad}p{\textwidth-37mm}} \multicolumn{3}{@{}l}{\defaultheadfont\large\color{colourTwo} #1}\\\nopagebreak\endfirsthead}{\end{longtable}}
+
+%command to mark entries as being new
+\newcommand{\nf}{\llap{\color{red}New\ }}
+
+%command to separate description of erratum from example
+\newcommand{\ersep}{\par\medskip}
+
+\begin{document}
+\maketitle
+
+Last updated \today.
+
+\begin{errata}{Unit nn}
+Page nn & Where,~e.g. Example~nn &
+Description of problem. So the sentence should read:\ersep
+Corrected sentence.
+\\
+Page nn & Where,~e.g. Figure~nn &
+Description of problem. So the figure should show:\ersep
+Corrected diagram.
+\end{errata}
+
+
+\end{document}%%%end of public errata --- other more minor errata follow
+
+Place here very minor problems that should be fixed in a reprint/rewrite. These are after the end document, so do not need to be formatted in latex
+
+
+
