@@ -59,7 +59,11 @@
 \if@reduced
 \RequirePackage[papersize={210mm,263mm},text={30pc,54pc},marginpar=12pc,marginparsep=1pc,bindingoffset=-2cm,columnsep=12bp]{geometry}%
 \else
+\if@standalone
+\RequirePackage[a4paper,text={30pc,61pc},marginpar=12pc,marginparsep=1pc,bindingoffset=-4cm,columnsep=12bp]{geometry}%
+\else
 \RequirePackage[a4paper,text={30pc,61pc},marginpar=12pc,marginparsep=1pc,bindingoffset=-2cm,columnsep=12bp]{geometry}%
+\fi
 \fi
 \RequirePackage{fancyhdr}
 \RequirePackage{calc}
@@ -396,11 +400,13 @@
 \nopagebreak\par\nopagebreak\addvspace{\medskipamount}\@afterheading%
 \solutions@tup}{}
 
+
 %format of exercise solutions at end
+\newcommand{\exercisesolutionhead}{Solutions to exercises}
 \newcommand{\printexercisesolutions}{\if@tend
       \immediate\closeout\exercises@write
 \newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
-\section*{Solutions to exercises}\end{adjmulticols}\else\section*{Solutions to exercises}\fi
+\section*{\exercisesolutionhead}\end{adjmulticols}\else\section*{\exercisesolutionhead}\fi
 \if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \fi
@@ -412,10 +418,11 @@
 
 
 %format of activity solutions at end
+\newcommand{\activitysolutionhead}{Solutions to activities}
 \newcommand{\printactivitysolutions}{\if@tend
       \immediate\closeout\activities@write
 \newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
-\section*{Solutions to activities}\end{adjmulticols}\else\section*{Solutions to activities}\fi
+\section*{\activitysolutionhead}\end{adjmulticols}\else\section*{\activitysolutionhead}\fi
 \if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \fi
@@ -537,7 +544,7 @@
 
 %define a float style for figure*
 \newcommand\fs@figurestars{%
-  \def\@fs@capt##1##2{\parbox{\textwidth}{\raggedright\figcaptfont ##2}}%
+  \def\@fs@capt##1##2{\parbox{\textwidth}{\rule{0pt}{4ex}\raggedright\figcaptfont ##2}}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{}%
@@ -574,6 +581,9 @@
  
 %olink -- not highlighted --- link location added using attrib
 \newenvironment{olink}{}{}
+\ifx\href\undefined
+\newcommand{\href}[2]{#2}
+\fi
 
 %thinks text
 \newcommand{\thinks}[1]{\tikz{\path[fill=colourThree!20] (0,0) circle (0.15 and 0.1) (0.1,-0.15) circle (0.08 and 0.04) (0.2,-0.22) circle (0.06 and 0.03);}~{\color{colourThree}#1}~\tikz{\path[fill=colourThree!20] (0,0) circle (0.15 and 0.1) (-0.1,-0.15) circle (0.08 and 0.04) (-0.2,-0.22) circle (0.06 and 0.03);}}
