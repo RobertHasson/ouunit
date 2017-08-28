@@ -566,6 +566,11 @@
 \newcommand{\attrib}[1]{}
 \newcommand{\metadata}[2]{}
 
+%audio, video etc. placeholder
+\newcommand{\mediapath}[1]{}
+\newenvironment{mediacontent}[1][]{\paragraph{#1}}{}
+
+
 %icons (use text for drafting -- for now)
 \newcommand{\icon@@symbol}{}
 \newcommand{\icon@calc@symbol}{\tikz{\draw (0,0) node[draw] {\textsc{CALC}};}\,}
@@ -576,8 +581,8 @@
 \newcommand{\icons}[3]{\marginnote{\if@tempswa\relax\else\hfill\fi\@nameuse{icon@#1@symbol}\@nameuse{icon@#2@symbol}\@nameuse{icon@#3@symbol}}}
 
 %glossary --- do we need this?
-%\usepackage[nomain]{glossaries}
-%\makeglossaries
+\usepackage[nomain]{glossaries}
+\makeglossaries
  
 %olink -- not highlighted --- link location added using attrib
 \newenvironment{olink}{}{}

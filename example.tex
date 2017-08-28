@@ -12,13 +12,15 @@
 \usepackage{outikz}% the ouunit.sty is compatible with the OU figure styles
 
 %metadata
-\modulecode{Mxxx}
+\modulecode{MATHS}
 \moduletitle{Generic module}
 \unitid{0}
 \unittitle{Style test}
-\draftno{D1}
+\draftno{D1}	
 \author{Robert Hasson}
+
 \uniqueID{XmxxStyleTest}
+\mediapath{{media}}
 
 %metadata for standalone document front page
 \copyrightyear{2017}
@@ -45,6 +47,7 @@
 \makefrontpages
 \introduction
 \lipsum[133] \authorcomment{Author comment on text.}
+
 \[
 E=mc^2
 \]
@@ -421,7 +424,7 @@ Use \verb"\includegraphics" for inline figures \includegraphics[height=2ex]{icon
 
 Plain figure without caption
 
-\begin{figure*}\attrib{\filename{media/test.png}}
+\begin{figure*}
 \begin{tikzpicture}
 \draw[axis] (-0.5,0) -- (4,0) node[xlab]{$x$};
 \draw[axis] (0,-0.5) -- (0,4) node[ylab]{$y$};
@@ -432,7 +435,7 @@ Plain figure without caption
 Figure with caption:
 \begin{figure}
 \caption{Figure test using Tikz}
-\label{fig-test-tikz}\attrib{\filename{media/test.png}}
+\label{fig-test-tikz}
 \begin{tikzpicture}
 \draw[axis] (-0.5,0) -- (4,0) node[xlab]{$x$};
 \draw[axis] (0,-0.5) -- (0,4) node[ylab]{$y$};
@@ -452,7 +455,7 @@ Test for wide figure.
 
 \lipsum[134]
 
-\begin{widefigure}\attrib{\filename{media/test.png}}
+\begin{widefigure}
 \caption{Widefigure test\label{fig-test-widefigure-one}}
 \begin{tikzpicture}
 \draw[axis] (0,0) -- (15,0) node[xlab] {$x$};
@@ -464,7 +467,7 @@ Test for wide figure.
 
 
 \lipsum[134]
-\begin{marginfigure*}\attrib{\filename{media/icon.png}}
+\begin{marginfigure*}
 \fboxsep 0pt%temporary fix for figurebox
 \begin{outikzfig}[figurebox]{margin}
 \includegraphics[width=3cm]{icon}
@@ -478,7 +481,7 @@ Test for wide figure.
 This is another question
 \begin{solution}
 Here is a numbered figure:
-\begin{figure}\attrib{\filename{media/test.png}}
+\begin{figure}
 \caption{Figure test \label{fig-placement-test}}
 \begin{tikzpicture}
 \draw (0,0) -- (1,1);
@@ -511,14 +514,14 @@ Three
 \lipsum[1]
 Test for marginfigure optional placement.
 \begin{marginfigure}[-1cm]%optional argument moves margin figure up/down
-\caption{Figure test \label{fig-ex-test}}\attrib{\filename{media/icon.png}}
+\caption{Figure test \label{fig-ex-test}}
 \begin{tikzpicture}
 \draw (0,0) -- (1,1);
 \draw (1,0) -- (0,1);
 \end{tikzpicture}
 \end{marginfigure}
 Test for wide figure.
-\begin{widefigure*}\attrib{\filename{media/test.png}}
+\begin{widefigure*}
 \begin{tikzpicture}
 \draw[axis] (0,0) -- (15,0) node[xlab] {$x$};
 \draw[axis] (0,-1.5) -- (0,1.5) node[ylab] {$y$};
@@ -580,7 +583,7 @@ Every polynomial of degree greater than one has a root in $\mathbb{C}$.
 
 \begin{style4box}
 \lipsum[133]
-\begin{figure}\attrib{\filename{media/test.png}}
+\begin{figure}
 \caption{Figure test using Tikz. Note that commands in figure captions need to be robust like \hexagon{} and \(\mathbb{R}^2\).}
 \begin{tikzpicture}
 \draw[axis] (-0.5,0) -- (4,0) node[xlab]{$x$};
