@@ -580,8 +580,8 @@
 %flush right on even pages (\if@tempswa set by marginnote)
 \newcommand{\icons}[3]{\marginnote{\if@tempswa\relax\else\hfill\fi\@nameuse{icon@#1@symbol}\@nameuse{icon@#2@symbol}\@nameuse{icon@#3@symbol}}}
 
-%glossary --- do we need this?
-\usepackage[nomain]{glossaries}
+%glossary
+\usepackage[toc,nogroupskip]{glossaries}
 \makeglossaries
  
 %olink -- not highlighted --- link location added using attrib
