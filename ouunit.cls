@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.08 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.09 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -629,7 +629,7 @@
 
 
 %quote (as standard, but do not indent on right)
-\renewenvironment{quote}{\list{}{}\item\relax}{\endlist}
+\renewenvironment{quote}{\list{}{\topsep=0pt}\item\relax}{\endlist}
 
 %define macro for users to be able to design theorems etc with long titles
 \newlength{\rhtmp}
