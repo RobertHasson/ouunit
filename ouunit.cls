@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.09 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.10 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -405,7 +405,7 @@
 \newcommand{\exercisesolutionhead}{Solutions to exercises}
 \newcommand{\printexercisesolutions}{\if@tend
       \immediate\closeout\exercises@write
-\newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
+\newpage\addcontentsline{toc}{section}{\exercisesolutionhead}\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
 \section*{\exercisesolutionhead}\end{adjmulticols}\else\section*{\exercisesolutionhead}\fi
 \if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
@@ -421,7 +421,7 @@
 \newcommand{\activitysolutionhead}{Solutions to activities}
 \newcommand{\printactivitysolutions}{\if@tend
       \immediate\closeout\activities@write
-\newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
+\newpage\addcontentsline{toc}{section}{\activitysolutionhead}\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
 \section*{\activitysolutionhead}\end{adjmulticols}\else\section*{\activitysolutionhead}\fi
 \if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
