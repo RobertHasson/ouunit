@@ -565,6 +565,15 @@
 %extra attributes for environments
 \newcommand{\attrib}[1]{}
 \newcommand{\metadata}[2]{}
+\newcommand{\sourcereference}[1]{\begin{flushleft}\footnotesize #1\end{flushleft}}
+\newcommand{\tablefootnote}[1]{\begin{flushleft}\footnotesize #1\end{flushleft}}
+%acknowledge command to be used withing a sourceref keyword of a media asset
+%it can have two optional arguments (which are ignored at present)
+\def\acknowledge{\@ifnextchar[{\ack@argone}{\ack@plain{}{}}}
+\def\ack@argone[#1]{\@ifnextchar[{\ack@argtwo[#1]}{\ack@plain{#1}{}}}
+\def\ack@argtwo[#1][#2]{\ack@plain{#1}{#2}}
+\newcommand{\ack@plain}[3]{\toks@{#1}\toks@{#2}\copyright~#3}
+
 
 %audio, video etc. placeholder
 \newcommand{\mediapath}[1]{}
