@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.10 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.11 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -199,13 +199,13 @@
 
 %fonts
 \def\defaultheadfont{\usefont{OT1}{cmss}{bx}{n}}
-\def\superitemlabelfont{\normalsize\usefont{OT1}{cmss}{bx}{n}}
-\def\fighdfont{\small\usefont{OT1}{cmss}{bx}{n}}
+\def\superitemlabelfont{\normalsize\defaultheadfont}
+\def\fighdfont{\small\defaultheadfont}
 \def\figcaptfont{\small\normalfont}
-\def\tablehdfont{\small\usefont{OT1}{cmss}{bx}{n}}
+\def\tablehdfont{\small\defaultheadfont}
 \def\tablecaptfont{\small\normalfont}
-\def\titledboxheadfont{\large\usefont{OT1}{cmss}{bx}{n}}
-\def\runningheadstyle{\normalsize\usefont{OT1}{cmss}{bx}{n}\color{colourThree}}
+\def\titledboxheadfont{\normalsize\defaultheadfont}
+\def\runningheadstyle{\normalsize\defaultheadfont\color{colourThree}}
 
 
 %  Boxes 
@@ -234,7 +234,7 @@
   \MakeFramed {\advance\hsize-8mm\FrameRestore}%
   }{\endMakeFramed}
 
-\newenvironment{roundedtitledbox}[2][colourFour]{\begin{roundedbox}[#1]\setbox0\hbox{\mbox{\titledboxheadfont\color{#1} #2}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\par\fi}{\par\unskip\end{roundedbox}}
+\newenvironment{roundedtitledbox}[2][colourFour]{\begin{roundedbox}[#1]\setbox0\hbox{\mbox{\titledboxheadfont\color{#1} #2}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{roundedbox}}
 
 \newenvironment{style1box}[1][]{\begin{roundedtitledbox}[colourThree]{#1}}{\end{roundedtitledbox}}
 
@@ -259,7 +259,7 @@
   }{\endMakeFramed}
 
 \newenvironment{style3box}[1][]{\begin{colourframed}
-\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\par\fi}{\par\unskip\end{colourframed}}
+\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{colourframed}}
 
 
 \if@previewonly
@@ -281,7 +281,7 @@
 
 %online style for style4box
 \newenvironment{onlinestyle4box}[1][]{\begin{leftrule}
-\mbox{\titledboxheadfont\color{colourTwo} #1}\nopagebreak\par}{\par\unskip\end{leftrule}}
+\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{leftrule}}
 
 %section titles
 \newcommand{\@ddheader}[1]{#1\ifttl@label\gdef\rightmark{\thesection\quad #1}\else\gdef\rightmark{#1}\fi}
@@ -541,6 +541,11 @@
 \floatstyle{figures}
 \floatplacement{figure}{H}
 \restylefloat{figure}
+%mediacontent is the general environment for online media (audio, video, html5 etc.)
+%\newenvironment{mediacontent}[1][]{\paragraph{#1}}{}
+\floatname{mediacontent}{Media}
+\newfloat{mediacontent}{H}{lof}
+
 
 %define a float style for figure*
 \newcommand\fs@figurestars{%
@@ -551,6 +556,7 @@
   \let\@fs@iftopcapt\iffalse}
 \floatstyle{figurestars}
 \newfloat{figure*}{H}{lof}
+\newfloat{mediacontent*}{H}{lof}
 
 %widefigures
 \usepackage{fullwidth}
@@ -567,17 +573,16 @@
 \newcommand{\metadata}[2]{}
 \newcommand{\sourcereference}[1]{\begin{flushleft}\footnotesize #1\end{flushleft}}
 \newcommand{\tablefootnote}[1]{\begin{flushleft}\footnotesize #1\end{flushleft}}
-%acknowledge command to be used withing a sourceref keyword of a media asset
-%it can have two optional arguments (which are ignored at present)
-\def\acknowledge{\@ifnextchar[{\ack@argone}{\ack@plain{}{}}}
+%itemrights command to be used withing a sourceref keyword of a media asset
+%it can have two optional arguments (which are ignored at in the  PDF render)
+\def\itemrights{\@ifnextchar[{\ack@argone}{\ack@plain{}{}}}
 \def\ack@argone[#1]{\@ifnextchar[{\ack@argtwo[#1]}{\ack@plain{#1}{}}}
 \def\ack@argtwo[#1][#2]{\ack@plain{#1}{#2}}
 \newcommand{\ack@plain}[3]{\toks@{#1}\toks@{#2}\copyright~#3}
 
 
-%audio, video etc. placeholder
+%mediapath is like graphics path, but for VLE content
 \newcommand{\mediapath}[1]{}
-\newenvironment{mediacontent}[1][]{\paragraph{#1}}{}
 
 
 %icons (use text for drafting -- for now)
@@ -589,7 +594,7 @@
 %flush right on even pages (\if@tempswa set by marginnote)
 \newcommand{\icons}[3]{\marginnote{\if@tempswa\relax\else\hfill\fi\@nameuse{icon@#1@symbol}\@nameuse{icon@#2@symbol}\@nameuse{icon@#3@symbol}}}
 
-%glossary--- needed in ouunit?
+%glossary --- define when needed in book style
 %\usepackage[toc,nogroupskip]{glossaries}
 %\makeglossaries
  
