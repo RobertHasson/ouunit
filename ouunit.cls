@@ -85,6 +85,7 @@
 \RequirePackage{adjmulticol}% includes standard multicol style
 \RequirePackage{colortbl}
 \RequirePackage[totoc]{idxlayout}
+\RequirePackage{needspace}
 
 %if final then remove comments
 \ifdraft\relax\else\@nocommentstrue\fi
@@ -286,6 +287,7 @@
 %section titles
 \newcommand{\@ddheader}[1]{#1\ifttl@label\gdef\rightmark{\thesection\quad #1}\else\gdef\rightmark{#1}\fi}
 
+\preto{\section}{\needspace{12ex}}%make sure title will fit before changing header
 \titleformat{\section}{\defaultheadfont\Large\color{colourThree}}{\thesection}{1em}{\@ddheader}
 \titleformat{\subsection}{\defaultheadfont\large\color{colourTwo}}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}{\defaultheadfont\normalsize\color{colourTwo}}{\thesubsubsection}{1em}{}
