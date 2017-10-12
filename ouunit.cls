@@ -76,7 +76,7 @@
 \RequirePackage[inline,shortlabels]{enumitem}
 \RequirePackage{marginnote}
 \RequirePackage{environ}
-\RequirePackage[nobottomtitles]{titlesec}
+\RequirePackage[nobottomtitles*]{titlesec}
 \RequirePackage{framed}
 \RequirePackage{datetime}
 \RequirePackage{fancyvrb}
@@ -85,7 +85,6 @@
 \RequirePackage{adjmulticol}% includes standard multicol style
 \RequirePackage{colortbl}
 \RequirePackage[totoc]{idxlayout}
-\RequirePackage{needspace}
 
 %if final then remove comments
 \ifdraft\relax\else\@nocommentstrue\fi
@@ -285,9 +284,8 @@
 \setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{leftrule}}
 
 %section titles
-\newcommand{\@ddheader}[1]{#1\ifttl@label\gdef\rightmark{\thesection\quad #1}\else\gdef\rightmark{#1}\fi}
+\newcommand{\@ddheader}[1]{#1\ifttl@label\xdef\rightmark{\thesection\quad #1}\else\xdef\rightmark{#1}\fi}
 
-\preto{\section}{\needspace{12ex}}%make sure title will fit before changing header
 \titleformat{\section}{\defaultheadfont\Large\color{colourThree}}{\thesection}{1em}{\@ddheader}
 \titleformat{\subsection}{\defaultheadfont\large\color{colourTwo}}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}{\defaultheadfont\normalsize\color{colourTwo}}{\thesubsubsection}{1em}{}
