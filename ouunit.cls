@@ -394,12 +394,38 @@
 \let\c@figure\c@solnfigure
 \let\thefigure\thesolnfigure}
 
+%marker box for two column solutions
+\newcommand{\s@lutioncolumnbox}[1]{\tikz{\node (A) {#1};
+  \begin{pgfonlayer}{background}
+  \path (A.south west) ++({0.5\textwidth+0.5\marginparwidth},0) coordinate (B);
+  \draw[line width=\columnsep,color=blue!5] (A.north west) ++ ({0.5\textwidth+0.5\marginparwidth},0)  -- (B);
+  \end{pgfonlayer}}}
+
+\if@previewonly
+\newenvironment{s@lutioncolumn}{}{}
+\else
+\newenvironment{s@lutioncolumn}{%
+  \def\FrameCommand{\s@lutioncolumnbox}%
+  \def\FirstFrameCommand{\s@lutioncolumnbox}%
+  \def\MidFrameCommand{\s@lutioncolumnbox}%
+  \def\LastFrameCommand{\s@lutioncolumnbox}%
+  \MakeFramed{\setlength{\hsize}{0.5\textwidth+0.5\marginparwidth-0.5\columnsep}\FrameRestore}%
+  }{\endMakeFramed}
+\fi
+
 %define the format of solutions in place
+\if@twocolsol
+\newenvironment{ip@solution}{\par\addvspace{\medskipamount}%
+\begin{s@lutioncolumn}%
+\mbox{\superitemlabelfont\color{colourThree}Solution}%
+\nopagebreak\par\nopagebreak\addvspace{\medskipamount}\@afterheading%
+\solutions@tup}{\par\unskip\end{s@lutioncolumn}}
+\else
 \newenvironment{ip@solution}{\par\addvspace{\medskipamount}%
 \mbox{\superitemlabelfont\color{colourThree}Solution}%
 \nopagebreak\par\nopagebreak\addvspace{\medskipamount}\@afterheading%
 \solutions@tup}{}
-
+\fi
 
 %format of exercise solutions at end
 \newcommand{\exercisesolutionhead}{Solutions to exercises}
@@ -433,8 +459,9 @@
 
 %switch to solutions in place
 \newcommand{\solutionsinplace}{\@tendfalse
-\let\solution\ip@solution
-\let\endsolution\endips@olution}
+\def\solution{}%so that renew is always appropriate
+\renewenvironment{solution}{\begin{ip@solution}}{\end{ip@solution}}
+}
 
 %switch to solutions at end
 \newcommand{\solutionsatend}{\@tendtrue\DefineVerbatimEnvironment{solution}{mv@solution}{}}
