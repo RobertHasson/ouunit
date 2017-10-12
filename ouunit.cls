@@ -421,6 +421,7 @@
 \begin{s@lutioncolumn}%
 \mbox{\superitemlabelfont\color{colourThree}Solution}%
 \nopagebreak\par\nopagebreak\addvspace{\medskipamount}\@afterheading%
+\setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \solutions@tup}{\par\unskip\end{s@lutioncolumn}}
 \else
 \newenvironment{ip@solution}{\par\addvspace{\medskipamount}%
