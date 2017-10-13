@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.12 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.13 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -288,7 +288,7 @@
 \newcommand{\@ddheadern}[1]{#1\xdef\rightmark{\thesection\quad #1}}
 
 %header for unnumbered sections
-\newcommand{\@ddheaderu}[1]{#1\xdef\rightmark{#1}%
+\newcommand{\@ddheaderu}[1]{#1\gdef\rightmark{#1}%
 \stepcounter{section}\addtocounter{section}{-1}%to force numberwithin counters to reset
 }
 
