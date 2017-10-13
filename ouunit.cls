@@ -651,7 +651,7 @@
 \setlist[enumerate,1]{label=(\alph*)}
 \setlist[enumerate,2]{label=(\roman*)}
 \setlist[description]{labelsep*=1em}
-\setlist[itemize]{leftmargin=1em,labelwidth=!}
+\setlist[itemize]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
 \setlist[itemize,2]{label=$\circ$}
 \setlist[trivlist]{topsep=0pt,itemsep=0pt,partopsep=0pt}
 
