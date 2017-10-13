@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.11 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.12 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -284,9 +284,16 @@
 \setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{leftrule}}
 
 %section titles
-\newcommand{\@ddheader}[1]{#1\ifttl@label\xdef\rightmark{\thesection\quad #1}\else\xdef\rightmark{#1}\fi}
+%header for numbered sections
+\newcommand{\@ddheadern}[1]{#1\xdef\rightmark{\thesection\quad #1}}
 
-\titleformat{\section}{\defaultheadfont\Large\color{colourThree}}{\thesection}{1em}{\@ddheader}
+%header for unnumbered sections
+\newcommand{\@ddheaderu}[1]{#1\xdef\rightmark{#1}%
+\stepcounter{section}\addtocounter{section}{-1}%to force numberwithin counters to reset
+}
+
+\titleformat{\section}{\defaultheadfont\Large\color{colourThree}}{\thesection}{1em}{\@ddheadern}
+\titleformat{name=\section,numberless}{\defaultheadfont\Large\color{colourThree}}{}{0pt}{\@ddheaderu}
 \titleformat{\subsection}{\defaultheadfont\large\color{colourTwo}}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}{\defaultheadfont\normalsize\color{colourTwo}}{\thesubsubsection}{1em}{}
 \titleformat{\paragraph}{\defaultheadfont\normalsize\color{colourTwo}}{\theparagraph}{1em}{}
