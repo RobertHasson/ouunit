@@ -43,6 +43,7 @@
 
 \DeclareRobustCommand{\hexagon}{\tikz{\draw[thin] (0:0.15) -- (60:0.15) -- (120:0.15) -- (180:0.15) -- (240:0.15) -- (300:0.15) --cycle;}}
 
+
 \begin{document}
 \makefrontpages
 \introduction
@@ -90,15 +91,14 @@ Note the large space above the aligned equations, when they immediately follow a
 \section{Boxes}
 The generic box styles exist, but authors should use context names (such as `highlight', `history' or `aside' rather than using the generic box styles directly. All boxes break between pages automatically.\index{boxes}
 \begin{style1box}[Box title style1box]
+\textbf{Subheading in box}
+
 \lipsum[1]
 \end{style1box}
 \begin{style2box}[Box title style2box]
 \lipsum[2]
 \end{style2box}
 \begin{style3box}[Box title style3box]
-\lipsum[3]
-\end{style3box}
-\begin{style3box}
 \lipsum[3]
 \end{style3box}
 \begin{style4box}[Box title style4box]

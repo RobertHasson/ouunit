@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.13 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.14 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -44,14 +44,16 @@
 %% Load packages/class file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\RequirePackage{fix-cm}%load first before any fonts are used
+
 %add to global options to make equations flush left
 \RequirePackage{etoolbox}
 \if@standalone
-\preto\@classoptionslist{fleqn,12pt,}
-\LoadClass[fleqn,12pt]{article}
+\preto\@classoptionslist{fleqn,11pt,}
+\LoadClass[fleqn,11pt]{article}
 \else
-\preto\@classoptionslist{fleqn,12pt,twoside,}
-\LoadClass[fleqn,12pt,twoside]{article}
+\preto\@classoptionslist{fleqn,11pt,twoside,}
+\LoadClass[fleqn,11pt,twoside]{article}
 \fi
 
 
@@ -85,6 +87,7 @@
 \RequirePackage{adjmulticol}% includes standard multicol style
 \RequirePackage{colortbl}
 \RequirePackage[totoc]{idxlayout}
+\RequirePackage{relsize}
 
 %if final then remove comments
 \ifdraft\relax\else\@nocommentstrue\fi
@@ -200,11 +203,11 @@
 %fonts
 \def\defaultheadfont{\usefont{OT1}{cmss}{bx}{n}}
 \def\superitemlabelfont{\normalsize\defaultheadfont}
-\def\fighdfont{\small\defaultheadfont}
-\def\figcaptfont{\small\normalfont}
-\def\tablehdfont{\small\defaultheadfont}
-\def\tablecaptfont{\small\normalfont}
-\def\titledboxheadfont{\normalsize\defaultheadfont}
+\def\fighdfont{\defaultheadfont\small}
+\def\figcaptfont{\normalfont\small}
+\def\tablehdfont{\defaultheadfont\small}
+\def\tablecaptfont{\normalfont\small}
+\def\titledboxheadfont{\defaultheadfont\relscale{1.166}}%intermediate size
 \def\runningheadstyle{\normalsize\defaultheadfont\color{colourThree}}
 
 
@@ -614,6 +617,8 @@
 \def\ack@argone[#1]{\@ifnextchar[{\ack@argtwo[#1]}{\ack@plain{#1}{}}}
 \def\ack@argtwo[#1][#2]{\ack@plain{#1}{#2}}
 \newcommand{\ack@plain}[3]{\toks@{#1}\toks@{#2}\copyright~#3}
+
+\newcommand{\captionprefix}[1]{\toks@{#1}}%temporary
 
 
 %mediapath is like graphics path, but for VLE content
