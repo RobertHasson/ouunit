@@ -288,7 +288,7 @@
 
 %section titles
 %header for numbered sections
-\newcommand{\@ddheadern}[1]{#1\xdef\rightmark{\thesection\quad #1}}
+\newcommand{\@ddheadern}[1]{#1\xdef\rightmark{\thesection{\unexpanded{\quad #1}}}}
 
 %header for unnumbered sections
 \newcommand{\@ddheaderu}[1]{#1\gdef\rightmark{#1}%
