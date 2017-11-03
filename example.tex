@@ -30,9 +30,6 @@
 %local definitions for this unit
 \metadata{equations}{mathjax}
 
-%lower resolution logo for smaller files
-\DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_compact_cmyk_24mm}}
-
 %friendly names for box styles
 \newenvironment{highlight}[1][]{\begin{style2box}[#1]}{\end{style2box}}
 
@@ -634,13 +631,15 @@ Any commands in a figure caption need to be robust. This is because they are wri
 \item
 If an overfull hbox occurs within a box then the box will expand to fit the contents. If a pagebreak occurs in the box then the box on the first page expands to fit even if the overfull hbox does not occur on this page. After the page break the box returns to its natural length, which can mean that content spills out to the right if there is an overfull hbox on the page. The solution is to fix the overfull hbox's.
 \item
-If a marginfigure environment appears in the middle of a sentence then it will absorb the space following so that the words either side of the marginfigure will coalesce. Place marginfigures at the end of a paragraph that first refers to the figure. In this way the figure will be in the correct place when translated to other formats (e.g. ePub). Use the optional argument to move a margin figure up or down (if needed to avoid other marginalia).
+If a marginfigure environment appears in the middle of a sentence then it will absorb the space following so that the words either side of the marginfigure will coalesce. Place margin figures at the end of a paragraph that first refers to the figure. In this way the figure will be in the correct place when translated to other formats (e.g. ePub). Use the optional argument to move a margin figure up or down (if needed to avoid other marginalia).
 \item
 A marginnote (or marginfigure) in an AMS math environment (e.g. align or align*) will extend the line to the width of the marginnote. This causes an a box to extend in size to surround the margin note. The work-around is to move the marginnote to outside the AMS math environment.
 \item
 The line spacing of a marginnote is inherited from the line that is the text anchor, which can cause the marginnote to have odd line spacing.
 \item
 A numbered margin figure within and unnumbered AMS math environment triggers a spurious `label lost' warning message. Do not put margin figures inside equations, place them in the logical place (i.e. after the paragraph that first refers to them) and use the optional argument to move the figures as desired.
+\item
+Text coloured using \verb"\thinks" does not continue across a page break when embedded within a breakable box. The work-around is to add \verb"\color{colourThree}" into the source file at the point at which colour is lost (i.e.\ just after the page break). If the page breaks change and it no longer occurs within the thinks text then the extra change colour command will be harmless.
 \end{enumerate}
 
 \paragraph{To Do}

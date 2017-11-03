@@ -87,7 +87,8 @@
 \RequirePackage{adjmulticol}% includes standard multicol style
 \RequirePackage{colortbl}
 \RequirePackage[totoc]{idxlayout}
-\RequirePackage{relsize}
+
+
 
 %if final then remove comments
 \ifdraft\relax\else\@nocommentstrue\fi
@@ -156,14 +157,7 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
 \fi
 
-
-%lower resolution logo for smaller files if standalone
-\if@standalone
-\DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_compact_cmyk_24mm}}
-\else
 \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_cmyk_masterlogo_29mm}}
-\fi
-
 
 
 \DeclareRobustCommand{\maketitle}{
@@ -201,14 +195,18 @@
 
 
 %fonts
+\def\ssnormalsize{\fontsize{12.5pt}{15pt}}
+\def\reducedsize{\fontsize{10.5pt}{12.6pt}}
+
 \def\defaultheadfont{\usefont{OT1}{cmss}{bx}{n}}
-\def\superitemlabelfont{\normalsize\defaultheadfont}
-\def\fighdfont{\defaultheadfont\small}
-\def\figcaptfont{\normalfont\small}
+\def\superitemlabelfont{\defaultheadfont\ssnormalsize}
+\def\fighdfont{\defaultheadfont\reducedsize\selectfont}
+\def\figcaptfont{\normalfont\reducedsize\selectfont}
 \def\tablehdfont{\defaultheadfont\small}
 \def\tablecaptfont{\normalfont\small}
-\def\titledboxheadfont{\defaultheadfont\relscale{1.166}}%intermediate size
-\def\runningheadstyle{\normalsize\defaultheadfont\color{colourThree}}
+\def\titledboxheadfont{\defaultheadfont\ssnormalsize}
+\def\runningheadstyle{\defaultheadfont\normalsize\color{colourThree}}
+\def\marginnotestyle{\raggedright\normalfont\small\color{black}\setlength{\mathindent}{0pt}\renewcommand{\baselinestretch}{1}}
 
 
 %  Boxes 
@@ -295,11 +293,11 @@
 \stepcounter{section}\addtocounter{section}{-1}%to force numberwithin counters to reset
 }
 
-\titleformat{\section}{\defaultheadfont\Large\color{colourThree}}{\thesection}{1em}{\@ddheadern}
-\titleformat{name=\section,numberless}{\defaultheadfont\Large\color{colourThree}}{}{0pt}{\@ddheaderu}
-\titleformat{\subsection}{\defaultheadfont\large\color{colourTwo}}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\defaultheadfont\normalsize\color{colourTwo}}{\thesubsubsection}{1em}{}
-\titleformat{\paragraph}{\defaultheadfont\normalsize\color{colourTwo}}{\theparagraph}{1em}{}
+\titleformat{\section}{\defaultheadfont\huge\color{colourThree}}{\thesection}{1em}{\@ddheadern}
+\titleformat{name=\section,numberless}{\defaultheadfont\huge\color{colourThree}}{}{0pt}{\@ddheaderu}
+\titleformat{\subsection}{\defaultheadfont\LARGE\color{colourTwo}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\defaultheadfont\Large\color{colourTwo}}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}{\defaultheadfont\large\color{colourTwo}}{\theparagraph}{1em}{}
 \titlespacing*{\section}{0pt}{2ex plus 1ex minus .2ex}{0.5ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{1.5ex plus 1ex minus .2ex}{0ex plus .2ex}
 \titlespacing*{\subsubsection}{0pt}{1ex plus 1ex minus .2ex}{0ex plus .2ex}
@@ -542,8 +540,6 @@
 
 
 %Tables
-%\arrayrulecolor{colourTwo}
-\gdef\CT@arc@{\color{colourTwo}}
 
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
 %define a float style for table
@@ -556,6 +552,10 @@
 \floatstyle{tables}
 \floatplacement{table}{H}
 \restylefloat{table}
+\floatevery{table}{\small}
+\AtBeginEnvironment{table}{\gdef\CT@arc@{\color{colourTwo}}}
+\AtEndEnvironment{table}{\gdef\CT@arc@{\color{black}}}
+
 
 %define a float style for table*
 \newcommand\fs@tablestars{%
@@ -566,6 +566,9 @@
   \let\@fs@iftopcapt\iftrue}
 \floatstyle{tablestars}
 \newfloat{table*}{H}{lof}
+\floatevery{table*}{\small}
+\AtBeginEnvironment{table*}{\gdef\CT@arc@{\color{colourTwo}}}
+\AtEndEnvironment{table*}{\gdef\CT@arc@{\color{black}}}
 
 
 %Figures
@@ -609,8 +612,8 @@
 %extra attributes for environments
 \newcommand{\attrib}[1]{}
 \newcommand{\metadata}[2]{}
-\newcommand{\sourcereference}[1]{\begin{flushleft}\footnotesize #1\end{flushleft}}
-\newcommand{\tablefootnote}[1]{\begin{flushleft}\footnotesize #1\end{flushleft}}
+\newcommand{\sourcereference}[1]{\begin{flushleft}\small #1\end{flushleft}}
+\newcommand{\tablefootnote}[1]{\begin{flushleft}\small #1\end{flushleft}}
 %itemrights command to be used withing a sourceref keyword of a media asset
 %it can have two optional arguments (which are ignored at in the  PDF render)
 \def\itemrights{\@ifnextchar[{\ack@argone}{\ack@plain{}{}}}
@@ -662,8 +665,8 @@
 
 
 %marginnote styles
-\renewcommand*{\raggedleftmarginnote}{\raggedright\normalfont\normalsize\color{black}\setlength{\mathindent}{0pt}}
-\renewcommand*{\raggedrightmarginnote}{\raggedright\normalfont\normalsize\color{black}\setlength{\mathindent}{0pt}}
+\renewcommand*{\raggedleftmarginnote}{\marginnotestyle}
+\renewcommand*{\raggedrightmarginnote}{\marginnotestyle}
 
 %add optional argument to pmatrix, bmatrix and vmatrix
 \renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
