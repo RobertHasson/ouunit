@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.14 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.16 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -174,7 +174,7 @@
 \bigskip\bigskip\hrule
 \ifdraft
 \medskip
-\emph{\rule{0pt}{3ex}\large Prepared for the module team\ifx\@empty\@author\@empty \else\ by \@author\fi.}
+\emph{\rule{0pt}{3ex}\large Draft \ifx\@empty\@draftno\@empty \else\@draftno\ \fi prepared for the module team\ifx\@empty\@author\@empty \else\ by \@author\fi.}
 \fi
 \end{tabular}
 \end{adjmulticols}
@@ -195,13 +195,13 @@
 
 
 %fonts
-\def\ssnormalsize{\fontsize{12.5pt}{15pt}}
-\def\reducedsize{\fontsize{10.5pt}{12.6pt}}
+\def\ssnormalsize{\fontsize{12.5pt}{15pt}\selectfont}
+\def\reducedsize{\fontsize{10.5pt}{12.6pt}\selectfont}
 
 \def\defaultheadfont{\usefont{OT1}{cmss}{bx}{n}}
 \def\superitemlabelfont{\defaultheadfont\ssnormalsize}
-\def\fighdfont{\defaultheadfont\reducedsize\selectfont}
-\def\figcaptfont{\normalfont\reducedsize\selectfont}
+\def\fighdfont{\defaultheadfont\reducedsize}
+\def\figcaptfont{\normalfont\reducedsize}
 \def\tablehdfont{\defaultheadfont\small}
 \def\tablecaptfont{\normalfont\small}
 \def\titledboxheadfont{\defaultheadfont\ssnormalsize}
@@ -325,18 +325,22 @@
 
 %headers and footers
 %\pagestyle{fancy}
-\fancypagestyle{plain}{\fancyhfoffset[LE]{\marginparsep+\marginparwidth}
+\fancypagestyle{plain}{\fancyhf{}
 \if@standalone
-\relax
-\else
-\fancyhfoffset[RO]{\marginparsep+\marginparwidth}
+\fancyhead[R]{\runningheadstyle\rightmark}
+\fancyfoot[R]{\runningheadstyle\thepage}
+\ifdraft
+\fancyfoot[L]{\small Draft \@draftno\quad Last \LaTeX ed  \currenttime\ \today}
 \fi
-\fancyhf{}
+\else
+\fancyhfoffset[LE]{\marginparsep+\marginparwidth}
+\fancyhfoffset[RO]{\marginparsep+\marginparwidth}
 \fancyhead[LE]{\runningheadstyle\@title}
 \fancyhead[RO]{\runningheadstyle\rightmark}
 \fancyfoot[LE,RO]{\runningheadstyle\thepage}
 \ifdraft
 \fancyfoot[LO,RE]{\small Draft \@draftno\quad Last \LaTeX ed  \currenttime\ \today}
+\fi
 \fi
 \renewcommand{\headrulewidth}{0pt}
 \markboth{\@title}{\rightmark}
@@ -508,8 +512,8 @@
 \mbox{\fboxsep 0pt\colorbox{colourThreeTint}{\parbox{\linewidth}{\rule[-0.5\baselineskip]{0pt}{1.7\baselineskip}\superitemlabelfont\color{colourThree}%
 ~#1\quad\parbox[t]{0.75\linewidth}{#2}}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
 }{\par\addvspace{\medskipamount}\vskip-\medskipamount\if@ndrule\nopagebreak\@afterheading\par\tikz{\begin{pgfonlayer}{background}   
-  \fill[color=colourThreeTint] (0,0) -- (\textwidth,0) [rounded corners=3mm] -- 
-         ++(0,-3mm)  -- ++(-\textwidth,0)  [rounded corners=0mm] -- cycle;
+  \fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- 
+         ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] -- cycle;
   \end{pgfonlayer}}\fi\pagebreak[1]
   \par\addvspace{\medskipamount}}
 
@@ -544,7 +548,7 @@
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
 %define a float style for table
 \newcommand\fs@tables{%
-  \def\@fs@capt##1##2{\parbox{\textwidth}{\raggedright{\tablehdfont ##1}\quad{\tablecaptfont ##2}}}%
+  \def\@fs@capt##1##2{\parbox{\linewidth}{\raggedright{\tablehdfont ##1}\quad{\tablecaptfont ##2}}}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{\vspace\abovecaptionskip\relax}%
@@ -559,7 +563,7 @@
 
 %define a float style for table*
 \newcommand\fs@tablestars{%
-  \def\@fs@capt##1##2{\parbox{\textwidth}{\raggedright\tablecaptfont ##2}\par}%
+  \def\@fs@capt##1##2{\parbox{\linewidth}{\raggedright\tablecaptfont ##2}\par}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{}%
@@ -574,7 +578,7 @@
 %Figures
 %define a float style for figure
 \newcommand{\fs@figures}{
-  \def\@fs@capt##1##2{\parbox{\textwidth}{\raggedright{\fighdfont ##1}\quad{\figcaptfont ##2}}}%
+  \def\@fs@capt##1##2{\parbox{\linewidth}{\raggedright{\fighdfont ##1}\quad{\figcaptfont ##2}}}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{\addvspace{\abovecaptionskip}}%
@@ -590,7 +594,7 @@
 
 %define a float style for figure*
 \newcommand\fs@figurestars{%
-  \def\@fs@capt##1##2{\parbox{\textwidth}{\rule{0pt}{4ex}\raggedright\figcaptfont ##2}}%
+  \def\@fs@capt##1##2{\parbox{\linewidth}{\rule{0pt}{4ex}\raggedright\figcaptfont ##2}}%
   \def\@fs@pre{}%
   \def\@fs@post{\vspace{-1.5ex}}%to balance whitespace
   \def\@fs@mid{}%
@@ -600,7 +604,7 @@
 \newfloat{mediacontent*}{H}{lof}
 
 %widefigures
-\usepackage{fullwidth}
+\RequirePackage{fullwidth}
 \newenvironment{widefigure}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{figure}\end{fullwidth}}
 \newenvironment{widefigure*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure*}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{figure*}\end{fullwidth}}
 
@@ -690,7 +694,7 @@
 
 %define macro for users to be able to design theorems etc with long titles
 \newlength{\rhtmp}
-\newcommand{\twoparttitle}[2]{\settowidth{\rhtmp}{#1}#1\parbox[t]{\dimexpr \textwidth-\rhtmp}{\raggedright #2}}
+\newcommand{\twoparttitle}[2]{\settowidth{\rhtmp}{#1}#1\parbox[t]{\dimexpr \linewidth-\rhtmp}{\raggedright #2}}
 
 %for VLE XML -- instruction not to hyperlink reference
 %This is useful occasionally to reference items that are allowed in TeX but not in SC XML
