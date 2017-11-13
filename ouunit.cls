@@ -490,16 +490,13 @@
 
 \newcounter{exercise}
 \newcommand{\exercisename}{Exercise}
-
 \newenvironment{exercisestyle}[2]{\par\addvspace{\medskipamount}%
 {\superitemlabelfont\color{colourTwo}\medskip
 \hrule\nopagebreak
-\rule[-.1\baselineskip]{0pt}{1.1\baselineskip}%
-#1\quad\parbox[t]{0.75\linewidth}{#2}}%
+\rule[-.1\baselineskip]{0pt}{1.1\baselineskip}\twoparttitle{#1}{\quad#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
 }{\par\addvspace{\medskipamount}\if@ndrule\nopagebreak\@afterheading\par
-  {\color{colourTwo}\hrule}\fi\pagebreak[1]
-  \par\addvspace{\medskipamount}}
+  {\color{colourTwo}\hrule}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
 
 \newenvironment{exercise}[1][]{\refstepcounter{exercise}\begin{exercisestyle}{\exercisename~\theexercise}{#1}}{\end{exercisestyle}}
 
@@ -507,15 +504,17 @@
 %Activities
 \newcounter{activity}
 \newcommand{\activityname}{Activity}
-
 \newenvironment{activitystyle}[2]{\par\addvspace{\medskipamount}%
 \mbox{\fboxsep 0pt\colorbox{colourThreeTint}{\parbox{\linewidth}{\rule[-0.5\baselineskip]{0pt}{1.7\baselineskip}\superitemlabelfont\color{colourThree}%
-~#1\quad\parbox[t]{0.75\linewidth}{#2}}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
+\twoparttitle{~#1}{\quad #2}}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
 }{\par\addvspace{\medskipamount}\vskip-\medskipamount\if@ndrule\nopagebreak\@afterheading\par\tikz{\begin{pgfonlayer}{background}   
   \fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- 
          ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] -- cycle;
-  \end{pgfonlayer}}\fi\pagebreak[1]
-  \par\addvspace{\medskipamount}}
+  \end{pgfonlayer}}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
+
+
+
+
 
 \newenvironment{activity}[1][]{\refstepcounter{activity}\@activitytrue
  \begin{activitystyle}{\activityname~\theactivity}{#1}}{\end{activitystyle}}
