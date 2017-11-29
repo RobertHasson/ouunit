@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.16 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.17 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -666,6 +666,11 @@
 \setlist[itemize,2]{label=$\circ$}
 \setlist[trivlist]{topsep=0pt,itemsep=0pt,partopsep=0pt}
 
+
+\newlist{plainenumerate}{enumerate}{2}
+\setlist[plainenumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
+\setlist[plainenumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[plainenumerate,2]{label=(\alph*)}
 
 %marginnote styles
 \renewcommand*{\raggedleftmarginnote}{\marginnotestyle}

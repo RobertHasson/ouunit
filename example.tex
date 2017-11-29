@@ -128,6 +128,14 @@ The preferred way to change the labels is to use the environment optional parame
 \item
 \lipsum[133]
 \end{enumerate}
+The most frequently used variant is to have numbered items (as above), so a style is set up for this, namely \verb”plainenumerate”. The advantage of using \verb”plainenumerate” rather than using the optional argument is to avoid confusion between \verb”enumerate” used for subeexercises etc.\ and a real enumerated list appearing in an equation. 
+\begin{plainenumerate}
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\end{plainenumerate}
+
+
 \lipsum[133]
 \begin{enumerate}
 \item
@@ -348,6 +356,23 @@ This is another question
 \item Solution three.
 \item Solution four.
 \end{enumerate}
+\end{solution}
+\end{exercise}
+\lipsum[2]
+\begin{exercise}
+The use of \verb”enumerate” lists to denote subexercises is not helpful when the question needs to contain a genuine enumerated list. For this exceptional case the \verb”plainenumerate” environment can be used as follows.
+\begin{plainenumerate}
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\end{plainenumerate}
+\begin{solution}
+Sometimes a solution needs to include an enumerated list, which is distinct from the enumerated list used to denote subquestions.
+\begin{plainenumerate}
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
+\end{plainenumerate}
 \end{solution}
 \end{exercise}
 
@@ -640,6 +665,8 @@ The line spacing of a marginnote is inherited from the line that is the text anc
 A numbered margin figure within and unnumbered AMS math environment triggers a spurious `label lost' warning message. Do not put margin figures inside equations, place them in the logical place (i.e. after the paragraph that first refers to them) and use the optional argument to move the figures as desired.
 \item
 Text coloured using \verb"\thinks" does not continue across a page break when embedded within a breakable box. The work-around is to add \verb"\color{colourThree}" into the source file at the point at which colour is lost (i.e.\ just after the page break). If the page breaks change and it no longer occurs within the thinks text then the extra change colour command will be harmless.
+\item
+The position of margin notes (and margin figures) can be incorrect when running latex rather than pdflatex. The advice is to use pdflatex whenever possible. If a postscript file is required then run pdflatex before running latex (the pdflatex run will write the correct offsets to the aux file, which latex will use in the subsequent run).
 \end{enumerate}
 
 \paragraph{To Do}
