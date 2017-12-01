@@ -97,7 +97,7 @@
 \raggedright
 \raggedbottom 
 \hyphenpenalty=10000
-\setlength{\mathindent}{24pt}
+\setlength{\mathindent}{20pt}
 \setlength{\leftmargin}{24pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus 0.1ex minus 0.1ex}
@@ -658,17 +658,17 @@
 \setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne\protect\rule{0pt}{3ex}(\alph*)~\else\protect\rule{0pt}{3ex}(\roman*)~\fi}}
 
 \setlist{topsep=0pt,itemsep=0pt,partopsep=0pt}
-\setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
+\setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.5em,labelwidth=!,leftmargin=*}
 \setlist[enumerate,1]{label=(\alph*)}
-\setlist[enumerate,2]{label=(\roman*)}
+\setlist[enumerate,2]{label=(\roman*),widest=iii}
 \setlist[description]{labelsep*=1em}
-\setlist[itemize]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
+\setlist[itemize]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.5em,labelwidth=!,leftmargin=*}
 \setlist[itemize,2]{label=$\circ$}
 \setlist[trivlist]{topsep=0pt,itemsep=0pt,partopsep=0pt}
 
 
 \newlist{plainenumerate}{enumerate}{2}
-\setlist[plainenumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.75em,labelwidth=!,leftmargin=*}
+\setlist[plainenumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.5em,labelwidth=!,leftmargin=*}
 \setlist[plainenumerate,1]{label=\arabic*., ref=\arabic*}
 \setlist[plainenumerate,2]{label=(\alph*)}
 
