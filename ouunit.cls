@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.17 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.18 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -293,11 +293,11 @@
 \stepcounter{section}\addtocounter{section}{-1}%to force numberwithin counters to reset
 }
 
-\titleformat{\section}{\defaultheadfont\huge\color{colourThree}}{\thesection}{1em}{\@ddheadern}
-\titleformat{name=\section,numberless}{\defaultheadfont\huge\color{colourThree}}{}{0pt}{\@ddheaderu}
-\titleformat{\subsection}{\defaultheadfont\LARGE\color{colourTwo}}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\defaultheadfont\Large\color{colourTwo}}{\thesubsubsection}{1em}{}
-\titleformat{\paragraph}{\defaultheadfont\large\color{colourTwo}}{\theparagraph}{1em}{}
+\titleformat{\section}{\filright\defaultheadfont\huge\color{colourThree}}{\thesection}{1em}{\@ddheadern}
+\titleformat{name=\section,numberless}{\filright\defaultheadfont\huge\color{colourThree}}{}{0pt}{\@ddheaderu}
+\titleformat{\subsection}{\filright\defaultheadfont\LARGE\color{colourTwo}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\filright\defaultheadfont\Large\color{colourTwo}}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}{\filright\defaultheadfont\large\color{colourTwo}}{\theparagraph}{1em}{}
 \titlespacing*{\section}{0pt}{2ex plus 1ex minus .2ex}{0.5ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{1.5ex plus 1ex minus .2ex}{0ex plus .2ex}
 \titlespacing*{\subsubsection}{0pt}{1ex plus 1ex minus .2ex}{0ex plus .2ex}

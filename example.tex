@@ -128,7 +128,7 @@ The preferred way to change the labels is to use the environment optional parame
 \item
 \lipsum[133]
 \end{enumerate}
-The most frequently used variant is to have numbered items (as above), so a style is set up for this, namely \verb”plainenumerate”. The advantage of using \verb”plainenumerate” rather than using the optional argument is to avoid confusion between \verb”enumerate” used for subeexercises etc.\ and a real enumerated list appearing in an equation. 
+The most frequently used variant is to have numbered items (as above), so a style is set up for this, namely \verb”plainenumerate”. The advantage of using \verb”plainenumerate” rather than using the optional argument is to avoid confusion between \verb”enumerate” used for subeexercises etc.\ and a real enumerated list appearing in an exercise. 
 \begin{plainenumerate}
 \item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
 \item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
@@ -628,27 +628,22 @@ Do the following steps.
 \end{proof}
 
 \section{Issues and workarounds}
-The following shows how to format subexercises that have displayed aligned equations.
-\begin{exercise}
-For each of the following homomorphisms, determine \(\mathrm{Im}(\phi)\) and state whether \(\phi\) is onto.
+
+The following is a list of known issues that have work-arounds.
+
+\begin{enumerate}[1.]
+\item
+To have aligned equations in a list (such as a part of an exercise) used the \verb”aligned” environment with the \verb”[t]” optional argument:
 \begin{enumerate}
-\item \(\begin{array}[t]{r@{\,}l}
+\item \(\begin{aligned}[t]
 \phi:(\mathbb{Z},+)&\longrightarrow (\mathbb{Z}_{12},+_{12})\\
   n&\longmapsto n\pmod{12}
-  \end{array}\)
-\item \(\begin{array}[t]{r@{\,}l}
+  \end{aligned}\)
+\item \(\begin{aligned}[t]
 \phi:(\mathbb{Z},+)&\longrightarrow (\mathbb{R}^*,\times)\\
   n&\longmapsto 2^n
-  \end{array}\)
+  \end{aligned}\)
 \end{enumerate}
-\begin{solution}
-To be added.
-\end{solution}
-\end{exercise}
-
-
-\paragraph{Issues}
-\begin{enumerate}
 \item
 The moving solutions (namely the exercise and activity solutions) use the verbatim package to do the moving, which means that \verb”\end{solution}” must appear on a line on its own. This is not such a great problem as the error message is very specific if an author breaks this rule.
 \item
@@ -667,10 +662,12 @@ A numbered margin figure within and unnumbered AMS math environment triggers a s
 Text coloured using \verb"\thinks" does not continue across a page break when embedded within a breakable box. The work-around is to add \verb"\color{colourThree}" into the source file at the point at which colour is lost (i.e.\ just after the page break). If the page breaks change and it no longer occurs within the thinks text then the extra change colour command will be harmless.
 \item
 The position of margin notes (and margin figures) can be incorrect when running latex rather than pdflatex. The advice is to use pdflatex whenever possible. If a postscript file is required then run pdflatex before running latex (the pdflatex run will write the correct offsets to the aux file, which latex will use in the subsequent run).
+\item
+The end of proof symbol disappears if the proof ends with a margin figure or a margin note. To stop this happening add something invisible after the margin figure, such as \verb”\phantom{a}”.
 \end{enumerate}
 
 \paragraph{To Do}
-\begin{enumerate}
+\begin{enumerate}[1.]
 \item
 Add mechanism for defining new icons (and a better error message if an icon is not defined.)
 \end{enumerate}
