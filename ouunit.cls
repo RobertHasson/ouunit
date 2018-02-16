@@ -87,6 +87,7 @@
 \RequirePackage{adjmulticol}% includes standard multicol style
 \RequirePackage{colortbl}
 \RequirePackage[totoc]{idxlayout}
+\RequirePackage{fullwidth}
 
 
 
@@ -574,6 +575,11 @@
 \AtEndEnvironment{table*}{\gdef\CT@arc@{\color{black}}}
 
 
+%widetables
+\newenvironment{widetable}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{table}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{table}\end{fullwidth}}
+\newenvironment{widetable*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{table*}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{table*}\end{fullwidth}}
+
+
 %Figures
 %define a float style for figure
 \newcommand{\fs@figures}{
@@ -603,7 +609,6 @@
 \newfloat{mediacontent*}{H}{lof}
 
 %widefigures
-\RequirePackage{fullwidth}
 \newenvironment{widefigure}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{figure}\end{fullwidth}}
 \newenvironment{widefigure*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure*}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{figure*}\end{fullwidth}}
 
