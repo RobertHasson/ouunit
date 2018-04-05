@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.18 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.19 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -17,10 +17,6 @@
 \newif\if@twocolsol
 \@twocolsolfalse
 
-%switch for simplified (no Tikz) output of boxes
-\newif\if@previewonly
-\@previewonlyfalse
-
 %switch to remove author and editor comments
 \newif\if@nocomments
 \@nocommentsfalse
@@ -33,7 +29,6 @@
 \DeclareOption{reduceda4}{\@reducedtrue}
 \DeclareOption{solutionsatend}{\@tendtrue}
 \DeclareOption{twocolumnsolutions}{\@twocolsoltrue}
-\DeclareOption{quickpreview}{\@previewonlytrue}
 \DeclareOption{nocomments}{\@nocommentstrue}
 \DeclareOption{standalone}{\@standalonetrue}
 
@@ -102,7 +97,7 @@
 \setlength{\leftmargin}{24pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus 0.1ex minus 0.1ex}
-\setlength{\topsep}{1ex  plus 0.1ex minus 0.1ex}%also for displayed eqn
+\setlength{\topsep}{0.5ex plus 0.05ex minus 0.05ex}%also for displayed eqn
 \setlength{\partopsep}{0ex}%also for displayed eqn
 \setlength{\itemsep}{0.5ex plus 0.05ex minus 0.05ex}
 \setlength{\jot}{0.5ex plus 0.05ex minus 0.05ex}% separation of equations in align
@@ -111,10 +106,10 @@
 %spacing around displayed math
 %could also adjust skips for \small and \footnotesize 
 \g@addto@macro\normalsize{%could be \appto
-\setlength{\abovedisplayskip}{1ex plus 0.1ex minus 0.1ex}%
-\setlength{\belowdisplayskip}{1ex plus 0.1ex minus 0.1ex}%
-\setlength{\abovedisplayshortskip}{1ex plus 0.1ex minus 0.1ex}%
-\setlength{\belowdisplayshortskip}{1ex plus 0.1ex minus 0.1ex}}
+\setlength{\abovedisplayskip}{0.5ex plus 0.05ex minus 0.05ex}%
+\setlength{\belowdisplayskip}{0.5ex plus 0.05ex minus 0.05ex}%
+\setlength{\abovedisplayshortskip}{0.5ex plus 0.05ex minus 0.05ex}%
+\setlength{\belowdisplayshortskip}{0.5ex plus 0.05ex minus 0.05ex}}
 
 %metadata
 \def\@faculty{Faculty of Science, Technology, Engineering and Mathematics}
@@ -211,22 +206,11 @@
 
 
 %  Boxes 
-% Define a Tikz background layer
-\pgfdeclarelayer{background}
-\pgfsetlayers{background,main}
 
 %set space surrounding frame
-\setlength{\OuterFrameSep}{2pt plus 2pt minus 2pt}
+\setlength{\OuterFrameSep}{\dimexpr 4mm+\medskipamount}
 
-\if@previewonly
-\newcommand{\roundedboxbottom}[3]{\colorbox{#1}{\hspace*{4mm}#3\hspace*{4mm}}}
-\else
-\newcommand{\roundedboxbottom}[3]{\tikz{\node[inner sep=4mm] (A) {#3};
-  \begin{pgfonlayer}{background}   
-  \fill[color=#1] (A.north west) -- (A.north east) [rounded corners=#2] -- 
-         (A.south east)  -- (A.south west)  [rounded corners=0mm] -- cycle;
-  \end{pgfonlayer}}}
-\fi
+\newcommand{\roundedboxbottom}[3]{\setbox0\vbox{#3}\tikz[overlay]{\path[fill=#1] (-4mm,{\ht0+4mm})  -- ++({\wd0+8mm},0) [rounded corners=#2]  -- ++(0,{-\ht0-8mm})  -- ++({-\wd0-8mm},0) [rounded corners=0mm] --  cycle;}\box0}
 
 \newenvironment{roundedbox}[1][colourFour]{% open (top or bottom) framed
   \def\FrameCommand{\roundedboxbottom{#1Tint}{4mm}}%
@@ -244,14 +228,9 @@
  
 \newenvironment{style4box}[1][]{\begin{roundedtitledbox}[colourFour]{#1}}{\end{roundedtitledbox}}
 
-\if@previewonly
-\newcommand{\semiopenbox}[2]{\fbox{\hspace*{4mm}#2\hspace*{4mm}}}
-\else
-\newcommand{\semiopenbox}[2]{\tikz{\node[inner sep=4mm] (A) {#2};
-  \begin{pgfonlayer}{background}   
-  \draw[color=#1] (A.north west) -- (A.north east) -- (A.south east)  -- (A.south west)  -- cycle;
-  \end{pgfonlayer}}}
-\fi
+\newcommand{\semiopenbox}[2]{\setbox0\vbox{#2}%
+\tikz[overlay]{\draw[color=#1] (-4mm,{\ht0+4mm})  -- ++({\wd0+8mm},0)  -- ++(0,{-\ht0-8mm})  -- ++({-\wd0-8mm},0) --  cycle;}\rule{0pt}{\ht0+1mm+\medskipamount}\box0}
+
 \newenvironment{colourframed}[1][colourTwo]{
   \def\FrameCommand{\semiopenbox{#1}}%
   \def\FirstFrameCommand{\semiopenbox{#1}}%
@@ -264,15 +243,8 @@
 \setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{colourframed}}
 
 
-\if@previewonly
-\newcommand{\leftrulebox}[2]{{\color{#1}\rule{2.5mm}{1in}}\hspace*{1.5mm}#2}
-\else
-\newcommand{\leftrulebox}[2]{\tikz{\node[inner sep=4mm] (A) {#2};
-  \path (A.south west) ++(1.5mm,0) coordinate (B);
-  \begin{pgfonlayer}{background}
-  \draw[line width=2.5mm,color=#1] (A.north west) ++ (1.5mm,0)  -- (B);
-  \end{pgfonlayer}}}
-\fi
+\newcommand{\leftrulebox}[2]{\setbox0\vbox{#2}{\color{#1}\rule[-4mm]{2.5mm}{\ht0+8mm}}\hspace*{1.5mm}\box0}
+
 \newenvironment{leftrule}[1][colourTwo]{
   \def\FrameCommand{\leftrulebox{#1}}%
   \def\FirstFrameCommand{\leftrulebox{#1}}%
@@ -331,7 +303,7 @@
 \fancyhead[R]{\runningheadstyle\rightmark}
 \fancyfoot[R]{\runningheadstyle\thepage}
 \ifdraft
-\fancyfoot[L]{\small Draft \@draftno\quad Last \LaTeX ed  \currenttime\ \today}
+\fancyfoot[L]{\raisebox{-2ex}{\small Draft \@draftno\quad Last \LaTeX ed  \currenttime\ \today}}
 \fi
 \else
 \fancyhfoffset[LE]{\marginparsep+\marginparwidth}
@@ -340,11 +312,14 @@
 \fancyhead[RO]{\runningheadstyle\rightmark}
 \fancyfoot[LE,RO]{\runningheadstyle\thepage}
 \ifdraft
-\fancyfoot[LO,RE]{\small Draft \@draftno\quad Last \LaTeX ed  \currenttime\ \today}
+\fancyfoot[LO,RE]{\raisebox{-2ex}{\small Draft \@draftno\quad Last \LaTeX ed  \currenttime\ \today}}
 \fi
 \fi
-\renewcommand{\headrulewidth}{0pt}
-\markboth{\@title}{\rightmark}
+\renewcommand{\headrulewidth}{0pt}%
+\markboth{\@title}{\rightmark}%
+\setlength{\voffset}{10pt}%
+\setlength{\headsep}{15pt}%
+\setlength{\footskip}{25pt}%
 \setlength{\headheight}{20pt}}
 \pagestyle{plain}
 
@@ -408,15 +383,8 @@
 \let\thefigure\thesolnfigure}
 
 %marker box for two column solutions
-\newcommand{\s@lutioncolumnbox}[1]{\tikz{\node (A) {#1};
-  \begin{pgfonlayer}{background}
-  \path (A.south west) ++({0.5\textwidth+0.5\marginparwidth},0) coordinate (B);
-  \draw[line width=\columnsep,color=blue!5] (A.north west) ++ ({0.5\textwidth+0.5\marginparwidth},0)  -- (B);
-  \end{pgfonlayer}}}
+\newcommand{\s@lutioncolumnbox}[1]{\setbox0\vbox{#1}\tikz[overlay]{\draw[line width=\columnsep,color=blue!5] ({0.5\textwidth+0.5\marginparwidth},0) -- ++(0,{\ht0});}\box0}
 
-\if@previewonly
-\newenvironment{s@lutioncolumn}{}{}
-\else
 \newenvironment{s@lutioncolumn}{%
   \def\FrameCommand{\s@lutioncolumnbox}%
   \def\FirstFrameCommand{\s@lutioncolumnbox}%
@@ -424,7 +392,6 @@
   \def\LastFrameCommand{\s@lutioncolumnbox}%
   \MakeFramed{\setlength{\hsize}{0.5\textwidth+0.5\marginparwidth-0.5\columnsep}\FrameRestore}%
   }{\endMakeFramed}
-\fi
 
 %define the format of solutions in place
 \if@twocolsol
@@ -449,7 +416,7 @@
 \section*{\exercisesolutionhead}\end{adjmulticols}\else\section*{\exercisesolutionhead}\fi
 \if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
-\fi
+\raggedcolumns\fi
 \solutions@tup
 \input{\jobname.ex}
 \if@twocolsol\end{adjmulticols}\fi
@@ -465,7 +432,7 @@
 \section*{\activitysolutionhead}\end{adjmulticols}\else\section*{\activitysolutionhead}\fi
 \if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
-\fi
+\raggedcolumns\fi%
 \solutions@tup
 \input{\jobname.act}
 \if@twocolsol\end{adjmulticols}\fi
@@ -487,7 +454,7 @@
 %Exercises
 \newif\if@ndrule
 \@ndruletrue
-\newcommand{\noendrule}{\@ndrulefalse}
+\newcommand{\noendrule}{\@bsphack\@ndrulefalse\@esphack}
 
 \newcounter{exercise}
 \newcommand{\exercisename}{Exercise}
@@ -508,13 +475,7 @@
 \newenvironment{activitystyle}[2]{\par\addvspace{\medskipamount}%
 \mbox{\fboxsep 0pt\colorbox{colourThreeTint}{\parbox{\linewidth}{\rule[-0.5\baselineskip]{0pt}{1.7\baselineskip}\superitemlabelfont\color{colourThree}%
 \twoparttitle{~#1}{\quad #2}}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\par\addvspace{\medskipamount}\vskip-\medskipamount\if@ndrule\nopagebreak\@afterheading\par\tikz{\begin{pgfonlayer}{background}   
-  \fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- 
-         ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] -- cycle;
-  \end{pgfonlayer}}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
-
-
-
+}{\par\addvspace{\medskipamount}\vskip-\medskipamount\if@ndrule\nopagebreak\@afterheading\par\tikz{\fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] --cycle;}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
 
 
 \newenvironment{activity}[1][]{\refstepcounter{activity}\@activitytrue
@@ -660,7 +621,7 @@
 
 %lists
 \renewlist{enumerate*}{enumerate*}{2}
-\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,label={\ifnum\@listdepth=\@ne\protect\rule{0pt}{3ex}(\alph*)~\else\protect\rule{0pt}{3ex}(\roman*)~\fi}}
+\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,afterlabel=~\rule{0pt}{3ex}~,label={\ifnum\@listdepth=\@ne(\alph*)\else(\roman*)\fi},}
 
 \setlist{topsep=0pt,itemsep=0pt,partopsep=0pt}
 \setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.5em,labelwidth=!,leftmargin=*}
@@ -669,7 +630,7 @@
 \setlist[description]{labelsep*=1em}
 \setlist[itemize]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.5em,labelwidth=!,leftmargin=*}
 \setlist[itemize,2]{label=$\circ$}
-\setlist[trivlist]{topsep=0pt,itemsep=0pt,partopsep=0pt}
+\setlist[trivlist]{itemsep=0pt,partopsep=0pt}%trivlist is used to format \[\]
 
 
 \newlist{plainenumerate}{enumerate}{2}
@@ -714,6 +675,7 @@
 \renewcommand{\cftsecdotsep}{\cftnodots}
 \renewcommand{\cftsubsecdotsep}{\cftnodots}
 \renewcommand{\cftsubsubsecdotsep}{\cftnodots}
+\renewcommand{\cfttoctitlefont}{\defaultheadfont\defaultheadfont\huge\color{colourThree}}
 
 %fix AMS math required?
 %\RequirePackage{mathtools}

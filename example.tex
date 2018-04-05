@@ -4,7 +4,6 @@
 % solutionsatend = move exercise and activity solutions to location of \printexercisesolutions
 % twocolumnsolutions = typeset \printexercisesolutions and \printactivitysolutions in two columns
 % reduceda4 = change paper size to reduced a4
-% previewonly = produce quick preview representation for yap (pk fonts)
 % nocomments = remove author and editor comments from output
 % standalone = produce standalone document (e.g. add copyright to first page)
 
@@ -74,12 +73,14 @@ E=mc^2\marginnote{Hello}
 \lipsum[133]
 \marginnote{Hello}
 \end{highlight}
-\begin{align*}
+\[%use aligned within \[\] instead of align* here as the latter leaves a gap
+\begin{aligned}
 y &=x\\
 &=1\marginnote{alongside the 1.}\\
 &=2\\
 &=3
-\end{align*}
+\end{aligned}
+\]
 Note the large space above the aligned equations, when they immediately follow a box.
 \begin{highlight}[Title]
 \lipsum[133]
@@ -92,12 +93,15 @@ The generic box styles exist, but authors should use context names (such as `hig
 
 \lipsum[1]
 \end{style1box}
+\lipsum[133]
 \begin{style2box}[Box title style2box]
 \lipsum[2]
 \end{style2box}
+\lipsum[133]
 \begin{style3box}[Box title style3box]
 \lipsum[3]
 \end{style3box}
+\lipsum[133]
 \begin{style4box}[Box title style4box]
 \lipsum[4]
 \end{style4box}
@@ -290,6 +294,8 @@ Testing reference to exercise, namely Exercise~\ref{exe-fred}.
 \lipsum[133]\icons{web}{}{}
 \begin{solution}
 \lipsum[133]
+
+\lipsum[1]
 \end{solution}
 \end{exercise}
 That was Exercise~\ref{exe-fred}, which contained equation~\ref{eqn-sol1}.
@@ -491,10 +497,9 @@ Test for wide figure.
 
 \lipsum[134]
 \begin{marginfigure*}
-\fboxsep 0pt%temporary fix for figurebox
-\begin{outikzfig}[figurebox]{margin}
+%\begin{outikzfig}[figurebox]{margin}
 \includegraphics[width=3cm]{icon}
-\end{outikzfig}
+%\end{outikzfig}
 \end{marginfigure*}
 \marginnote{Marginfigure* test}[4ex]
 
@@ -533,8 +538,7 @@ Two with figure.
 \item
 Three
 \end{enumerate}
-
-\lipsum[1]
+\lipsum[133]
 Test for marginfigure optional placement.
 \begin{marginfigure}[-1cm]%optional argument moves margin figure up/down
 \caption{Figure test \label{fig-ex-test}}
@@ -645,7 +649,7 @@ To have aligned equations in a list (such as a part of an exercise) used the \ve
   \end{aligned}\)
 \end{enumerate}
 \item
-The moving solutions (namely the exercise and activity solutions) use the verbatim package to do the moving, which means that \verb”\end{solution}” must appear on a line on its own. This is not such a great problem as the error message is very specific if an author breaks this rule.
+The moving solutions (namely the exercise and activity solutions) use the verbatim package to do the moving, which means that \verb”\begin{solution}” and \verb”\end{solution}” must appear on a line on their own. This is not such a great problem as the error message is very specific if an author breaks this rule.
 \item
 Any commands in a figure caption need to be robust. This is because they are written to a separate file to allow the possibility of producing a list of figures.
 \item
