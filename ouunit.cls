@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.19 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.20 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -97,8 +97,8 @@
 \setlength{\leftmargin}{24pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus 0.1ex minus 0.1ex}
-\setlength{\topsep}{0.5ex plus 0.05ex minus 0.05ex}%also for displayed eqn
-\setlength{\partopsep}{0ex}%also for displayed eqn
+\setlength{\topsep}{0.5ex plus 0.05ex minus 0.05ex}
+\setlength{\partopsep}{0ex}
 \setlength{\itemsep}{0.5ex plus 0.05ex minus 0.05ex}
 \setlength{\jot}{0.5ex plus 0.05ex minus 0.05ex}% separation of equations in align
 
@@ -122,10 +122,11 @@
 \DeclareRobustCommand\@moduletitle{\@latex@error{No \noexpand\moduletitle specified}\@ehc}
 
 \DeclareRobustCommand\@unitid{}
-\DeclareRobustCommand{\unitid}[1]{\DeclareRobustCommand\@unitid{#1}\DeclareRobustCommand\@title{Unit \@unitid\quad \@unittitle}}
+\DeclareRobustCommand{\unitid}[1]{\gdef\@unitid{#1}\gdef\@title{Unit \@unitid\quad \@unittitle}}
 
+\global\let\@title\@empty
 \global\let\@unittitle\@empty
-\DeclareRobustCommand{\unittitle}[1]{\DeclareRobustCommand\@unittitle{#1}\DeclareRobustCommand\@title{Unit \@unitid\quad \@unittitle}}
+\DeclareRobustCommand{\unittitle}[1]{\gdef\@unittitle{#1}\gdef\@title{Unit \@unitid\quad \@unittitle}}%global defs are needed for even header in books
 
 \global\let\@draftno\@empty
 \DeclareRobustCommand{\draftno}[1]{\DeclareRobustCommand\@draftno{#1}}
@@ -208,7 +209,7 @@
 %  Boxes 
 
 %set space surrounding frame
-\setlength{\OuterFrameSep}{\dimexpr 4mm+\medskipamount}
+\setlength{\OuterFrameSep}{\dimexpr 4.5mm+\medskipamount}
 
 \newcommand{\roundedboxbottom}[3]{\setbox0\vbox{#3}\tikz[overlay]{\path[fill=#1] (-4mm,{\ht0+4mm})  -- ++({\wd0+8mm},0) [rounded corners=#2]  -- ++(0,{-\ht0-8mm})  -- ++({-\wd0-8mm},0) [rounded corners=0mm] --  cycle;}\box0}
 
@@ -630,7 +631,7 @@
 \setlist[description]{labelsep*=1em}
 \setlist[itemize]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.5em,labelwidth=!,leftmargin=*}
 \setlist[itemize,2]{label=$\circ$}
-\setlist[trivlist]{itemsep=0pt,partopsep=0pt}%trivlist is used to format \[\]
+\setlist[trivlist]{topsep={0.5ex plus 0.05ex minus 0.05ex},itemsep=0pt,partopsep=0pt}%trivlist is used to format \[\]
 
 
 \newlist{plainenumerate}{enumerate}{2}
