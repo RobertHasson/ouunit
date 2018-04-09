@@ -209,9 +209,9 @@
 %  Boxes 
 
 %set space surrounding frame
-\setlength{\OuterFrameSep}{\dimexpr 4.5mm+\medskipamount}
+\setlength{\OuterFrameSep}{\medskipamount}
 
-\newcommand{\roundedboxbottom}[3]{\setbox0\vbox{#3}\tikz[overlay]{\path[fill=#1] (-4mm,{\ht0+4mm})  -- ++({\wd0+8mm},0) [rounded corners=#2]  -- ++(0,{-\ht0-8mm})  -- ++({-\wd0-8mm},0) [rounded corners=0mm] --  cycle;}\box0}
+\newcommand{\roundedboxbottom}[3]{\setbox0\vbox{#3}\tikz[overlay]{\path[fill=#1] (-4mm,{\ht0+4mm})  -- ++({\wd0+8mm},0) [rounded corners=#2]  -- ++(0,{-\ht0-8mm})  -- ++({-\wd0-8mm},0) [rounded corners=0mm] --  cycle;}\rule[-\dp0-4mm]{0pt}{\dp0+\ht0+8mm}\box0}
 
 \newenvironment{roundedbox}[1][colourFour]{% open (top or bottom) framed
   \def\FrameCommand{\roundedboxbottom{#1Tint}{4mm}}%
@@ -683,6 +683,9 @@
 
 %define \require, so that it can be used for mathJaX extras
 \DeclareRobustCommand{\require}[1]{}
+
+%headings for marginnotes
+\newcommand{\marginhead}[1]{\textbf{#1}\newline}
 
 %comments
 \if@nocomments

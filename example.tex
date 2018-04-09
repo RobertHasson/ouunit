@@ -665,9 +665,9 @@ A numbered margin figure within and unnumbered AMS math environment triggers a s
 \item
 Text coloured using \verb"\thinks" does not continue across a page break when embedded within a breakable box. The work-around is to add \verb"\color{colourThree}" into the source file at the point at which colour is lost (i.e.\ just after the page break). If the page breaks change and it no longer occurs within the thinks text then the extra change colour command will be harmless.
 \item
-The position of margin notes (and margin figures) can be incorrect when running latex rather than pdflatex. The advice is to use pdflatex whenever possible. If a postscript file is required then run pdflatex before running latex (the pdflatex run will write the correct offsets to the aux file, which latex will use in the subsequent run).
-\item
 The end of proof symbol disappears if the proof ends with a margin figure or a margin note. To stop this happening add something invisible after the margin figure, such as \verb”\phantom{a}”.
+\item
+Extra whitespace can be added between a margin figure and its caption if the figure is oversized. This only happens when the caption command follows the includegraphics command ---- reversing the commands removes the extra whitespace from the output. A better solution is to resize the graphic so that it fits within the margin. (Rather paradoxically the oversized graphic will cause latex to issue an `undersized hbox badness 10000' error message as the extra blank line produced only contains the caption command that does not produce any output, which is what generates the warning message.)
 \end{enumerate}
 
 \paragraph{To Do}
