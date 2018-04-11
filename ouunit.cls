@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.20 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.21 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -154,13 +154,18 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
 \fi
 
-\DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_cmyk_masterlogo_29mm}}
+%Draft logo placeholder
+%redefine \oulogo to use official logo
+%e.g. \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_cmyk_masterlogo_29mm}}
+%or
+%e.g. \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{OU_Master_Logo_Blue_CMYK_29mm}}
+\DeclareRobustCommand{\oulogo}{\tikz{\path[fill=colourThree] (0.1,1) [rounded corners=2mm] -- ++(0,1.4) -- ++(2.05,0) [rounded corners=0mm] -- ++(0,-1.4) arc (0:-180:1.025) --cycle;\path[fill=white] (0.9,1.65) circle (0.45);\draw (1.25,1.1) node[white,rotate=45] {\Huge \sf Draft};}}
 
 
 \DeclareRobustCommand{\maketitle}{
 \begin{adjmulticols}{1}{-1cm}{-1cm}
 \hfuzz=100pt%do not report overfull hbox for title header
-\begin{tabular}{l@{\qquad}p{13cm}}
+\begin{tabular}{@{}p{35mm}@{\qquad}p{13cm}}
 \vtop{\null\hbox{\oulogo}}
 &
 \vspace*{0mm}\raggedright
