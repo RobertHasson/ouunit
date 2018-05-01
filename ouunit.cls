@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.21 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.22 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -226,7 +226,7 @@
   \MakeFramed {\advance\hsize-8mm\FrameRestore}%
   }{\endMakeFramed}
 
-\newenvironment{roundedtitledbox}[2][colourFour]{\begin{roundedbox}[#1]\setbox0\hbox{\mbox{\titledboxheadfont\color{#1} #2}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{roundedbox}}
+\newenvironment{roundedtitledbox}[2][colourFour]{\begin{roundedbox}[#1]\setbox0\hbox{\mbox{\titledboxheadfont\color{#1} #2}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\end{roundedbox}}
 
 \newenvironment{style1box}[1][]{\begin{roundedtitledbox}[colourThree]{#1}}{\end{roundedtitledbox}}
 
@@ -235,7 +235,7 @@
 \newenvironment{style4box}[1][]{\begin{roundedtitledbox}[colourFour]{#1}}{\end{roundedtitledbox}}
 
 \newcommand{\semiopenbox}[2]{\setbox0\vbox{#2}%
-\tikz[overlay]{\draw[color=#1] (-4mm,{\ht0+4mm})  -- ++({\wd0+8mm},0)  -- ++(0,{-\ht0-8mm})  -- ++({-\wd0-8mm},0) --  cycle;}\rule{0pt}{\ht0+1mm+\medskipamount}\box0}
+\tikz[overlay]{\draw[color=#1] (-4mm,{\ht0+4mm})  -- ++({\wd0+8mm},0)  -- ++(0,{-\ht0-8mm})  -- ++({-\wd0-8mm},0) --  cycle;}\rule[-\dp0-4mm]{0pt}{\dp0+\ht0+8mm}\box0}
 
 \newenvironment{colourframed}[1][colourTwo]{
   \def\FrameCommand{\semiopenbox{#1}}%
@@ -246,10 +246,9 @@
   }{\endMakeFramed}
 
 \newenvironment{style3box}[1][]{\begin{colourframed}
-\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{colourframed}}
+\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\end{colourframed}}
 
-
-\newcommand{\leftrulebox}[2]{\setbox0\vbox{#2}{\color{#1}\rule[-4mm]{2.5mm}{\ht0+8mm}}\hspace*{1.5mm}\box0}
+\newcommand{\leftrulebox}[2]{\setbox0\vbox{#2}{\color{#1}\rule[-\dp0-4mm]{2.5mm}{\dp0+\ht0+8mm}}\hspace*{1.5mm}\box0}
 
 \newenvironment{leftrule}[1][colourTwo]{
   \def\FrameCommand{\leftrulebox{#1}}%
@@ -261,7 +260,7 @@
 
 %online style for style4box
 \newenvironment{onlinestyle4box}[1][]{\begin{leftrule}
-\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\par\unskip\end{leftrule}}
+\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\end{leftrule}}
 
 %section titles
 %header for numbered sections
@@ -420,12 +419,12 @@
       \immediate\closeout\exercises@write
 \newpage\addcontentsline{toc}{section}{\exercisesolutionhead}\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
 \section*{\exercisesolutionhead}\end{adjmulticols}\else\section*{\exercisesolutionhead}\fi
-\if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
+\if@twocolsol\begin{adjmulticols*}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \raggedcolumns\fi
 \solutions@tup
 \input{\jobname.ex}
-\if@twocolsol\end{adjmulticols}\fi
+\if@twocolsol\end{adjmulticols*}\fi
 \fi}
 
 
@@ -436,12 +435,12 @@
       \immediate\closeout\activities@write
 \newpage\addcontentsline{toc}{section}{\activitysolutionhead}\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
 \section*{\activitysolutionhead}\end{adjmulticols}\else\section*{\activitysolutionhead}\fi
-\if@twocolsol\begin{adjmulticols}{2}{0pt}{-\marginparwidth}%
+\if@twocolsol\begin{adjmulticols*}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \raggedcolumns\fi%
 \solutions@tup
 \input{\jobname.act}
-\if@twocolsol\end{adjmulticols}\fi
+\if@twocolsol\end{adjmulticols*}\fi
 \fi}
 
 %switch to solutions in place
@@ -467,7 +466,7 @@
 \newenvironment{exercisestyle}[2]{\par\addvspace{\medskipamount}%
 {\superitemlabelfont\color{colourTwo}\medskip
 \hrule\nopagebreak
-\rule[-.1\baselineskip]{0pt}{1.1\baselineskip}\twoparttitle{#1}{\quad#2}}%
+\rule[-.1\baselineskip]{0pt}{1.1\baselineskip}\twoparttitle{#1\quad}{#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
 }{\par\addvspace{\medskipamount}\if@ndrule\nopagebreak\@afterheading\par
   {\color{colourTwo}\hrule}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
@@ -479,9 +478,9 @@
 \newcounter{activity}
 \newcommand{\activityname}{Activity}
 \newenvironment{activitystyle}[2]{\par\addvspace{\medskipamount}%
-\mbox{\fboxsep 0pt\colorbox{colourThreeTint}{\parbox{\linewidth}{\rule[-0.5\baselineskip]{0pt}{1.7\baselineskip}\superitemlabelfont\color{colourThree}%
-\twoparttitle{~#1}{\quad #2}}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\par\addvspace{\medskipamount}\vskip-\medskipamount\if@ndrule\nopagebreak\@afterheading\par\tikz{\fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] --cycle;}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
+\mbox{\fboxsep 0pt\colorbox{colourThreeTint}{\hspace*{0.5em}\setbox0\vbox{\parbox{\dimexpr \linewidth-1em}{\superitemlabelfont\color{colourThree}%
+\twoparttitle{#1\quad}{ #2}}}\rule[-\dp0-1ex]{0pt}{\dp0+\ht0+3ex}\box0}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
+}{\par\if@ndrule\nopagebreak\@afterheading\par\tikz{\fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] --cycle;}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
 
 
 \newenvironment{activity}[1][]{\refstepcounter{activity}\@activitytrue
@@ -581,8 +580,8 @@
 
 %marginfigures
 \newlength{\rhfight}
-\NewEnviron{marginfigure}[1][]{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\addtocounter{figure}{-1}\marginnote{\rhtmp}[\dimexpr #1-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
-\NewEnviron{marginfigure*}[1][]{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr #1-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}{}
+\NewEnviron{marginfigure}[1][]{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure}\BODY\end{figure}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\addtocounter{figure}{-1}\marginnote{\rhtmp}[\dimexpr #1-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}[]
+\NewEnviron{marginfigure*}[1][]{\def\rhtmp{\begin{minipage}{\marginparwidth}\begin{figure*}\BODY\end{figure*}\end{minipage}}\settototalheight{\rhfight}{\rhtmp}\marginnote{\rhtmp}[\dimexpr #1-\rhfight+\intextsep-2\topsep]\let\rhtmp\relax}[]
 
 %extra attributes for environments
 \newcommand{\attrib}[1]{}
@@ -623,11 +622,44 @@
 \fi
 
 %thinks text
-\newcommand{\thinks}[1]{\tikz{\path[fill=colourThree!20] (0,0) circle (0.15 and 0.1) (0.1,-0.15) circle (0.08 and 0.04) (0.2,-0.22) circle (0.06 and 0.03);}~{\color{colourThree}#1}~\tikz{\path[fill=colourThree!20] (0,0) circle (0.15 and 0.1) (-0.1,-0.15) circle (0.08 and 0.04) (-0.2,-0.22) circle (0.06 and 0.03);}}
+\newcommand{\thinks}[1]{\begin{tikzpicture}[draw=colourThree,line width=0.2]
+\draw[fill=colourThree!40] (0.41,0.025) circle (0.011 and 0.013);
+\draw[fill=colourThree!40] (0.365,0.037)  --  ++(0,0) [y={(0.2,0.8)}] circle  (0.015 and 0.022);
+\draw[fill=colourThree!40] (0.313,0.068)  --  ++(0,0) [y={(0.3,0.7)}] circle  (0.024 and 0.03);
+\draw[fill=colourThree!40] (0.27,0.12) .. controls +(0.09,-0.02) and +(0.01,0) .. (0.31,0.175) 
+.. controls +(0.07,0.02) and +(0.01,0.01) .. (0.3,0.242)
+.. controls +(0.03,0.05) and +(0.02,0.02) .. (0.23,0.29)
+.. controls +(-0.05,0.07) and +(0.0,0.02) .. (0.127,0.295)
+.. controls +(-0.045,0.045) and +(-0.01,0.02) .. (0.05,0.265)
+.. controls +(-0.05,0.015 ) and +(-0.06,0.01) .. (0.04,0.195)
+.. controls +(-0.045,-0.015) and +(-0.065,0.01) .. (0.052,0.122)
+.. controls +(-0.015,-0.04) and +(-0.04,-0.04) .. (0.125,0.095)
+.. controls +(0.015,-0.045) and +(-0.01,-0.04) .. (0.2,0.1)
+.. controls +(0.045,-0.045) and +(0.01,-0.03) .. (0.27,0.12)
+;
+\end{tikzpicture}
+{\color{colourThree}#1}
+\begin{tikzpicture}[draw=colourThree,line width=0.2,xscale=-1]
+\draw[fill=colourThree!40] (0.41,0.025) circle (0.011 and 0.013);
+\draw[fill=colourThree!40] (0.365,0.037)  --  ++(0,0) [y={(0.2,0.8)}] circle  (0.015 and 0.022);
+\draw[fill=colourThree!40] (0.313,0.068)  --  ++(0,0) [y={(0.3,0.7)}] circle  (0.024 and 0.03);
+\draw[fill=colourThree!40] (0.27,0.12) .. controls +(0.09,-0.02) and +(0.01,0) .. (0.31,0.175) 
+.. controls +(0.07,0.02) and +(0.01,0.01) .. (0.3,0.242)
+.. controls +(0.03,0.05) and +(0.02,0.02) .. (0.23,0.29)
+.. controls +(-0.05,0.07) and +(0.0,0.02) .. (0.127,0.295)
+.. controls +(-0.045,0.045) and +(-0.01,0.02) .. (0.05,0.265)
+.. controls +(-0.05,0.015 ) and +(-0.06,0.01) .. (0.04,0.195)
+.. controls +(-0.045,-0.015) and +(-0.065,0.01) .. (0.052,0.122)
+.. controls +(-0.015,-0.04) and +(-0.04,-0.04) .. (0.125,0.095)
+.. controls +(0.015,-0.045) and +(-0.01,-0.04) .. (0.2,0.1)
+.. controls +(0.045,-0.045) and +(0.01,-0.03) .. (0.27,0.12)
+;
+\end{tikzpicture}
+}
 
 %lists
 \renewlist{enumerate*}{enumerate*}{2}
-\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,afterlabel=~\rule{0pt}{3ex}~,label={\ifnum\@listdepth=\@ne(\alph*)\else(\roman*)\fi},}
+\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,afterlabel=~\rule[-2ex]{0pt}{4ex}~,label={\ifnum\@listdepth=\@ne(\alph*)\else(\roman*)\fi},}
 
 \setlist{topsep=0pt,itemsep=0pt,partopsep=0pt}
 \setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.5em,labelwidth=!,leftmargin=*}
@@ -690,7 +722,7 @@
 \DeclareRobustCommand{\require}[1]{}
 
 %headings for marginnotes
-\newcommand{\marginhead}[1]{\textbf{#1}\newline}
+\newcommand{\marginhead}[1]{{\defaultheadfont #1}\rule[-\abovecaptionskip]{0pt}{0pt}\newline}
 
 %comments
 \if@nocomments

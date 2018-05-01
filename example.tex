@@ -117,6 +117,13 @@ Titled box containing just a list.
 \item part 3.
 \end{enumerate}
 \end{style4box}
+\lipsum[133]
+\begin{style2box}[Figure within a Box]
+\begin{figure}
+\caption{Test caption}
+\includegraphics[width=4cm]{test}
+\end{figure}
+\end{style2box}
 \section{Lists}
 Default list is numbered (a), (b), (c), \ldots
 \begin{enumerate}
@@ -199,6 +206,7 @@ The most frequently used variant is to have numbered items (as above), so a styl
 Now try quote environment
 \begin{quote}
 \lipsum[133]
+\sourcereference{adapted from Cicero, \itemrights{unknown}}
 \end{quote}
 
 Now we try an inline list
@@ -391,7 +399,7 @@ Sometimes a solution needs to include an enumerated list, which is distinct from
 \end{solution}
 \end{example}
 \lipsum[133]
-\begin{activity}[Using activities]
+\begin{activity}[Using activities]\noendrule
 \lipsum[133]
 
 Note the use of \verb”\noendrule” to suppress the rule between activities.
@@ -399,9 +407,14 @@ Note the use of \verb”\noendrule” to suppress the rule between activities.
 \begin{solution}
 \lipsum[133]
 \end{solution}
-\noendrule
 \end{activity}
-\begin{activity}[Another activity\icons{web}{}{}]
+\begin{activity}[Another activity\icons{web}{}{}]\noendrule
+\lipsum[133]
+\begin{solution}
+\lipsum[133]
+\end{solution}
+\end{activity}
+\begin{activity}[Another activity with a very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very long title]
 \lipsum[133]
 \begin{solution}
 \lipsum[133]
@@ -463,22 +476,11 @@ Plain figure without caption
 
 Figure with caption:
 \begin{figure}
-\caption{Figure test using Tikz}
-\label{fig-test-tikz}
-\begin{tikzpicture}
-\draw[axis] (-0.5,0) -- (4,0) node[xlab]{$x$};
-\draw[axis] (0,-0.5) -- (0,4) node[ylab]{$y$};
-\draw[red,domain={0:3.5}] plot (\x,{(\x)^2/4}) node[black,right] {$y=x^2$};
-\end{tikzpicture}
+\caption{Figure test using includegraphics\label{fig-test-includegraphics}. This figure has an exceedingly long caption so that the justification can be checked. Testing Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.}\label{fig-test-tikz}
+\includegraphics[width=4cm]{test}
 \end{figure}
 
 This is a reference to Figure~\ref{fig-test-tikz}.
-
-\begin{figure}
-\caption{Figure test using includegraphics\label{fig-test-includegraphics}. This figure has an exceedingly long caption so that the justification can be checked. Testing Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.}
-\includegraphics[width=4cm]{test}
-\end{figure}
-This is a reference to Figure~\ref{fig-test-includegraphics}.
 
 Test for wide figure.
 
@@ -630,6 +632,8 @@ Do the following steps.
 \item bar
 \end{enumerate}
 \end{proof}
+
+A second voice is available to add comments to show what you are thinking. \thinks{Example thought bubble}.
 
 \section{Issues and workarounds}
 
