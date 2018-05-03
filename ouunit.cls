@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.22 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.23 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -603,13 +603,17 @@
 
 
 %icons (use text for drafting -- for now)
-\newcommand{\icon@@symbol}{}
-\newcommand{\icon@calc@symbol}{\tikz{\draw (0,0) node[draw] {\textsc{CALC}};}\,}
-\newcommand{\icon@web@symbol}{\tikz{\draw (0,0) node[draw] {\textsc{WEB}};}\,}
-\newcommand{\icon@disc@symbol}{\tikz{\draw (0,0) node[draw] {\textsc{DISC}};}\,}
+\newcommand{\newicon}[2]{\expandafter\gdef\csname icon@#1@symbol\endcsname{#2\,}}
+
+\newcommand{\icon@@symbol}{}%no comma space
+\newicon{calc}{\tikz{\draw (0,0) node[draw] {\textsc{CALC}};}}
+\newicon{web}{\tikz{\draw (0,0) node[draw] {\textsc{WEB}};}}
+\newicon{disc}{\tikz{\draw (0,0) node[draw] {\textsc{DISC}};}}
+%example of using graphical icon
+%\newicon{calc}{\includegraphics{calculator_cmyk_32}}
 %attach up to three icons
 %flush right on even pages (\if@tempswa set by marginnote)
-\newcommand{\icons}[3]{\marginnote{\if@tempswa\relax\else\hfill\fi\@nameuse{icon@#1@symbol}\@nameuse{icon@#2@symbol}\@nameuse{icon@#3@symbol}}}
+\newcommand{\icons}[3]{\begin{marginfigure*}\if@tempswa\relax\else\hfill\fi\@nameuse{icon@#1@symbol}\@nameuse{icon@#2@symbol}\@nameuse{icon@#3@symbol}\end{marginfigure*}}
 
 %glossary --- define when needed in book style
 %\usepackage[toc,nogroupskip]{glossaries}
