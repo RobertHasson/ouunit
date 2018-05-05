@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.23 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.24 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -155,10 +155,10 @@
 \fi
 
 %Draft logo placeholder
-%redefine \oulogo to use official logo
-%e.g. \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_cmyk_masterlogo_29mm}}
+%redefine \oulogo to use official logo, e.g. 
+%\DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_cmyk_masterlogo_29mm}}
 %or
-%e.g. \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{OU_Master_Logo_Blue_CMYK_29mm}}
+% \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{OU_Master_Logo_Blue_CMYK_29mm}}
 \DeclareRobustCommand{\oulogo}{\tikz{\path[fill=colourThree] (0.1,1) [rounded corners=2mm] -- ++(0,1.4) -- ++(2.05,0) [rounded corners=0mm] -- ++(0,-1.4) arc (0:-180:1.025) --cycle;\path[fill=white] (0.9,1.65) circle (0.45);\draw (1.25,1.1) node[white,rotate=45] {\Huge \sf Draft};}}
 
 
@@ -477,9 +477,8 @@
 %Activities
 \newcounter{activity}
 \newcommand{\activityname}{Activity}
-\newenvironment{activitystyle}[2]{\par\addvspace{\medskipamount}%
-\mbox{\fboxsep 0pt\colorbox{colourThreeTint}{\hspace*{0.5em}\setbox0\vbox{\parbox{\dimexpr \linewidth-1em}{\superitemlabelfont\color{colourThree}%
-\twoparttitle{#1\quad}{ #2}}}\rule[-\dp0-1ex]{0pt}{\dp0+\ht0+3ex}\box0}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
+\newenvironment{activitystyle}[2]{\pagebreak[1]\par\addvspace{\medskipamount}%
+\fboxsep 0.5em\colorbox{colourThreeTint}{\strut\parbox{\dimexpr \linewidth-2\fboxsep}{\superitemlabelfont\color{colourThree}\twoparttitle{#1\quad}{#2}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
 }{\par\if@ndrule\nopagebreak\@afterheading\par\tikz{\fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] --cycle;}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
 
 
