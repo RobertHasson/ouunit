@@ -463,13 +463,13 @@
 
 \newcounter{exercise}
 \newcommand{\exercisename}{Exercise}
-\newenvironment{exercisestyle}[2]{\par\addvspace{\medskipamount}%
+\newenvironment{exercisestyle}[2]{\pagebreak[3]\par\addvspace{\medskipamount}%
 {\superitemlabelfont\color{colourTwo}\medskip
 \hrule\nopagebreak
 \rule[-.1\baselineskip]{0pt}{1.1\baselineskip}\twoparttitle{#1\quad}{#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
 }{\par\addvspace{\medskipamount}\if@ndrule\nopagebreak\@afterheading\par
-  {\color{colourTwo}\hrule}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
+  {\color{colourTwo}\hrule}\fi\pagebreak[3]\par\addvspace{\medskipamount}}
 
 \newenvironment{exercise}[1][]{\refstepcounter{exercise}\begin{exercisestyle}{\exercisename~\theexercise}{#1}}{\end{exercisestyle}}
 
@@ -477,9 +477,9 @@
 %Activities
 \newcounter{activity}
 \newcommand{\activityname}{Activity}
-\newenvironment{activitystyle}[2]{\pagebreak[1]\par\addvspace{\medskipamount}%
-\fboxsep 0.5em\colorbox{colourThreeTint}{\strut\parbox{\dimexpr \linewidth-2\fboxsep}{\superitemlabelfont\color{colourThree}\twoparttitle{#1\quad}{#2}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\par\if@ndrule\nopagebreak\@afterheading\par\tikz{\fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] --cycle;}\fi\pagebreak[1]\par\addvspace{\medskipamount}}
+\newenvironment{activitystyle}[2]{\pagebreak[3]\par\addvspace{\medskipamount}%
+\fboxsep 0.5em\colorbox{colourThreeTint}{\strut\parbox{\dimexpr \linewidth-2\fboxsep}{\superitemlabelfont\color{colourThree}\twoparttitle{#1\quad}{#2}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\nopagebreak\@afterheading
+}{\par\if@ndrule\nopagebreak\@afterheading\par\tikz{\fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] --cycle;}\fi\pagebreak[3]\par\addvspace{\medskipamount}}
 
 
 \newenvironment{activity}[1][]{\refstepcounter{activity}\@activitytrue
@@ -490,16 +490,14 @@
 %Examples
 \newcounter{example}
 
-\newenvironment{examplestyle}[2]{\par\addvspace{\medskipamount}%
+\newenvironment{examplestyle}[2]{\pagebreak[3]\par\addvspace{\medskipamount}%
 {\superitemlabelfont\color{colourThree}
-\medskip
-\hrule\nopagebreak
-\rule[-.1\baselineskip]{0pt}{1.1\baselineskip}%
-#1\quad\parbox[t]{0.75\linewidth}{#2}}%
+\medskip\hrule\nopagebreak
+\rule[-.1\baselineskip]{0pt}{1.1\baselineskip}\twoparttitle{#1\quad}{#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
 }{\par\addvspace{\medskipamount}\if@ndrule\nopagebreak\@afterheading\par\nopagebreak
-  \addvspace{\medskipamount}{\color{colourThree}\hrule}\fi\pagebreak[1]
-  \par\addvspace{\medskipamount}}
+\addvspace{\medskipamount}{\color{colourThree}\hrule}\fi%
+\pagebreak[3]\par\addvspace{\medskipamount}}
 
 \newenvironment{example}[1][]{\refstepcounter{example}%
 \renewenvironment{solution}{\par\addvspace{\medskipamount}%
