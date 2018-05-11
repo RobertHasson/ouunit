@@ -572,8 +572,9 @@
 \newfloat{mediacontent*}{H}{lof}
 
 %widefigures
-\newenvironment{widefigure}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{figure}\end{fullwidth}}
-\newenvironment{widefigure*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{figure*}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{figure*}\end{fullwidth}}
+\newenvironment{widefigure}[1][]{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep,width=\dimexpr\textwidth+\marginparwidth+\marginparsep,#1]
+\begin{figure}}{\end{figure}\end{fullwidth}}
+\newenvironment{widefigure*}[1][]{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep,width=\textwidth+\marginparwidth+\marginparsep,#1]\begin{figure*}}{\end{figure*}\end{fullwidth}}
 
 %marginfigures
 \newlength{\rhfight}
