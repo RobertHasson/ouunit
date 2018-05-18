@@ -139,7 +139,7 @@ The preferred way to change the labels is to use the environment optional parame
 \item
 \lipsum[133]
 \end{enumerate}
-The most frequently used variant is to have numbered items (as above), so a style is set up for this, namely \verb”plainenumerate”. The advantage of using \verb”plainenumerate” rather than using the optional argument is to avoid confusion between \verb”enumerate” used for subeexercises etc.\ and a real enumerated list appearing in an exercise. 
+The most frequently used variant is to have numbered items (as above), so a style is set up for this, namely \verb"plainenumerate". The advantage of using \verb"plainenumerate" rather than using the optional argument is to avoid confusion between \verb"enumerate" used for subeexercises etc.\ and a real enumerated list appearing in an exercise. 
 \begin{plainenumerate}
 \item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
 \item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
@@ -216,32 +216,32 @@ Now we try an inline list
 \item third
 \end{enumerate*}
 \section{Equations}
-Unnumbered equations: use \verb”\[” and \verb”\]” such as
+Unnumbered equations: use \verb"\[" and \verb"\]" such as
 \[
 E=mc^2
 \]
-Note that \verb”\\” is not allowed within displayed equations. Use \verb"align*" instead, e.g.
+Note that \verb"\\" is not allowed within displayed equations. Use \verb"align*" instead, e.g.
 \begin{align*}
 &\text{first line}\\
 &\text{second line}
 \end{align*}
-Fot numbered equations use the \verb”equation” (the OUTeX command \verb”\donumber” is not defined).
+Fot numbered equations use the \verb"equation" (the OUTeX command \verb"\donumber" is not defined).
 \begin{equation}
 \text{equation }1
 \end{equation}
-For aligned equations use \verb”align*”
+For aligned equations use \verb"align*"
 \begin{align*}
 a& =b\\
 &=c
 \end{align*}
-For numbered aligned equations use \verb”align”
+For numbered aligned equations use \verb"align"
 \begin{align}
 a& =b\label{eqn-line1}\\
 &=c\label{eqn-line2}
 \end{align}
 Reference to line one, equation~(\ref{eqn-line1}), and to line two equation~(\refnolink{eqn-line2}).
 
-To number only one line use \verb”\nonumber”
+To number only one line use \verb"\nonumber"
 \begin{align}
 a& =b\nonumber\\
 &=c\label{eqn-middle-line}\\
@@ -321,7 +321,7 @@ This is another answer.
 That was Exercise~\ref{exe-jim}. 
 
 
-The following exercise shows the style to use instead of the OUTeX command \verb”\intertext”.
+The following exercise shows the style to use instead of the OUTeX command \verb"\intertext".
 \begin{exercise}[Intertext style question]\label{exe-intertext}
 This is another question
 \begin{enumerate}
@@ -374,7 +374,7 @@ This is another question
 \end{exercise}
 \lipsum[2]
 \begin{exercise}
-The use of \verb”enumerate” lists to denote subexercises is not helpful when the question needs to contain a genuine enumerated list. For this exceptional case the \verb”plainenumerate” environment can be used as follows.
+The use of \verb"enumerate" lists to denote subexercises is not helpful when the question needs to contain a genuine enumerated list. For this exceptional case the \verb"plainenumerate" environment can be used as follows.
 \begin{plainenumerate}
 \item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
 \item Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah.
@@ -402,7 +402,7 @@ Sometimes a solution needs to include an enumerated list, which is distinct from
 \begin{activity}[Using activities]\noendrule
 \lipsum[133]
 
-Note the use of \verb”\noendrule” to suppress the rule between activities.
+Note the use of \verb"\noendrule" to suppress the rule between activities.
 
 \begin{solution}
 \lipsum[133]
@@ -486,7 +486,7 @@ Test for wide figure.
 
 \lipsum[134]
 
-\begin{widefigure}
+\begin{widefigure}[needspace=2.5in]%gives hint to page breaking algorithm
 \caption{Widefigure test\label{fig-test-widefigure-one}}
 \begin{tikzpicture}
 \draw[axis] (0,0) -- (15,0) node[xlab] {$x$};
@@ -581,7 +581,7 @@ E=mc^2
 \]
 \end{proof}
 
-For a named theorem use \verb”theorem*” to suppress the number.
+For a named theorem use \verb"theorem*" to suppress the number.
 \begin{theorem*}[\quad Fundamental theorem of algebra]
 Every polynomial of degree greater than one has a root in $\mathbb{C}$.
 \end{theorem*}
@@ -641,7 +641,7 @@ The following is a list of known issues that have work-arounds.
 
 \begin{enumerate}[1.]
 \item
-To have aligned equations in a list (such as a part of an exercise) used the \verb”aligned” environment with the \verb”[t]” optional argument:
+To have aligned equations in a list (such as a part of an exercise) used the \verb"aligned" environment with the \verb"[t]" optional argument:
 \begin{enumerate}
 \item \(\begin{aligned}[t]
 \phi:(\mathbb{Z},+)&\longrightarrow (\mathbb{Z}_{12},+_{12})\\
@@ -653,7 +653,7 @@ To have aligned equations in a list (such as a part of an exercise) used the \ve
   \end{aligned}\)
 \end{enumerate}
 \item
-The moving solutions (namely the exercise and activity solutions) use the verbatim package to do the moving, which means that \verb”\begin{solution}” and \verb”\end{solution}” must appear on a line on their own. This is not such a great problem as the error message is very specific if an author breaks this rule.
+The moving solutions (namely the exercise and activity solutions) use the verbatim package to do the moving, which means that \verb"\begin{solution}" and \verb"\end{solution}" must appear on a line on their own. This is not such a great problem as the error message is very specific if an author breaks this rule.
 \item
 Any commands in a figure caption need to be robust. This is because they are written to a separate file to allow the possibility of producing a list of figures.
 \item
@@ -669,9 +669,11 @@ A numbered margin figure within and unnumbered AMS math environment triggers a s
 \item
 Text coloured using \verb"\thinks" does not continue across a page break when embedded within a breakable box. The work-around is to add \verb"\color{colourThree}" into the source file at the point at which colour is lost (i.e.\ just after the page break). If the page breaks change and it no longer occurs within the thinks text then the extra change colour command will be harmless.
 \item
-The end of proof symbol disappears if the proof ends with a margin figure or a margin note. To stop this happening add something invisible after the margin figure, such as \verb”\phantom{a}”.
+The end of proof symbol disappears if the proof ends with a margin figure or a margin note. To stop this happening add something invisible after the margin figure, such as \verb"\phantom{a}".
 \item
 Extra whitespace can be added between a margin figure and its caption if the figure is oversized. This only happens when the caption command follows the includegraphics command ---- reversing the commands removes the extra whitespace from the output. A better solution is to resize the graphic so that it fits within the margin. (Rather paradoxically the oversized graphic will cause latex to issue an `undersized hbox badness 10000' error message as the extra blank line produced only contains the caption command that does not produce any output, which is what generates the warning message.)
+\item
+If a displayed equation has a large depth then the equation can protrude from the bottom of a box if a page break occurs immediately following the equation. For example, the displayed equation \verb"\[\begin{aligned}1\\2\\3\\4\\5\\6\\7\end{aligned}\]" has a large depth. To fix this change the equation so that it does not have a large depth, so for example the above equation can be changed to have large height and zero depth by using the \verb"[b]" optional argument of \verb"{aligned}".
 \end{enumerate}
 
 \printexercisesolutions
