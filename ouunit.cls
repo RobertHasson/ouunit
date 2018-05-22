@@ -182,8 +182,19 @@
 \end{adjmulticols}
 \thispagestyle{firstpage}}
 
+\ifdraft
 \DeclareRobustCommand{\makefrontpages}{\maketitle\tableofcontents\thispagestyle{firstpage}\newpage}
-
+\else
+\if@standalone
+\DeclareRobustCommand{\makefrontpages}{\maketitle\tableofcontents\thispagestyle{firstpage}\newpage}
+\else
+\DeclareRobustCommand{\makefrontpages}{\strut\vfill
+\pagestyle{empty}
+\section*{\sf Unit \@unitid}
+{\Huge\sf \@unittitle}
+\vfill\vfill\newpage\tableofcontents\newpage\pagestyle{plain}}
+\fi
+\fi
 
 %colours
 \colorlet{colourOne}{black}    % colour 1 is main text colour
