@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.24 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.25 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -550,8 +550,8 @@
 
 
 %widetables
-\newenvironment{widetable}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{table}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{table}\end{fullwidth}}
-\newenvironment{widetable*}{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep]\begin{table*}\setlength{\hfuzz}{\dimexpr\marginparwidth+\marginparsep}}{\end{table*}\end{fullwidth}}
+\newenvironment{widetable}[1][]{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep,width=\dimexpr\textwidth+\marginparwidth+\marginparsep,#1]\begin{table}}{\end{table}\end{fullwidth}}
+\newenvironment{widetable*}[1][]{\begin{fullwidth}[outermargin=\dimexpr-\marginparwidth-\marginparsep,width=\dimexpr\textwidth+\marginparwidth+\marginparsep,#1]\begin{table*}}{\end{table*}\end{fullwidth}}
 
 
 %Figures
