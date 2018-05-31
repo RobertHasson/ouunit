@@ -310,6 +310,7 @@
 \input{\jobname.ind}}
 \newcommand*{\see}[2]{\emph{see} #1}
 \newcommand*{\seealso}[2]{\emph{see also} #1}
+\ila@unbalancedtrue%do not balance last page of index
 
 
 %headers and footers
@@ -745,5 +746,10 @@
 \DeclareRobustCommand*{\authorcomment}[1]{{\color{red}#1}}
 \DeclareRobustCommand*{\editorcomment}[1]{{\color{red!50!black}#1}}
 \fi
+
+%fix for equations with large depth protruding from boxes
+\preto\[{\par\vbox\bgroup}
+\appto\]{\egroup}
+
 
 \endinput

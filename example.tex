@@ -672,8 +672,8 @@ Text coloured using \verb"\thinks" does not continue across a page break when em
 The end of proof symbol disappears if the proof ends with a margin figure or a margin note. To stop this happening add something invisible after the margin figure, such as \verb"\phantom{a}".
 \item
 Extra whitespace can be added between a margin figure and its caption if the figure is oversized. This only happens when the caption command follows the includegraphics command ---- reversing the commands removes the extra whitespace from the output. A better solution is to resize the graphic so that it fits within the margin. (Rather paradoxically the oversized graphic will cause latex to issue an `undersized hbox badness 10000' error message as the extra blank line produced only contains the caption command that does not produce any output, which is what generates the warning message.)
-\item
-If a displayed equation has a large depth then the equation can protrude from the bottom of a box if a page break occurs immediately following the equation. For example, the displayed equation \verb"\[\begin{aligned}1\\2\\3\\4\\5\\6\\7\end{aligned}\]" has a large depth. To fix this change the equation so that it does not have a large depth, so for example the above equation can be changed to have large height and zero depth by using the \verb"[b]" optional argument of \verb"{aligned}".
+%\item
+%If a displayed equation has a large depth then the equation can protrude from the bottom of a box if a page break occurs immediately following the equation. For example, the displayed equation \verb"\[\begin{aligned}1\\2\\3\\4\\5\\6\\7\end{aligned}\]" has a large depth. To fix this change the equation so that it does not have a large depth, so for example the above equation can be changed to have large height and zero depth by using the \verb"[b]" optional argument of \verb"{aligned}".
 \end{enumerate}
 
 \printexercisesolutions
