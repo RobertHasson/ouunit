@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.25 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.26 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -480,8 +480,8 @@
 \hrule\nopagebreak
 \rule[-.1\baselineskip]{0pt}{1.1\baselineskip}\twoparttitle{#1\quad}{#2}}%
 \nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\par\addvspace{\medskipamount}\if@ndrule\nopagebreak\@afterheading\par
-  {\color{colourTwo}\hrule}\fi\pagebreak[3]\par\addvspace{\medskipamount}}
+}{\if@ndrule\par\addvspace{\medskipamount}\nopagebreak\@afterheading\par
+  {\color{colourTwo}\hrule}\par\addvspace{\medskipamount}\fi\pagebreak[3]}
 
 \newenvironment{exercise}[1][]{\refstepcounter{exercise}\begin{exercisestyle}{\exercisename~\theexercise}{#1}}{\end{exercisestyle}}
 
@@ -491,7 +491,7 @@
 \newcommand{\activityname}{Activity}
 \newenvironment{activitystyle}[2]{\pagebreak[3]\par\addvspace{\medskipamount}%
 \fboxsep 0.5em\colorbox{colourThreeTint}{\strut\parbox{\dimexpr \linewidth-2\fboxsep}{\superitemlabelfont\color{colourThree}\twoparttitle{#1\quad}{#2}}}\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\nopagebreak\@afterheading
-}{\par\if@ndrule\nopagebreak\@afterheading\par\tikz{\fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] --cycle;}\fi\pagebreak[3]\par\addvspace{\medskipamount}}
+}{\if@ndrule\par\nopagebreak\@afterheading\par\tikz{\fill[color=colourThreeTint] (0,0) -- (\linewidth,0) [rounded corners=3mm] -- ++(0,-3mm)  -- ++(-\linewidth,0)  [rounded corners=0mm] --cycle;}\fi\pagebreak[3]\par\addvspace{\medskipamount}}
 
 
 \newenvironment{activity}[1][]{\refstepcounter{activity}\@activitytrue
@@ -748,8 +748,8 @@
 \fi
 
 %fix for equations with large depth protruding from boxes
-\preto\[{\par\vbox\bgroup}
-\appto\]{\egroup}
+%\preto\[{\par\vbox\bgroup}
+%\appto\]{\egroup}
 
 
 \endinput
