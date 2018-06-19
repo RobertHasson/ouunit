@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.26 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.27 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -673,7 +673,9 @@
 
 %lists
 \renewlist{enumerate*}{enumerate*}{2}
-\setlist*[enumerate*]{before={\leavevmode\smallskip\newline},itemjoin=\qquad,afterlabel=~\rule[-2ex]{0pt}{4ex}~,label={\ifnum\@listdepth=\@ne(\alph*)\else(\roman*)\fi},}
+\setlist[enumerate*]{before={\vspace{-0.5ex}},after={\vspace*{-0.25ex}},itemjoin=\qquad,afterlabel=~~,label={\ifnum\@listdepth=\@ne(\alph*)\else(\roman*)\fi},}
+\BeforeBeginEnvironment{enumerate*}{\bgroup\par\setlength{\baselineskip}{4ex}}
+\AfterEndEnvironment{enumerate*}{\par\egroup}
 
 \setlist{topsep=0pt,itemsep=0pt,partopsep=0pt}
 \setlist[enumerate]{align=left,itemindent=0pt,labelindent=0pt,labelsep*=0.5em,labelwidth=!,leftmargin=*}
@@ -746,10 +748,6 @@
 \DeclareRobustCommand*{\authorcomment}[1]{{\color{red}#1}}
 \DeclareRobustCommand*{\editorcomment}[1]{{\color{red!50!black}#1}}
 \fi
-
-%fix for equations with large depth protruding from boxes
-%\preto\[{\par\vbox\bgroup}
-%\appto\]{\egroup}
 
 
 \endinput
