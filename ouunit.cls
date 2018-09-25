@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.27 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.28 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -296,21 +296,6 @@
 \newcommand{\introduction}{\section*{Introduction}\addcontentsline{toc}{section}{Introduction}}
 
 
-%index items
-\makeindex
-\def\printindex{\newpage\if@reduced
-\newgeometry{text={42pc,54pc},marginpar=0pt,marginparsep=1pc,twoside}%
-\else
-\newgeometry{text={42pc,61pc},marginpar=0pt,marginparsep=1pc,twoside}%
-\fi
-\pagestyle{fancy}%
-\fancyhfoffset[LE]{0pt}%
-\fancyhfoffset[RO]{0pt}%
-\fancyhead[LE,RO]{\runningheadstyle\rightmark}
-\input{\jobname.ind}}
-\newcommand*{\see}[2]{\emph{see} #1}
-\newcommand*{\seealso}[2]{\emph{see also} #1}
-\ila@unbalancedtrue%do not balance last page of index
 
 
 %headers and footers
@@ -350,6 +335,13 @@
 \fancypagestyle{firstpage}{\fancyhf{}}
 \fi
 
+%index items
+\makeindex
+\fancypagestyle{index}{\fancyhfoffset[LE,RO]{28.1pt}\fancyhfoffset[LO,RE]{12pt}\fancyhead[LE,RO]{\rightmark}}%magic numbers determined from output
+\def\printindex{\newgeometry{text={43pc,\textheight},nomarginpar}\pagestyle{index}\input{\jobname.ind}}
+\newcommand*{\see}[2]{\emph{see} #1}
+\newcommand*{\seealso}[2]{\emph{see also} #1}
+\ila@unbalancedtrue%do not balance last page of index
 
 
 %solutions
