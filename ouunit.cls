@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.29 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.30 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -81,7 +81,7 @@
 \RequirePackage[amsmath,thmmarks]{ntheorem}
 \RequirePackage{adjmulticol}% includes standard multicol style
 \RequirePackage{colortbl}
-\RequirePackage[totoc]{idxlayout}
+\RequirePackage[totoc,unbalanced]{idxlayout}
 \RequirePackage{fullwidth}
 
 
@@ -337,12 +337,17 @@
 
 %index items
 \makeindex
-\fancypagestyle{index}{\fancyhfoffset[LE,RO]{28.1pt}\fancyhfoffset[LO,RE]{12pt}\fancyhead[LE,RO]{\rightmark}}%magic numbers determined from output
-\def\printindex{\newgeometry{text={43pc,\textheight},nomarginpar}\pagestyle{index}\input{\jobname.ind}}
+\def\printindex{\newpage\bgroup
+\def\@title{Index}%for running heads
+\def\ila@prologue{\section*{\ifodd\c@page\relax\else\hspace*{-\marginparwidth}\fi\indexname}\addcontentsline{toc}{section}{\indexname}}
+\adjmc@inner\z@%simultate adjmulticols{}{-\marginparwidth}
+\adjmc@outer -\marginparwidth
+\advance\linewidth by -\adjmc@inner\relax
+\advance\linewidth by -\adjmc@outer\relax
+\let\page@sofar=\adjmc@page@sofar
+\input{\jobname.ind}\egroup}
 \newcommand*{\see}[2]{\emph{see} #1}
 \newcommand*{\seealso}[2]{\emph{see also} #1}
-\ila@unbalancedtrue%do not balance last page of index
-
 
 %solutions
 \newwrite\exercises@write
