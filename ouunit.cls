@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.30 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.31 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -172,7 +172,7 @@
 \textbf{\@faculty}\par
 \textbf{\@modulecode~\@moduletitle}\par
 \bigskip\hrule
-\bigskip\bigskip\textbf{\LARGE \@title}\par
+\bigskip\bigskip{\LARGE\bfseries \@title\par}
 \bigskip\bigskip\hrule
 \ifdraft
 \medskip
