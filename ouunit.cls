@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.31 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.32 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -21,7 +21,7 @@
 \newif\if@nocomments
 \@nocommentsfalse
 
-%switch to remove author and editor comments
+%switch to indicate that document is a separate item
 \newif\if@standalone
 \@standalonefalse
 
@@ -84,7 +84,10 @@
 \RequirePackage[totoc,unbalanced]{idxlayout}
 \RequirePackage{fullwidth}
 
-
+%Fix for odd spacing issues. This is the amsmath definition, but this gets overwritten by ntheorem,
+%these declarations restore the amsmath definitions.
+\DeclareRobustCommand{\[}{\begin{equation*}}
+\DeclareRobustCommand{\]}{\end{equation*}}
 
 %if final then remove comments
 \ifdraft\relax\else\@nocommentstrue\fi
@@ -106,10 +109,10 @@
 %spacing around displayed math
 %could also adjust skips for \small and \footnotesize 
 \g@addto@macro\normalsize{%could be \appto
-\setlength{\abovedisplayskip}{0.5ex plus 0.05ex minus 0.05ex}%
-\setlength{\belowdisplayskip}{0.5ex plus 0.05ex minus 0.05ex}%
-\setlength{\abovedisplayshortskip}{0.5ex plus 0.05ex minus 0.05ex}%
-\setlength{\belowdisplayshortskip}{0.5ex plus 0.05ex minus 0.05ex}}
+\setlength{\abovedisplayskip}{1.5ex plus 0.15ex minus 0.15ex}%
+\setlength{\belowdisplayskip}{1.5ex plus 0.15ex minus 0.15ex}%
+\setlength{\abovedisplayshortskip}{1.5ex plus 0.15ex minus 0.15ex}%
+\setlength{\belowdisplayshortskip}{1.5ex plus 0.15ex minus 0.15ex}}
 
 %metadata
 \def\@faculty{Faculty of Science, Technology, Engineering and Mathematics}
