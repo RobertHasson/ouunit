@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.34 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.35 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -475,13 +475,13 @@
 
 \newcounter{exercise}
 \newcommand{\exercisename}{Exercise}
-\newenvironment{exercisestyle}[2]{\pagebreak[3]\par\addvspace{\medskipamount}%
-{\superitemlabelfont\color{colourTwo}\medskip
-\hrule\nopagebreak
+\newenvironment{exercisestyle}[2]{\pagebreak[3]\ifhmode\par\fi\addvspace{\smallskipamount}%
+{\superitemlabelfont\color{colourTwo}
+{\parskip0pt\hrulefill\par}\nopagebreak
 \rule[-.1\baselineskip]{0pt}{1.1\baselineskip}\twoparttitle{#1\quad}{#2}}%
-\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\if@ndrule\par\addvspace{\medskipamount}\nopagebreak\@afterheading\par
-  {\color{colourTwo}\hrule}\par\addvspace{\medskipamount}\fi\pagebreak[3]}
+\nopagebreak\@afterheading{\parskip0pt\par}\nopagebreak\@afterheading\addvspace{\smallskipamount}
+}{\ifhmode\par\fi\if@ndrule\nopagebreak\@afterheading\vspace{-1ex}%
+{\color{colourTwo}\hrulefill}{\parskip0pt\par}\addvspace{\medskipamount}\fi\pagebreak[3]}
 
 \newenvironment{exercise}[1][]{\refstepcounter{exercise}\begin{exercisestyle}{\exercisename~\theexercise}{#1}}{\end{exercisestyle}}
 
@@ -502,14 +502,14 @@
 %Examples
 \newcounter{example}
 
-\newenvironment{examplestyle}[2]{\pagebreak[3]\par\addvspace{\medskipamount}%
+\newenvironment{examplestyle}[2]{\pagebreak[3]\ifhmode\par\fi\addvspace{\smallskipamount}%
 {\superitemlabelfont\color{colourThree}
-\medskip\hrule\nopagebreak
+{\parskip0pt\hrulefill\par}\nopagebreak
 \rule[-.1\baselineskip]{0pt}{1.1\baselineskip}\twoparttitle{#1\quad}{#2}}%
-\nopagebreak\par\nopagebreak\addvspace{\smallskipamount}\@afterheading
-}{\par\addvspace{\medskipamount}\if@ndrule\nopagebreak\@afterheading\par\nopagebreak
-\addvspace{\medskipamount}{\color{colourThree}\hrule}\fi%
-\pagebreak[3]\par\addvspace{\medskipamount}}
+\nopagebreak\@afterheading{\parskip0pt\par}\nopagebreak\@afterheading\addvspace{\smallskipamount}
+}{\ifhmode\par\fi\if@ndrule\nopagebreak\@afterheading\vspace{-1ex}%
+{\color{colourThree}\hrulefill}{\parskip0pt\par}%
+\addvspace{\medskipamount}\fi\pagebreak[3]}
 
 \newenvironment{example}[1][]{\refstepcounter{example}%
 \renewenvironment{solution}{\par\addvspace{\medskipamount}%
