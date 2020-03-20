@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.32 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.33 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -366,7 +366,7 @@
 
 %modified VerbatimOut from fancyvrb to not close file
 \def\mv@solution{\FV@Environment{}{solution}}
-\def\FVB@mv@solution{\@bsphack
+\def\FVB@mv@solution{\par\@bsphack
   \begingroup
     \FV@UseKeyValues
     \FV@DefineWhiteSpace
