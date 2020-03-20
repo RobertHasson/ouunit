@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.33 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.34 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -514,7 +514,7 @@
 \newenvironment{example}[1][]{\refstepcounter{example}%
 \renewenvironment{solution}{\par\addvspace{\medskipamount}%
 \mbox{\superitemlabelfont\color{colourThree}Solution}%
-\nopagebreak\par\nopagebreak\addvspace{\medskipamount}}{}
+\nopagebreak\par\nopagebreak\addvspace{\medskipamount}}{\par}
 \begin{examplestyle}{Example~\theexample}{#1}}{\end{examplestyle}}
 
 
