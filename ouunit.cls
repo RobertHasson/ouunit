@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.36 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.37 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -633,7 +633,7 @@
 %\newicon{calc}{\includegraphics{calculator_cmyk_32}}
 %attach up to three icons
 %flush right on even pages (\if@tempswa set by marginnote)
-\newcommand{\icons}[3]{\begin{marginfigure*}\if@tempswa\relax\else\hfill\fi\@nameuse{icon@#1@symbol}\@nameuse{icon@#2@symbol}\@nameuse{icon@#3@symbol}\end{marginfigure*}}
+\newcommand{\icons}[4][]{\begin{marginfigure*}[#1]\if@tempswa\relax\else\hfill\fi\@nameuse{icon@#2@symbol}\@nameuse{icon@#3@symbol}\@nameuse{icon@#4@symbol}\end{marginfigure*}}
 
 %glossary --- define when needed in book style
 %\usepackage[toc,nogroupskip]{glossaries}
