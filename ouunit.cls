@@ -626,9 +626,9 @@
 \newcommand{\newicon}[2]{\expandafter\gdef\csname icon@#1@symbol\endcsname{#2\,}}
 
 \newcommand{\icon@@symbol}{}%no comma space
-\newicon{calc}{\tikz{\draw (0,0) node[draw] {\textsc{CALC}};}}
-\newicon{web}{\tikz{\draw (0,0) node[draw] {\textsc{WEB}};}}
-\newicon{disc}{\tikz{\draw (0,0) node[draw] {\textsc{DISC}};}}
+\newicon{calc}{\fbox{\textsc{CALC}}}
+\newicon{web}{\fbox{\textsc{WEB}}}
+\newicon{disc}{\fbox{\textsc{DISC}}}
 %example of using graphical icon
 %\newicon{calc}{\includegraphics{calculator_cmyk_32}}
 %attach up to three icons
