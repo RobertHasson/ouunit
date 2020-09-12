@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.37 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.38 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -275,6 +275,11 @@
 %online style for style4box
 \newenvironment{onlinestyle4box}[1][]{\begin{leftrule}
 \setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\end{leftrule}}
+
+
+\newcommand{\subheading}[1]{\par{\titledboxheadfont\normalsize #1}\par}
+\newcommand{\subsubheading}[1]{\par{\titledboxheadfont #1}\par}
+
 
 %section titles
 %header for numbered sections

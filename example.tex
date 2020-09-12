@@ -17,7 +17,7 @@
 \unittitle{Style test}
 \draftno{D1}	
 \author{Robert Hasson}
-
+ 	
 \uniqueID{XmxxStyleTest}
 \mediapath{{media}}
 
@@ -40,14 +40,21 @@
 \DeclareRobustCommand{\hexagon}{\tikz{\draw[thin] (0:0.15) -- (60:0.15) -- (120:0.15) -- (180:0.15) -- (240:0.15) -- (300:0.15) --cycle;}}
 
 
+
 \begin{document}
+
 \makefrontpages
 \introduction
+
+
+
+
 \lipsum[133] \authorcomment{Author comment on text.}
 
 \[
 E=mc^2
 \]
+
 \lipsum[133]
 \section{Headings}
 \lipsum[133]
@@ -81,6 +88,12 @@ y &=x\\
 &=3
 \end{aligned}
 \]
+\begin{align*}
+y &=x\\
+&=1\marginnote{alongside the 1.}\\
+&=2\marginnote{alongside the 2.}\\
+&=3
+\end{align*}
 Note the large space above the aligned equations, when they immediately follow a box.
 \begin{highlight}[Title]
 \lipsum[133]
@@ -89,9 +102,11 @@ Note the large space above the aligned equations, when they immediately follow a
 \section{Boxes}
 The generic box styles exist, but authors should use context names (such as `highlight', `history' or `aside' rather than using the generic box styles directly. All boxes break between pages automatically.\index{boxes}
 \begin{style1box}[Box title style1box]
-\textbf{Subheading in box}
+\subheading{First Subheading}
 
-\lipsum[1]
+\lipsum[133]
+\subheading{Second subheading}
+\lipsum[133]
 \end{style1box}
 \lipsum[133]
 \begin{style2box}[Box title style2box]
@@ -462,6 +477,8 @@ This is a reference to Table~\ref{tab-test}.
 
 Use \verb"\includegraphics" for inline figures \includegraphics[height=2ex]{icon}.
 
+Use \verb"\tikz{}"for inline Tikz figures  \tikz{\draw[thin] (0:0.15) -- (60:0.15) -- (120:0.15) -- (180:0.15) -- (240:0.15) -- (300:0.15) --cycle;}
+
 
 Plain figure without caption
 
@@ -545,8 +562,8 @@ Test for marginfigure optional placement.
 \begin{marginfigure}[-1cm]%optional argument moves margin figure up/down
 \caption{Figure test \label{fig-ex-test}}
 \begin{tikzpicture}
-\draw (0,0) -- (1,1);
-\draw (1,0) -- (0,1);
+\draw (0,0) -- (0.9,0.9);
+\draw (0.9,0) -- (0,0.9);
 \end{tikzpicture}
 \end{marginfigure}
 Test for wide figure.
