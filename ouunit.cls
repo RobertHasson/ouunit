@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.38 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.39 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -208,6 +208,7 @@
 \colorlet{colourThreeTint}{colourThree!20}      % 20% tint
 \definecolor{colourFour}{cmyk}{0,0.53,1,0.04}   % Pantone 7413C
 \colorlet{colourFourTint}{colourFour!20}        % 20% tint
+\colorlet{blackTint}{black!10}                  % 10% tint for keypoints box
 
 
 %fonts
@@ -275,6 +276,11 @@
 %online style for style4box
 \newenvironment{onlinestyle4box}[1][]{\begin{leftrule}
 \setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\end{leftrule}}
+
+\newenvironment{studynote}[1][]{\begin{roundedtitledbox}[colourTwo]{#1}}{\end{roundedtitledbox}}
+
+\newenvironment{keypoints}[1][]{\begin{roundedtitledbox}[black]{#1}}{\end{roundedtitledbox}}
+
 
 
 \newcommand{\subheading}[1]{\par{\titledboxheadfont\normalsize #1}\par}
