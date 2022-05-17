@@ -208,7 +208,10 @@
 \colorlet{colourThreeTint}{colourThree!20}      % 20% tint
 \definecolor{colourFour}{cmyk}{0,0.53,1,0.04}   % Pantone 7413C
 \colorlet{colourFourTint}{colourFour!20}        % 20% tint
-\colorlet{blackTint}{black!10}                  % 10% tint for keypoints box
+\colorlet{colourStudyNote}{colourTwo}
+\colorlet{colourStudyNoteTint}{colourStudyNote!20}
+\colorlet{colourKeyPoints}{black}
+\colorlet{colourKeyPointsTint}{colourKeyPoints!10}                  % 10% tint for keypoints box
 
 
 %fonts
@@ -277,9 +280,9 @@
 \newenvironment{onlinestyle4box}[1][]{\begin{leftrule}
 \setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\end{leftrule}}
 
-\newenvironment{studynote}[1][]{\begin{roundedtitledbox}[colourTwo]{#1}}{\end{roundedtitledbox}}
+\newenvironment{studynote}[1][]{\begin{roundedtitledbox}[colourStudyNote]{#1}}{\end{roundedtitledbox}}
 
-\newenvironment{keypoints}[1][]{\begin{roundedtitledbox}[black]{#1}}{\end{roundedtitledbox}}
+\newenvironment{keypoints}[1][]{\begin{roundedtitledbox}[colourKeyPoints]{#1}}{\end{roundedtitledbox}}
 
 
 
