@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.39 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.40 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -754,6 +754,7 @@
 \renewcommand{\cftsubsecdotsep}{\cftnodots}
 \renewcommand{\cftsubsubsecdotsep}{\cftnodots}
 \renewcommand{\cfttoctitlefont}{\defaultheadfont\defaultheadfont\huge\color{colourThree}}
+\tocloftpagestyle{empty}
 
 %fix AMS math required?
 %\RequirePackage{mathtools}
