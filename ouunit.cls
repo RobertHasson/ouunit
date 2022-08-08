@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.40 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.41 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -331,14 +331,26 @@
 \fancyhead[RO]{\runningheadstyle\rightmark}
 \fancyfoot[LE,RO]{\runningheadstyle\thepage}
 \ifdraft
+\@ifpackagelater{fancyhdr}{2021/01/04}
+  {% Do something for the newer version
+\fancyfoot[LO,RE]{{\small Draft \@draftno\quad Last \LaTeX ed  \currenttime\ \today}}
+  }
+  {% Do something different for the older version
 \fancyfoot[LO,RE]{\raisebox{-2ex}{\small Draft \@draftno\quad Last \LaTeX ed  \currenttime\ \today}}
+  }%
 \fi
 \fi
 \renewcommand{\headrulewidth}{0pt}%
 \markboth{\@title}{\rightmark}%
 \setlength{\voffset}{10pt}%
 \setlength{\headsep}{15pt}%
+\@ifpackagelater{fancyhdr}{2021/01/04}
+  {% Do something for the newer version
+\setlength{\footskip}{35pt}%
+  }
+  {% Do something different for the older version
 \setlength{\footskip}{25pt}%
+  }%
 \setlength{\headheight}{20pt}}
 \pagestyle{plain}
 
