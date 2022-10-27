@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.41 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.42 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -417,13 +417,17 @@
 \def\thesolnequation{S\arabic{solnequation}}
 \newcounter{solnfigure}
 \def\thesolnfigure{S\arabic{solnfigure}}
+\newcounter{solntable}
+\def\thesolntable{S\arabic{solntable}}
 
 %common setup for solutions (in-place and at-end)
 \newcommand{\solutions@tup}{%
 \let\c@equation\c@solnequation
 \let\theequation\thesolnequation
 \let\c@figure\c@solnfigure
-\let\thefigure\thesolnfigure}
+\let\thefigure\thesolnfigure
+\let\c@table\c@solntable
+\let\thetable\thesolntable}
 
 %marker box for two column solutions
 \newcommand{\s@lutioncolumnbox}[1]{\setbox0\vbox{#1}\tikz[overlay]{\draw[line width=\columnsep,color=blue!5] ({0.5\textwidth+0.5\marginparwidth},0) -- ++(0,{\ht0});}\box0}
