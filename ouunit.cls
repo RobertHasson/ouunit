@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.42 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.43 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -52,7 +52,7 @@
 \fi
 
 
-\RequirePackage{xcolor}
+\RequirePackage[cmyk]{xcolor}
 \if@reduced
 \RequirePackage[papersize={210mm,263mm},text={30pc,54pc},marginpar=12pc,marginparsep=1pc,bindingoffset=-2cm,columnsep=12bp]{geometry}%
 \else
