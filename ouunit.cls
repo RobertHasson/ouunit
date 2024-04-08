@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.43 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.44 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -368,7 +368,7 @@
 \makeindex
 \def\printindex{\newpage\bgroup
 \def\@title{Index}%for running heads
-\def\ila@prologue{\section*{\ifodd\c@page\relax\else\hspace*{-\marginparwidth}\fi\indexname}\addcontentsline{toc}{section}{\indexname}}
+\def\ila@prologue{\section*{\if@twoside\ifodd\c@page\relax\else\hspace*{-\marginparwidth}\fi\fi\indexname}\addcontentsline{toc}{section}{\indexname}}
 \adjmc@inner\z@%simultate adjmulticols{}{-\marginparwidth}
 \adjmc@outer -\marginparwidth
 \advance\linewidth by -\adjmc@inner\relax
