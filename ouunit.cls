@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.44 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.45 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -94,7 +94,7 @@
 
 %page style defaults
 \raggedright
-\raggedbottom 
+\raggedbottom
 \hyphenpenalty=10000
 \setlength{\mathindent}{20pt}
 \setlength{\leftmargin}{24pt}
@@ -107,7 +107,7 @@
 
 
 %spacing around displayed math
-%could also adjust skips for \small and \footnotesize 
+%could also adjust skips for \small and \footnotesize
 \g@addto@macro\normalsize{%could be \appto
 \setlength{\abovedisplayskip}{1.5ex plus 0.15ex minus 0.15ex}%
 \setlength{\belowdisplayskip}{1.5ex plus 0.15ex minus 0.15ex}%
@@ -158,7 +158,7 @@
 \fi
 
 %Draft logo placeholder
-%redefine \oulogo to use official logo, e.g. 
+%redefine \oulogo to use official logo, e.g.
 %\DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{ou_cmyk_masterlogo_29mm}}
 %or
 % \DeclareRobustCommand{\oulogo}{\includegraphics[width=3.5cm]{OU_Master_Logo_Blue_CMYK_29mm}}
@@ -229,7 +229,7 @@
 \def\marginnotestyle{\raggedright\normalfont\small\color{black}\setlength{\mathindent}{0pt}\renewcommand{\baselinestretch}{1}}
 
 
-%  Boxes 
+%  Boxes
 
 %set space surrounding frame
 \setlength{\OuterFrameSep}{\medskipamount}
@@ -249,7 +249,7 @@
 \newenvironment{style1box}[1][]{\begin{roundedtitledbox}[colourThree]{#1}}{\end{roundedtitledbox}}
 
 \newenvironment{style2box}[1][]{\begin{roundedtitledbox}[colourTwo]{#1}}{\end{roundedtitledbox}}
- 
+
 \newenvironment{style4box}[1][]{\begin{roundedtitledbox}[colourFour]{#1}}{\end{roundedtitledbox}}
 
 \newcommand{\semiopenbox}[2]{\setbox0\vbox{#2}%
@@ -310,9 +310,10 @@
 \titlespacing*{\paragraph}{0pt}{1ex plus 1ex minus .2ex}{0ex plus .2ex}
 
 
-\newcommand{\introduction}{\section*{Introduction}\addcontentsline{toc}{section}{Introduction}}
-
-
+\newcommand{\unnumberedsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\newcommand{\introduction}{\unnumberedsection{Introduction}}
+\newcommand{\acknowledgements}{\unnumberedsection{Acknowledgements}}
+\newcommand{\references}{\unnumberedsection{References}}
 
 
 %headers and footers
@@ -380,9 +381,9 @@
 
 %solutions
 \newwrite\exercises@write
-\AtBeginDocument{\immediate\openout\exercises@write\jobname.ex} 
+\AtBeginDocument{\immediate\openout\exercises@write\jobname.ex}
 \newwrite\activities@write
-\AtBeginDocument{\immediate\openout\activities@write\jobname.act} 
+\AtBeginDocument{\immediate\openout\activities@write\jobname.act}
 
 %This works for a single solution (without a heading)
 %\newenvironment{solution}{\VerbatimEnvironment\begin{VerbatimOut}{\jobname.ex}}{\end{VerbatimOut}}
@@ -459,8 +460,8 @@
 \newcommand{\exercisesolutionhead}{Solutions to exercises}
 \newcommand{\printexercisesolutions}{\if@tend
       \immediate\closeout\exercises@write
-\newpage\addcontentsline{toc}{section}{\exercisesolutionhead}\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
-\section*{\exercisesolutionhead}\end{adjmulticols}\else\section*{\exercisesolutionhead}\fi
+\newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
+\unnumberedsection{\exercisesolutionhead}\end{adjmulticols}\else\unnumberedsection{\exercisesolutionhead}\fi
 \if@twocolsol\begin{adjmulticols*}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \raggedcolumns\fi
@@ -475,8 +476,8 @@
 \newcommand{\activitysolutionhead}{Solutions to activities}
 \newcommand{\printactivitysolutions}{\if@tend
       \immediate\closeout\activities@write
-\newpage\addcontentsline{toc}{section}{\activitysolutionhead}\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
-\section*{\activitysolutionhead}\end{adjmulticols}\else\section*{\activitysolutionhead}\fi
+\newpage\if@twocolsol\begin{adjmulticols}{1}{0pt}{-\marginparwidth}
+\unnumberedsection{\activitysolutionhead}\end{adjmulticols}\else\unnumberedsection{\activitysolutionhead}\fi
 \if@twocolsol\begin{adjmulticols*}{2}{0pt}{-\marginparwidth}%
 \setlist[enumerate]{align=left,leftmargin=0pt,labelindent=0pt,labelwidth=!,itemindent=2em,font=\textbf}%
 \raggedcolumns\fi%
