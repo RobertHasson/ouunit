@@ -312,6 +312,7 @@
 
 \newcommand{\unnumberedsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
 \newcommand{\introduction}{\unnumberedsection{Introduction}}
+\newcommand{\outcomes}{\unnumberedsection{Learning outcomes}}
 \newcommand{\acknowledgements}{\unnumberedsection{Acknowledgements}}
 \newcommand{\references}{\unnumberedsection{References}}
 
