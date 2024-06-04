@@ -1,0 +1,11 @@
+*.act
+*.aux
+*.aws
+*.dvi
+*.ex
+*.idx
+*.log
+*.out
+*.thm
+*.toc
+*.synctex.gz
