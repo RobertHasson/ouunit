@@ -6,6 +6,7 @@
 % reduceda4 = change paper size to reduced a4
 % nocomments = remove author and editor comments from output
 % standalone = produce standalone document (e.g. add copyright to first page)
+% a-w = accessibility warnings: highlight accessibility warnings
 
 \usepackage[nopar]{lipsum}%just for this example
 \usepackage{outikz}% the ouunit.sty is compatible with the OU figure styles
@@ -694,5 +695,5 @@ If a box is split across at least three pages then \verb"\newpage" in the middle
 
 \printexercisesolutions
 \printactivitysolutions
-\printindex
+\IfFileExists{\jobname.ind}{\printindex}{}
 \end{document}

@@ -25,12 +25,17 @@
 \newif\if@standalone
 \@standalonefalse
 
+%switch to indicate if accessibility warnings active
+\newif\if@ouunit@accessibility@warnings
+\@ouunit@accessibility@warningsfalse
+
 \DeclareOption{final}{\draftfalse}
 \DeclareOption{reduceda4}{\@reducedtrue}
 \DeclareOption{solutionsatend}{\@tendtrue}
 \DeclareOption{twocolumnsolutions}{\@twocolsoltrue}
 \DeclareOption{nocomments}{\@nocommentstrue}
 \DeclareOption{standalone}{\@standalonetrue}
+\DeclareOption{a-w}{\@ouunit@accessibility@warningstrue}
 
 %\ExecuteOptions{}
 
@@ -148,7 +153,8 @@
 
 \DeclareRobustCommand{\itemid}[1]{}
 
-\DeclareRobustCommand{\uniqueID}[1]{}
+\global\let\@uniqueID\@empty
+\DeclareRobustCommand{\uniqueID}[1]{\DeclareRobustCommand\@uniqueID{#1}}
 
 \global\let\@author\@empty
 
@@ -792,5 +798,69 @@
 \DeclareRobustCommand*{\editorcomment}[1]{{\color{red!50!black}#1}}
 \fi
 
+%
+% accessibility warnings
+%
+\newcommand{\ouunitPrintAW}{}
+\newif\if@ouunit@accessibility@warnings@printed
+\@ouunit@accessibility@warnings@printedfalse
+
+\if@ouunit@accessibility@warnings%
+ \typeout{ouunit: accessibility warnings switch active}
+ \renewcommand{\ouunitPrintAW}{%
+  \@ouunit@accessibility@warnings@printedtrue%
+  \subsection*{Accessibility warnings summary}\@starttoc{aws}}
+ %
+ % command to output accessibility warning message
+ %
+ \newcommand{\ouunit@accessibility@warning@message}[2]{%
+  %
+  % \ouunit@accessibility@warning@message{<warning NUMBER>}{<warning MESSAGE>}
+  %
+  \marginnote{\color{red}\fbox{\fbox{\parbox{5cm}{\small\emph{AW#1: #2}}}}}%
+  \addcontentsline{aws}{subsubsection}{AW#1: #2}%
+  \typeout{ouunit: accessibility warning, AW#1: #2}
+ }
+ %
+ % AW1: list levels need to be <=2 for the VLE
+ %
+ \def\ou@unit@enum@plus@item@depth{\numexpr\@enumdepth+\@itemdepth\relax}%
+ \AtBeginEnvironment{enumerate}{%
+  \ifnum\ou@unit@enum@plus@item@depth>1%
+   \ouunit@accessibility@warning@message{1}{list depth (enumerate) more than 2}%
+  \fi
+ }
+ \AtBeginEnvironment{itemize}{%
+  \ifnum\ou@unit@enum@plus@item@depth>1%
+   \ouunit@accessibility@warning@message{1}{list depth (itemize) more than 2}%
+  \fi
+ }
+ %
+ % AW3: tabular in math environment
+ %
+ \BeforeBeginEnvironment{tabular}{%
+  \ifmmode%
+   \ouunit@accessibility@warning@message{3}{tabular in math mode}%
+  \fi
+ }
+\fi
+
+\AtEndDocument{%
+ \if@ouunit@accessibility@warnings%
+  %
+  % AW2: unique ID not specified
+  %
+  \ifx\@uniqueID\@empty%
+   \ouunit@accessibility@warning@message{2}{unique ID not specified}%
+  \fi
+  %
+  % check if \ouunitPrintAW has been called, and if not, then output summary
+  %
+  \if@ouunit@accessibility@warnings@printed\relax%
+  \else
+   \ouunitPrintAW%
+  \fi
+ \fi
+}%
 
 \endinput
