@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.45 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.46 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
