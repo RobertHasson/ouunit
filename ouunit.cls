@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.46 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.47 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -269,8 +269,14 @@
   \MakeFramed{\advance\hsize-8mm\FrameRestore}%
   }{\endMakeFramed}
 
-\newenvironment{style3box}[1][]{\begin{colourframed}
-\setbox0\hbox{\mbox{\titledboxheadfont\color{colourTwo} #1}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\end{colourframed}}
+\newenvironment{colourframedtitledbox}[2][colourFour]{\begin{colourframed}[#1]\setbox0\hbox{\mbox{\titledboxheadfont\color{#1} #2}}\ifdim\wd0=\z@\relax\else\box0\nopagebreak\@afterheading\par\fi}{\end{colourframed}}
+
+% to convert the rounded boxes with background into outline boxes (for accessibility) add the following
+% to either a style file or the source document
+% \let\roundedtitledbox\colourframedtitledbox
+% \let\endroundedtitledbox\endcolourframedtitledbox
+
+\newenvironment{style3box}[1][]{\begin{colourframedtitledbox}[colourTwo]{#1}}{\end{colourframedtitledbox}}
 
 \newcommand{\leftrulebox}[2]{\setbox0\vbox{#2}{\color{#1}\rule[-\dp0-4mm]{2.5mm}{\dp0+\ht0+8mm}}\hspace*{1.5mm}\box0}
 
