@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ouunit}[2016/05/1 1.47 (Robert Hasson, all rights reserved)]
+\ProvidesClass{ouunit}[2016/05/1 1.48 (Robert Hasson, all rights reserved)]
 
 %switch for draft mode
 \newif\ifdraft
@@ -634,16 +634,19 @@
 
 %marginfigures
 \newlength{\rhfight}
+% in adjustment for avoiding page header the term 2.5pt+0.75\voffset is equal to
+% \voffset when \voffset is the default 10pt. The new formula gives the same separation from
+% the page header when typesetting with cropmarks
 \NewEnviron{marginfigure}[1][]{\def\rhtmp{\begin{minipage}{\marginparwidth}%
 \begin{figure}\BODY\end{figure}\end{minipage}}%
 \settototalheight{\rhfight}{\rhtmp}\addtocounter{figure}{-1}%
-\tikz[remember picture]{\path let \p1=($(current page.north)-(0,0)$) in (0,0)  \pgfextra{\pgfmathparse{min(\rhfight,\y1-1in+\voffset+\headheight)}\xdef\mfigoffset{\pgfmathresult pt}};}%
+\tikz[remember picture]{\path let \p1=($(current page.north)-(0,0)$) in (0,0)  \pgfextra{\pgfmathparse{min(\rhfight,\y1-1in+2.5pt+0.75\voffset+\headheight)}\xdef\mfigoffset{\pgfmathresult pt}};}%
 \marginnote{\rhtmp}[\dimexpr #1+\intextsep-2\topsep-\mfigoffset]%
 \let\rhtmp\relax}[]
 \NewEnviron{marginfigure*}[1][]{\def\rhtmp{\begin{minipage}{\marginparwidth}%
 \begin{figure*}\BODY\end{figure*}\end{minipage}}%
 \settototalheight{\rhfight}{\rhtmp}%
-\tikz[remember picture]{\path let \p1=($(current page.north)-(0,0)$) in (0,0)  \pgfextra{\pgfmathparse{min(\rhfight,\y1-1in+\voffset+\headheight)}\xdef\mfigoffset{\pgfmathresult pt}};}%
+\tikz[remember picture]{\path let \p1=($(current page.north)-(0,0)$) in (0,0)  \pgfextra{\pgfmathparse{min(\rhfight,\y1-1in+2.5pt+0.75\voffset+\headheight)}\xdef\mfigoffset{\pgfmathresult pt}};}%
 \marginnote{\rhtmp}[\dimexpr #1+\intextsep-2\topsep-\mfigoffset]%
 \let\rhtmp\relax}[]
 
